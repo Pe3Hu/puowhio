@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://crsiesfkvlbmp"]
+
+[ext_resource type="Script" path="res://scene/3/bagua.gd" id="1_wb7p8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf06q"]
+
+[node name="Bagua" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cf06q")
+script = ExtResource("1_wb7p8")

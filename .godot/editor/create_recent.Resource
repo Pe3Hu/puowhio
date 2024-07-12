@@ -1,0 +1,4 @@
+ScrollResource
+CoreResource
+DoubletResource
+Resource

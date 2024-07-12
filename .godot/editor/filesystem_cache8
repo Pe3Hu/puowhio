@@ -1,0 +1,111 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1720775227
+::res://addons/::1720662025
+::res://asset/::1720750871
+default_env.tres::Environment::-1::1690116911::0::1::::<><>::
+icon.png::CompressedTexture2D::2432420761471245026::1690116911::1690116911::1::::<><>::
+icon.svg::CompressedTexture2D::9162371498834860976::1690116911::1690116911::1::::<><>::
+README.md::TextFile::-1::1690795285::0::1::::<><>::
+::res://asset/font/::1720750871
+::res://asset/font/digital/::1720750871
+Inter-Black.ttf::FontFile::2023361649885781834::1694723238::1720573624::1::::<><>::
+::res://asset/font/letter/::1720750871
+Roboto-Bold.ttf::FontFile::7183128479095054959::1663817230::1720573624::1::::<><>::
+Roboto-Light.ttf::FontFile::2934334192827154238::1663817230::1720573624::1::::<><>::
+Walter-Bold.ttf::FontFile::6104160909452173604::1570526552::1720573624::1::::<><>::
+::res://asset/json/::1703954988
+::res://asset/png/::1720775227
+::res://asset/png/aspect/::1720756769
+dexterity.png::CompressedTexture2D::7247387934131483858::1720753595::1720756769::1::::<><>::
+intellect.png::CompressedTexture2D::2025339430581466368::1720753519::1720756769::1::::<><>::
+strength.png::CompressedTexture2D::3937674607454095499::1720753546::1720756769::1::::<><>::
+will.png::CompressedTexture2D::1260894137061237828::1720754128::1720756769::1::::<><>::
+::res://asset/png/digit/::1720767355
+1_9.png::CompressedTexture2D::2317793559986080595::1720671627::1720671640::1::::<><>::
+element.png::CompressedTexture2D::3458253801723616781::1720671938::1720767355::1::::<><>::
+::res://asset/png/orb/::1720767431
+aqua.png::CompressedTexture2D::885158139015145787::1720753589::1720775228::1::::<><>::
+earth.png::CompressedTexture2D::9010099587014091355::1720753595::1720775228::1::::<><>::
+fire.png::CompressedTexture2D::3850942294911446910::1720753629::1720775228::1::::<><>::
+ice.png::CompressedTexture2D::7801274930135745596::1720753639::1720775228::1::::<><>::
+lava.png::CompressedTexture2D::3407003466717775789::1720753663::1720775228::1::::<><>::
+nature.png::CompressedTexture2D::6768026016825826592::1720753663::1720775228::1::::<><>::
+storm.png::CompressedTexture2D::2536539546347337291::1720753693::1720775228::1::::<><>::
+wind.png::CompressedTexture2D::441505656631196946::1720753692::1720775228::1::::<><>::
+::res://asset/png/parameter/::1720760034
+accuracy chance.png::CompressedTexture2D::1845438933211737276::1720750704::1720756769::1::::<><>::
+armor modifier.png::CompressedTexture2D::2514828785093099996::1720759830::1720759943::1::::<><>::
+armor multiplier.png::CompressedTexture2D::4460040636275817616::1720751305::1720756769::1::::<><>::
+critical chance.png::CompressedTexture2D::8438274589315421179::1720751588::1720756769::1::::<><>::
+critical multiplier.png::CompressedTexture2D::8994562016121377868::1720751635::1720756769::1::::<><>::
+damage modifier.png::CompressedTexture2D::5858539672439159549::1720752731::1720756769::1::::<><>::
+damage multiplier.png::CompressedTexture2D::6000447366254134141::1720752781::1720756768::1::::<><>::
+evasion chance.png::CompressedTexture2D::6633736928935053251::1720759917::1720759943::1::::<><>::
+health limit.png::CompressedTexture2D::8343858087994382739::1720760015::1720760034::1::::<><>::
+::res://resource/::1720768992
+::res://resource/aspect/::1720773107
+dexterity.tres::Resource/DoubletResource::8132638362408953749::1720772166::0::1::::<><>::res://resource/parameter/doubletResource.gd
+intellect.tres::Resource/DoubletResource::8532150259563935015::1720772157::0::1::::<><>::res://resource/parameter/doubletResource.gd
+strength.tres::Resource/DoubletResource::7651871869609669128::1720773107::0::1::::<><>::res://resource/parameter/doubletResource.gd
+will.tres::Resource/DoubletResource::9053564039918857180::1720773107::0::1::::<><>::res://resource/parameter/doubletResource.gd
+::res://resource/core/::1720766219
+coreResource.gd::GDScript::-1::1720766219::0::1::::CoreResource<>Resource<>::
+dexterityCore.tres::Resource/CoreResource::8178963703398183062::1720764549::0::1::::<><>::res://resource/core/coreResource.gd
+intellectCore.tres::Resource/CoreResource::5962624992306937265::1720764954::0::1::::<><>::res://resource/core/coreResource.gd
+strengthCore.tres::Resource/CoreResource::8966709006471302420::1720764181::0::1::::<><>::res://resource/core/coreResource.gd
+willCore.tres::Resource/CoreResource::1376917919849933416::1720764181::0::1::::<><>::res://resource/core/coreResource.gd
+::res://resource/orb/::1720775227
+aqua.tres::Resource/OrbResource::4972117135995194046::1720775227::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://mu1optdj243h::::res://asset/png/orb/aqua.png
+earth.tres::Resource/OrbResource::552145319530572574::1720775227::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://d1mta2rw7e7yl::::res://asset/png/orb/earth.png
+fire.tres::Resource/OrbResource::7268525128245481434::1720775227::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://bu4opsiwdirlu::::res://asset/png/orb/fire.png
+ice.tres::Resource/OrbResource::6977011916711740481::1720775227::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://dje84ghmk142c::::res://asset/png/orb/ice.png
+lava.tres::Resource/OrbResource::4791056528522642094::1720775227::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://bosm3427117dx::::res://asset/png/orb/lava.png
+nature.tres::Resource/OrbResource::7222544283275329910::1720775227::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://c3oqnua4vec5m::::res://asset/png/orb/nature.png
+orbResource.gd::GDScript::-1::1720767987::0::1::::OrbResource<>Resource<>::
+storm.tres::Resource/OrbResource::5740098684327554589::1720775227::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://bceyo2yey77j0::::res://asset/png/orb/storm.png
+wind.tres::Resource/OrbResource::3183117029630589953::1720775227::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://gj4se578j0vm::::res://asset/png/orb/wind.png
+::res://resource/parameter/::1720772146
+accuracy chance.tres::Resource/DoubletResource::1483333442775739022::1720765469::0::1::::<><>::res://resource/parameter/doubletResource.gd
+armor modifier.tres::Resource/DoubletResource::5761381204966967426::1720772146::0::1::::<><>::res://resource/parameter/doubletResource.gd
+armor multiplier.tres::Resource/Resource::4565914970984145218::1720758648::0::1::::<><>::res://resource/parameter/doubletResource.gd
+critical chance.tres::Resource/DoubletResource::1045463913689660531::1720765469::0::1::::<><>::res://resource/parameter/doubletResource.gd
+critical multiplier.tres::Resource/DoubletResource::1510983061240380855::1720765469::0::1::::<><>::res://resource/parameter/doubletResource.gd
+damage modifier.tres::Resource/DoubletResource::6536511570660942795::1720762280::0::1::::<><>::res://resource/parameter/doubletResource.gd
+damage multiplier.tres::Resource/DoubletResource::8145173700279790745::1720761643::0::1::::<><>::res://resource/parameter/doubletResource.gd
+doubletResource.gd::GDScript::-1::1720765270::0::1::::DoubletResource<>Resource<>::
+evasion chance.tres::Resource/DoubletResource::4468069631028876840::1720765469::0::1::::<><>::res://resource/parameter/doubletResource.gd
+health limit.tres::Resource/DoubletResource::7635338020210349603::1720765469::0::1::::<><>::res://resource/parameter/doubletResource.gd
+::res://resource/scroll/::1720771373
+scrollResource.gd::GDScript::-1::1720771373::0::1::::ScrollResource<>Resource<>::
+::res://scene/::1720762616
+::res://scene/0/::1720775084
+battle.tscn::PackedScene::3659239432920037167::1720762393::0::1::::<><>::uid://1yohkulykj6::::res://scene/1/mage.tscn
+doublet.gd::GDScript::-1::1720773062::0::1::::Doublet<>PanelContainer<>::
+doublet.tscn::PackedScene::616967507440989439::1720774178::0::1::::<><>::res://scene/0/doublet.gd<>uid://33eqagvh85us::::res://asset/font/digital/Inter-Black.ttf
+world.gd::GDScript::-1::1720767518::0::1::::<>Node<>::
+world.tscn::PackedScene::8246655032211948728::1720678121::0::1::::<><>::res://scene/0/world.gd<>uid://bseteyq6bu7a6::::res://scene/0/battle.tscn
+::res://scene/1/::1720775141
+mage.gd::GDScript::-1::1720773982::0::1::::Mage<>PanelContainer<>::
+mage.tscn::PackedScene::55156414582476393::1720775019::0::1::::<><>::res://scene/1/mage.gd<>uid://c7p4hl7huywo5::::res://scene/1/statistic.tscn<>uid://coe30eahgmn82::::res://scene/4/conveyor.tscn<>uid://dj3oxp30ak301::::res://scene/2/grimoire.tscn
+statistic.gd::GDScript::-1::1720774646::0::1::::Statistic<>PanelContainer<>::
+statistic.tscn::PackedScene::7051623950998033586::1720775140::0::1::::<><>::uid://i14mnupyvsff::::res://scene/0/doublet.tscn<>res://scene/1/statistic.gd<>uid://c0elnjrcc3xhb::::res://resource/parameter/damage modifier.tres<>uid://d00snfx2s2j0g::::res://resource/core/strengthCore.tres<>uid://dor7lp3vfil63::::res://resource/core/dexterityCore.tres<>uid://cq7lteho04d2x::::res://resource/core/intellectCore.tres<>uid://dobt254p05ymb::::res://resource/parameter/damage multiplier.tres<>uid://vesjxs8ch023::::res://resource/parameter/accuracy chance.tres<>uid://tu8vwlpsrske::::res://resource/core/willCore.tres<>uid://b4wmpo4gre3tc::::res://resource/parameter/evasion chance.tres<>uid://o5ovxot20y3d::::res://resource/parameter/critical chance.tres<>uid://vr6w127hxbnr::::res://resource/parameter/critical multiplier.tres<>uid://coc4dvlvxekg5::::res://resource/parameter/armor modifier.tres<>uid://b6b07ncodpgb7::::res://resource/parameter/armor multiplier.tres<>uid://dg1u5wkxnrqud::::res://resource/parameter/health limit.tres<>res://resource/parameter/doubletResource.gd
+::res://scene/2/::1720775141
+grimoire.gd::GDScript::-1::1720771846::0::1::::Grimoire<>PanelContainer<>::
+grimoire.tscn::PackedScene::7849656164334899148::1720775141::0::1::::<><>::res://scene/2/grimoire.gd<>uid://bqct8uvh364xt::::res://scene/2/scroll.tscn<>res://resource/scroll/scrollResource.gd
+scroll.gd::GDScript::-1::1720774964::0::1::::Scroll<>PanelContainer<>::
+scroll.tscn::PackedScene::3514784574735776877::1720775141::0::1::::<><>::res://scene/2/scroll.gd<>res://resource/scroll/scrollResource.gd<>uid://33eqagvh85us::::res://asset/font/digital/Inter-Black.ttf<>uid://i14mnupyvsff::::res://scene/0/doublet.tscn<>res://resource/parameter/doubletResource.gd
+::res://scene/3/::1720766714
+bagua.gd::GDScript::-1::1720762877::0::1::::Bagua<>PanelContainer<>::
+bagua.tscn::PackedScene::6003704341550755795::1720765538::0::1::::<><>::res://scene/3/bagua.gd
+trigram.gd::GDScript::-1::1720762779::0::1::::Trigram<>PanelContainer<>::
+trigram.tscn::PackedScene::701281737895066297::1720765538::0::1::::<><>::res://scene/3/trigram.gd
+::res://scene/4/::1720775227
+conveyor.gd::GDScript::-1::1720771825::0::1::::Conveyor<>PanelContainer<>::
+conveyor.tscn::PackedScene::5765487620399932369::1720775153::0::1::::<><>::res://scene/4/conveyor.gd<>uid://cwgspmvsg7wgj::::res://scene/4/orb.tscn<>uid://c6nymqfgpfvvl::::res://resource/orb/ice.tres
+orb.gd::GDScript::-1::1720768856::0::1::::Orb<>PanelContainer<>::
+orb.tscn::PackedScene::6330502550273876493::1720775227::0::1::::<><>::res://scene/4/orb.gd<>uid://cc3sbpp80lu2q::::res://resource/orb/aqua.tres<>uid://mu1optdj243h::::res://asset/png/orb/aqua.png
+::res://scene/5/::1707430476
+::res://scene/6/::1720775138
+::res://scene/7/::1720766588
+::res://script/::1720768792
+Global.gd::GDScript::-1::1720768792::0::1::::<>Node<>::

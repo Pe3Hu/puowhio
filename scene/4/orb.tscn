@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwgspmvsg7wgj"]
+
+[ext_resource type="Script" path="res://scene/4/orb.gd" id="1_k75gk"]
+[ext_resource type="Resource" uid="uid://cc3sbpp80lu2q" path="res://resource/orb/aqua.tres" id="2_66dcv"]
+[ext_resource type="Texture2D" uid="uid://mu1optdj243h" path="res://asset/png/orb/aqua.png" id="3_gqk43"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf06q"]
+
+[node name="Orb" type="PanelContainer"]
+custom_minimum_size = Vector2(32, 32)
+theme_override_styles/panel = SubResource("StyleBoxFlat_cf06q")
+script = ExtResource("1_k75gk")
+resource = ExtResource("2_66dcv")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.09, 0.2925, 0.9, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_gqk43")
+expand_mode = 1

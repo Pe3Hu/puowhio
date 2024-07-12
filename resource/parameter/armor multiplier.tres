@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="DoubletResource" load_steps=2 format=3 uid="uid://b6b07ncodpgb7"]
+
+[ext_resource type="Script" path="res://resource/parameter/doubletResource.gd" id="1_vk8hh"]
+
+[resource]
+script = ExtResource("1_vk8hh")
+icon_name = "armor multiplier"
+value = 0

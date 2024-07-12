@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="OrbResource" load_steps=3 format=3 uid="uid://h4p0uf24ymuw"]
+
+[ext_resource type="Script" path="res://resource/orb/orbResource.gd" id="1_u6veg"]
+[ext_resource type="Texture2D" uid="uid://d1mta2rw7e7yl" path="res://asset/png/orb/earth.png" id="2_65xwf"]
+
+[resource]
+script = ExtResource("1_u6veg")
+aspect = "earth"
+texture = ExtResource("2_65xwf")
+color = Color(0.9, 0.6975, 0.09, 1)

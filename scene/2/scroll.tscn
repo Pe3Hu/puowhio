@@ -1,0 +1,78 @@
+[gd_scene load_steps=10 format=3 uid="uid://bqct8uvh364xt"]
+
+[ext_resource type="Script" path="res://scene/2/scroll.gd" id="1_v7fld"]
+[ext_resource type="Script" path="res://resource/scroll/scrollResource.gd" id="2_0xoa4"]
+[ext_resource type="FontFile" uid="uid://33eqagvh85us" path="res://asset/font/digital/Inter-Black.ttf" id="2_icwqr"]
+[ext_resource type="PackedScene" uid="uid://i14mnupyvsff" path="res://scene/0/doublet.tscn" id="3_gbqdj"]
+[ext_resource type="Script" path="res://resource/parameter/doubletResource.gd" id="4_gr8ym"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf06q"]
+
+[sub_resource type="Resource" id="Resource_teu53"]
+script = ExtResource("2_0xoa4")
+type = "generator"
+primary_aspect = "strength"
+secondary_aspect = "dexterity"
+input_limit = 0
+output_limit = 1
+
+[sub_resource type="Resource" id="Resource_ey177"]
+script = ExtResource("4_gr8ym")
+measure = "percentage"
+type = "aspect"
+time = "permanent"
+icon_name = "will"
+base = 0
+
+[sub_resource type="Resource" id="Resource_kbjeu"]
+script = ExtResource("4_gr8ym")
+measure = "percentage"
+type = "aspect"
+time = "permanent"
+icon_name = "intellect"
+base = 0
+
+[node name="Scroll" type="PanelContainer"]
+offset_right = 65.0
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cf06q")
+script = ExtResource("1_v7fld")
+resource = SubResource("Resource_teu53")
+refreshed = true
+avg = 0
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Aspects" type="VBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="Primary" parent="VBox/Aspects" node_paths=PackedStringArray("panel") instance=ExtResource("3_gbqdj")]
+unique_name_in_owner = true
+layout_mode = 2
+panel = NodePath("../../..")
+resource = SubResource("Resource_ey177")
+value = 80
+
+[node name="Secondary" parent="VBox/Aspects" node_paths=PackedStringArray("panel") instance=ExtResource("3_gbqdj")]
+unique_name_in_owner = true
+layout_mode = 2
+panel = NodePath("../../..")
+resource = SubResource("Resource_kbjeu")
+value = 20
+
+[node name="Damage" type="Label" parent="VBox"]
+unique_name_in_owner = true
+texture_filter = 2
+custom_minimum_size = Vector2(65, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.17, 0.17, 0.17, 1)
+theme_override_fonts/font = ExtResource("2_icwqr")
+theme_override_font_sizes/font_size = 14
+text = "999-999"
+horizontal_alignment = 1
+vertical_alignment = 1

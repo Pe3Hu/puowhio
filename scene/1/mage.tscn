@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://1yohkulykj6"]
+
+[ext_resource type="Script" path="res://scene/1/mage.gd" id="1_6hep8"]
+[ext_resource type="PackedScene" uid="uid://c7p4hl7huywo5" path="res://scene/1/statistic.tscn" id="2_a3gt3"]
+[ext_resource type="PackedScene" uid="uid://coe30eahgmn82" path="res://scene/4/conveyor.tscn" id="3_h2y30"]
+[ext_resource type="PackedScene" uid="uid://dj3oxp30ak301" path="res://scene/2/grimoire.tscn" id="4_o2k1l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bbq8e"]
+
+[node name="Mage" type="PanelContainer" node_paths=PackedStringArray("statistic", "conveyor", "grimoire")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -60.0
+offset_right = 228.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_bbq8e")
+script = ExtResource("1_6hep8")
+statistic = NodePath("HBox/Statistic")
+conveyor = NodePath("HBox/VBox/Conveyor")
+grimoire = NodePath("HBox/VBox/Grimoire")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Statistic" parent="HBox" node_paths=PackedStringArray("mage") instance=ExtResource("2_a3gt3")]
+layout_mode = 2
+mage = NodePath("../..")
+refreshed = false
+
+[node name="VBox" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Conveyor" parent="HBox/VBox" node_paths=PackedStringArray("mage") instance=ExtResource("3_h2y30")]
+layout_mode = 2
+mage = NodePath("../../..")
+
+[node name="Grimoire" parent="HBox/VBox" node_paths=PackedStringArray("mage") instance=ExtResource("4_o2k1l")]
+layout_mode = 2
+mage = NodePath("../../..")

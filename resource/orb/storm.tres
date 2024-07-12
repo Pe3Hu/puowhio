@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="OrbResource" load_steps=3 format=3 uid="uid://cn1st7hlua6fx"]
+
+[ext_resource type="Script" path="res://resource/orb/orbResource.gd" id="1_bsar1"]
+[ext_resource type="Texture2D" uid="uid://bceyo2yey77j0" path="res://asset/png/orb/storm.png" id="2_mtyqs"]
+
+[resource]
+script = ExtResource("1_bsar1")
+aspect = "storm"
+texture = ExtResource("2_mtyqs")
+color = Color(0.495, 0.09, 0.9, 1)

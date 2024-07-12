@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://coe30eahgmn82"]
+
+[ext_resource type="Script" path="res://scene/4/conveyor.gd" id="1_5v2au"]
+[ext_resource type="PackedScene" uid="uid://cwgspmvsg7wgj" path="res://scene/4/orb.tscn" id="2_gi7xh"]
+[ext_resource type="Resource" uid="uid://c6nymqfgpfvvl" path="res://resource/orb/ice.tres" id="3_wskfy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf06q"]
+
+[node name="Conveyor" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cf06q")
+script = ExtResource("1_5v2au")
+
+[node name="Orbs" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 12
+
+[node name="Orb1" parent="Orbs" instance=ExtResource("2_gi7xh")]
+layout_mode = 2
+
+[node name="Orb2" parent="Orbs" instance=ExtResource("2_gi7xh")]
+layout_mode = 2
+
+[node name="Orb3" parent="Orbs" instance=ExtResource("2_gi7xh")]
+layout_mode = 2
+resource = ExtResource("3_wskfy")
+
+[node name="Orb4" parent="Orbs" instance=ExtResource("2_gi7xh")]
+layout_mode = 2
+
+[node name="Orb5" parent="Orbs" instance=ExtResource("2_gi7xh")]
+layout_mode = 2
+
+[node name="Orb6" parent="Orbs" instance=ExtResource("2_gi7xh")]
+layout_mode = 2
+
+[node name="Orb7" parent="Orbs" instance=ExtResource("2_gi7xh")]
+layout_mode = 2
+
+[node name="Orb8" parent="Orbs" instance=ExtResource("2_gi7xh")]
+layout_mode = 2
+
+[node name="Orb9" parent="Orbs" instance=ExtResource("2_gi7xh")]
+layout_mode = 2
+
+[node name="Orb10" parent="Orbs" instance=ExtResource("2_gi7xh")]
+layout_mode = 2
+
+[node name="Orb11" parent="Orbs" instance=ExtResource("2_gi7xh")]
+layout_mode = 2
+
+[node name="Orb12" parent="Orbs" instance=ExtResource("2_gi7xh")]
+layout_mode = 2

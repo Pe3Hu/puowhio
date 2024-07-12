@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CoreResource" load_steps=2 format=3 uid="uid://cq7lteho04d2x"]
+
+[ext_resource type="Script" path="res://resource/core/coreResource.gd" id="1_nqsul"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_nqsul")
+aspect = "intellect"
+level = 1
+current = 9
+limit = 16

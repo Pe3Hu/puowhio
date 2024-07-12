@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DoubletResource" load_steps=2 format=3 uid="uid://dttbjeb2x7nkp"]
+
+[ext_resource type="Script" path="res://resource/parameter/doubletResource.gd" id="1_vvgnn"]
+
+[resource]
+script = ExtResource("1_vvgnn")
+measure = "integer"
+type = "aspect"
+time = "permanent"
+icon_name = "intellect"
+base = 10

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://j8yai8gdlfp6"]
+
+[ext_resource type="Script" path="res://scene/3/trigram.gd" id="1_05g8h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf06q"]
+
+[node name="Trigram" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cf06q")
+script = ExtResource("1_05g8h")

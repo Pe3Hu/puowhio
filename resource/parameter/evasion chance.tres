@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DoubletResource" load_steps=2 format=3 uid="uid://b4wmpo4gre3tc"]
+
+[ext_resource type="Script" path="res://resource/parameter/doubletResource.gd" id="1_efylu"]
+
+[resource]
+script = ExtResource("1_efylu")
+measure = "percentage"
+type = "parameter"
+time = "permanent"
+icon_name = "evasion chance"
+base = 15

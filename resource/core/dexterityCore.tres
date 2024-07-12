@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CoreResource" load_steps=2 format=3 uid="uid://dor7lp3vfil63"]
+
+[ext_resource type="Script" path="res://resource/core/coreResource.gd" id="1_cu4uu"]
+
+[resource]
+script = ExtResource("1_cu4uu")
+aspect = "dexterity"
+level = 1
+current = 9
+limit = 16

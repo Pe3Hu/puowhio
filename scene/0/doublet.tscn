@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://i14mnupyvsff"]
+
+[ext_resource type="Script" path="res://scene/0/doublet.gd" id="1_oxv8j"]
+[ext_resource type="FontFile" uid="uid://33eqagvh85us" path="res://asset/font/digital/Inter-Black.ttf" id="4_0yorh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6a528"]
+
+[node name="Doublet" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 18.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6a528")
+script = ExtResource("1_oxv8j")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 3
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(21, 21)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HBox"]
+unique_name_in_owner = true
+texture_filter = 2
+custom_minimum_size = Vector2(42, 21)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.17, 0.17, 0.17, 1)
+theme_override_fonts/font = ExtResource("4_0yorh")
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1

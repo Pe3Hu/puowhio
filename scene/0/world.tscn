@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpq0g6jrlkuea"]
+
+[ext_resource type="Script" path="res://scene/0/world.gd" id="1_sbgiu"]
+[ext_resource type="PackedScene" uid="uid://bseteyq6bu7a6" path="res://scene/0/battle.tscn" id="2_vbn10"]
+
+[node name="World" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_sbgiu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Battle" parent="CanvasLayer" instance=ExtResource("2_vbn10")]

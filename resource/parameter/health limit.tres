@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DoubletResource" load_steps=2 format=3 uid="uid://dg1u5wkxnrqud"]
+
+[ext_resource type="Script" path="res://resource/parameter/doubletResource.gd" id="1_n6nbl"]
+
+[resource]
+script = ExtResource("1_n6nbl")
+measure = "integer"
+type = "parameter"
+time = "permanent"
+icon_name = "health limit"
+base = 100
