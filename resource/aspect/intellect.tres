@@ -8,4 +8,4 @@ measure = "integer"
 type = "aspect"
 time = "permanent"
 icon_name = "intellect"
-base = 10
+base = 0

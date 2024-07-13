@@ -9,16 +9,7 @@ class_name Doublet extends PanelContainer
 		resource = resource_
 		
 		if is_node_ready():
-			%Icon.texture = load("res://asset/png/" + resource.type +  "/" + resource.icon_name + ".png")
-			
-			if value == 0 and %Label.text == "":
-				value = resource.base
-			
-				if resource.measure == "percentage":
-					%Label.text += "%"
-			
-			if resource.type == "aspect":
-				recolor(resource.time == "temporary")
+			update_ui()
 	get:
 		return resource
 
@@ -52,6 +43,7 @@ class_name Doublet extends PanelContainer
 
 const base_cell_size = Vector2(21, 21)
 
+
 func recolor(flag_: bool) -> void:
 	var color = Color.from_hsv(0, 0, 0.2)
 	
@@ -60,3 +52,32 @@ func recolor(flag_: bool) -> void:
 		
 	%Icon.modulate = color
 	%Label.set("theme_override_colors/font_color", color)
+	
+func set_from_base(resource_: BaseResource) -> void:
+	resource = load("res://resource/aspect/" + resource_.aspect + ".tres")
+	update_ui()
+	value = resource_.value
+	
+func set_from_affix(resource_: AffixResource) -> void:
+	resource = load("res://resource/parameter/" + resource_.parameter + ".tres")
+	update_ui()
+	value = resource_.value
+	
+func update_ui() -> void:
+	var _path = resource.type
+	var _name = resource.icon_name
+	
+	if resource.type == "aspect" and _name.contains("modifier"):
+		_path = "aspect"
+		_name = _name.split(" ")[0]
+		
+	%Icon.texture = load("res://asset/png/" + _path +  "/" + _name + ".png")
+	
+	if value == 0 and %Label.text == "":
+		value = resource.base
+	
+		if resource.measure == "percentage":
+			%Label.text += "%"
+	
+	if resource.type == "aspect":
+		recolor(resource.time == "temporary")

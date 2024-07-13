@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DoubletResource" load_steps=2 format=3 uid="uid://bkjtkrjens4gh"]
+
+[ext_resource type="Script" path="res://resource/parameter/doubletResource.gd" id="1_jfdv2"]
+
+[resource]
+script = ExtResource("1_jfdv2")
+measure = "integer"
+type = "parameter"
+time = "permanent"
+icon_name = "will modifier"
+base = 0

@@ -1,7 +1,6 @@
 class_name DoubletResource extends Resource
 
 
-
 @export_enum("percentage", "integer") var measure = "percentage"
 @export_enum("parameter", "aspect") var type = "parameter"
 @export_enum("permanent", "temporary") var time = "permanent"

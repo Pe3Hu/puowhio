@@ -70,44 +70,50 @@ alignment = 1
 layout_mode = 2
 grimoire = NodePath("../..")
 resource = SubResource("Resource_y5i0v")
+refreshed = false
 primary_share = 75
 secondary_share = 25
-avg = 0
+avg = 0.0
 
 [node name="Scroll2" parent="Scrolls" node_paths=PackedStringArray("grimoire") instance=ExtResource("2_e0es0")]
 layout_mode = 2
 grimoire = NodePath("../..")
 resource = SubResource("Resource_b6io1")
-avg = 0
+refreshed = false
+avg = 0.0
 
 [node name="Scroll3" parent="Scrolls" node_paths=PackedStringArray("grimoire") instance=ExtResource("2_e0es0")]
 layout_mode = 2
 grimoire = NodePath("../..")
 resource = SubResource("Resource_bv1ka")
+refreshed = false
 primary_share = 75
 secondary_share = 25
-avg = 0
+avg = 0.0
 
 [node name="Scroll4" parent="Scrolls" node_paths=PackedStringArray("grimoire") instance=ExtResource("2_e0es0")]
 layout_mode = 2
 grimoire = NodePath("../..")
 resource = SubResource("Resource_dtfnc")
+refreshed = false
 primary_share = 75
 secondary_share = 25
-avg = 0
+avg = 0.0
 
 [node name="Scroll5" parent="Scrolls" node_paths=PackedStringArray("grimoire") instance=ExtResource("2_e0es0")]
 layout_mode = 2
 grimoire = NodePath("../..")
 resource = SubResource("Resource_o76rn")
+refreshed = false
 primary_share = 75
 secondary_share = 25
-avg = 0
+avg = 0.0
 
 [node name="Scroll6" parent="Scrolls" node_paths=PackedStringArray("grimoire") instance=ExtResource("2_e0es0")]
 layout_mode = 2
 grimoire = NodePath("../..")
 resource = SubResource("Resource_y0ent")
+refreshed = false
 primary_share = 75
 secondary_share = 25
-avg = 0
+avg = 0.0

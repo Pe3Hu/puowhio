@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://d56kp15aev"]
+
+[ext_resource type="Script" path="res://scene/3/inventory.gd" id="1_4rwo6"]
+[ext_resource type="PackedScene" uid="uid://l2ykdsjmltph" path="res://scene/4/slot.tscn" id="2_v74pb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf06q"]
+
+[node name="Inventory" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cf06q")
+script = ExtResource("1_4rwo6")
+
+[node name="Slots" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 3
+
+[node name="Slot" parent="Slots" instance=ExtResource("2_v74pb")]
+layout_mode = 2
+
+[node name="Slot2" parent="Slots" instance=ExtResource("2_v74pb")]
+layout_mode = 2
+
+[node name="Slot3" parent="Slots" instance=ExtResource("2_v74pb")]
+layout_mode = 2
+
+[node name="Slot4" parent="Slots" instance=ExtResource("2_v74pb")]
+layout_mode = 2
+
+[node name="Slot5" parent="Slots" instance=ExtResource("2_v74pb")]
+layout_mode = 2
+
+[node name="Slot6" parent="Slots" instance=ExtResource("2_v74pb")]
+layout_mode = 2
+
+[node name="Slot7" parent="Slots" instance=ExtResource("2_v74pb")]
+layout_mode = 2
+
+[node name="Slot8" parent="Slots" instance=ExtResource("2_v74pb")]
+layout_mode = 2
+
+[node name="Slot9" parent="Slots" instance=ExtResource("2_v74pb")]
+layout_mode = 2
+
+[node name="Slot10" parent="Slots" instance=ExtResource("2_v74pb")]
+layout_mode = 2
+
+[node name="Slot11" parent="Slots" instance=ExtResource("2_v74pb")]
+layout_mode = 2
+
+[node name="Slot12" parent="Slots" instance=ExtResource("2_v74pb")]
+layout_mode = 2

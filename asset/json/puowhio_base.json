@@ -1,0 +1,88 @@
+{
+"blank":[
+ {
+  "level": 1,
+  "trigram minimum": 1,
+  "trigram maximum": 4,
+  "nucleus minimum": 8,
+  "nucleus maximum": 25
+ },
+ {
+  "level": 2,
+  "trigram minimum": 2,
+  "trigram maximum": 7,
+  "nucleus minimum": 13,
+  "nucleus maximum": 40
+ },
+ {
+  "level": 3,
+  "trigram minimum": 3,
+  "trigram maximum": 10,
+  "nucleus minimum": 19,
+  "nucleus maximum": 57
+ },
+ {
+  "level": 4,
+  "trigram minimum": 5,
+  "trigram maximum": 14,
+  "nucleus minimum": 26,
+  "nucleus maximum": 78
+ },
+ {
+  "level": 5,
+  "trigram minimum": 8,
+  "trigram maximum": 19,
+  "nucleus minimum": 34,
+  "nucleus maximum": 102
+ },
+ {
+  "level": 6,
+  "trigram minimum": 11,
+  "trigram maximum": 24,
+  "nucleus minimum": 43,
+  "nucleus maximum": 129
+ },
+ {
+  "level": 7,
+  "trigram minimum": 15,
+  "trigram maximum": 30,
+  "nucleus minimum": 53,
+  "nucleus maximum": 160
+ },
+ {
+  "level": 8,
+  "trigram minimum": 19,
+  "trigram maximum": 36,
+  "nucleus minimum": 64,
+  "nucleus maximum": 193
+ },
+ {
+  "level": 9,
+  "trigram minimum": 24,
+  "trigram maximum": 43,
+  "nucleus minimum": 76,
+  "nucleus maximum": 230
+ },
+ {
+  "level": 10,
+  "trigram minimum": 29,
+  "trigram maximum": 50,
+  "nucleus minimum": 90,
+  "nucleus maximum": 270
+ },
+ {
+  "level": 11,
+  "trigram minimum": 35,
+  "trigram maximum": 58,
+  "nucleus minimum": 104,
+  "nucleus maximum": 313
+ },
+ {
+  "level": 12,
+  "trigram minimum": 42,
+  "trigram maximum": 67,
+  "nucleus minimum": 120,
+  "nucleus maximum": 360
+ }
+]
+}

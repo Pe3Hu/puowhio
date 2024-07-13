@@ -1,11 +1,15 @@
-extends Node
+@tool
+class_name World extends Node
 
 
-@export var resource: int = 0:
-	set(resource_):
-		resource = resource_
+@export var nexus: Nexus
+@export var battle: Battle
+
+@export var mage: int = 0:
+	set(mage_):
+		mage = mage_
 	get:
-		return resource
+		return mage
 
 
 func _ready() -> void:
@@ -17,32 +21,3 @@ func _ready() -> void:
 
 
 
-
-
-#@export var core_dexterity: int = 0:
-	#set(core_dexterity_):
-		#core_dexterity = core_dexterity_
-		#recalc_core("will")
-	#get:
-		#return core_dexterity
-#
-#@export var core_intellect: int = 0:
-	#set(core_intellect_):
-		#core_intellect = core_intellect_
-		#recalc_core("will")
-	#get:
-		#return core_intellect
-#
-#@export var core_strength: int = 0:
-	#set(core_strength_):
-		#core_strength = core_strength_
-		#recalc_core("will")
-	#get:
-		#return core_strength
-#
-#@export var core_will: int = 0:
-	#set(core_will_):
-		#core_will = core_will_
-		#recalc_core("will")
-	#get:
-		#return core_will

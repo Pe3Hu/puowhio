@@ -1,13 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://1yohkulykj6"]
+[gd_scene load_steps=8 format=3 uid="uid://1yohkulykj6"]
 
 [ext_resource type="Script" path="res://scene/1/mage.gd" id="1_6hep8"]
 [ext_resource type="PackedScene" uid="uid://c7p4hl7huywo5" path="res://scene/1/statistic.tscn" id="2_a3gt3"]
+[ext_resource type="PackedScene" uid="uid://crsiesfkvlbmp" path="res://scene/3/bagua.tscn" id="2_u663w"]
 [ext_resource type="PackedScene" uid="uid://coe30eahgmn82" path="res://scene/4/conveyor.tscn" id="3_h2y30"]
 [ext_resource type="PackedScene" uid="uid://dj3oxp30ak301" path="res://scene/2/grimoire.tscn" id="4_o2k1l"]
+[ext_resource type="PackedScene" uid="uid://d56kp15aev" path="res://scene/3/inventory.tscn" id="6_488wl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bbq8e"]
 
-[node name="Mage" type="PanelContainer" node_paths=PackedStringArray("statistic", "conveyor", "grimoire")]
+[node name="Mage" type="PanelContainer" node_paths=PackedStringArray("statistic", "conveyor", "grimoire", "bagua", "inventory")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -23,8 +25,10 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_bbq8e")
 script = ExtResource("1_6hep8")
 statistic = NodePath("HBox/Statistic")
-conveyor = NodePath("HBox/VBox/Conveyor")
-grimoire = NodePath("HBox/VBox/Grimoire")
+conveyor = NodePath("HBox/VBox1/Conveyor")
+grimoire = NodePath("HBox/VBox1/Grimoire")
+bagua = NodePath("HBox/VBox2/Bagua")
+inventory = NodePath("HBox/VBox2/Inventory")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -36,15 +40,27 @@ layout_mode = 2
 mage = NodePath("../..")
 refreshed = false
 
-[node name="VBox" type="VBoxContainer" parent="HBox"]
+[node name="VBox1" type="VBoxContainer" parent="HBox"]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Conveyor" parent="HBox/VBox" node_paths=PackedStringArray("mage") instance=ExtResource("3_h2y30")]
+[node name="Conveyor" parent="HBox/VBox1" node_paths=PackedStringArray("mage") instance=ExtResource("3_h2y30")]
 layout_mode = 2
 mage = NodePath("../../..")
 
-[node name="Grimoire" parent="HBox/VBox" node_paths=PackedStringArray("mage") instance=ExtResource("4_o2k1l")]
+[node name="Grimoire" parent="HBox/VBox1" node_paths=PackedStringArray("mage") instance=ExtResource("4_o2k1l")]
 layout_mode = 2
 mage = NodePath("../../..")
+
+[node name="VBox2" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bagua" parent="HBox/VBox2" node_paths=PackedStringArray("mage") instance=ExtResource("2_u663w")]
+layout_mode = 2
+mage = NodePath("../../..")
+
+[node name="Inventory" parent="HBox/VBox2" instance=ExtResource("6_488wl")]
+layout_mode = 2

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DoubletResource" load_steps=2 format=3 uid="uid://dxsfe58bouj15"]
+
+[ext_resource type="Script" path="res://resource/parameter/doubletResource.gd" id="1_jimfa"]
+
+[resource]
+script = ExtResource("1_jimfa")
+measure = "integer"
+type = "parameter"
+time = "permanent"
+icon_name = "strength modifier"
+base = 0

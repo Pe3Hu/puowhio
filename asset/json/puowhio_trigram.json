@@ -1,0 +1,138 @@
+{
+"blank":[
+ {
+  "parameter": "damage multiplier",
+  "subtype 0": 1,
+  "subtype 1": 9,
+  "subtype 2": 8,
+  "subtype 3": 7,
+  "subtype 4": 6,
+  "subtype 5": 1,
+  "subtype 6": 1,
+  "subtype 7": 1
+ },
+ {
+  "parameter": "damage modifier",
+  "subtype 0": 1,
+  "subtype 1": 6,
+  "subtype 2": 7,
+  "subtype 3": 8,
+  "subtype 4": 9,
+  "subtype 5": 1,
+  "subtype 6": 1,
+  "subtype 7": 1
+ },
+ {
+  "parameter": "evasion chance",
+  "subtype 0": 8,
+  "subtype 1": 1,
+  "subtype 2": 1,
+  "subtype 3": 1,
+  "subtype 4": 1,
+  "subtype 5": 9,
+  "subtype 6": 6,
+  "subtype 7": 5
+ },
+ {
+  "parameter": "accuracy chance",
+  "subtype 0": 7,
+  "subtype 1": 1,
+  "subtype 2": 1,
+  "subtype 3": 1,
+  "subtype 4": 1,
+  "subtype 5": 7,
+  "subtype 6": 7,
+  "subtype 7": 7
+ },
+ {
+  "parameter": "critical multiplier",
+  "subtype 0": 1,
+  "subtype 1": 7,
+  "subtype 2": 6,
+  "subtype 3": 9,
+  "subtype 4": 8,
+  "subtype 5": 1,
+  "subtype 6": 1,
+  "subtype 7": 1
+ },
+ {
+  "parameter": "critical chance",
+  "subtype 0": 1,
+  "subtype 1": 8,
+  "subtype 2": 9,
+  "subtype 3": 6,
+  "subtype 4": 7,
+  "subtype 5": 1,
+  "subtype 6": 1,
+  "subtype 7": 1
+ },
+ {
+  "parameter": "armor multiplier",
+  "subtype 0": 5,
+  "subtype 1": 1,
+  "subtype 2": 1,
+  "subtype 3": 1,
+  "subtype 4": 1,
+  "subtype 5": 6,
+  "subtype 6": 8,
+  "subtype 7": 9
+ },
+ {
+  "parameter": "armor modifier",
+  "subtype 0": 9,
+  "subtype 1": 1,
+  "subtype 2": 1,
+  "subtype 3": 1,
+  "subtype 4": 1,
+  "subtype 5": 8,
+  "subtype 6": 5,
+  "subtype 7": 6
+ },
+ {
+  "parameter": "strength modifier",
+  "subtype 0": 1,
+  "subtype 1": 1,
+  "subtype 2": 1,
+  "subtype 3": 1,
+  "subtype 4": 1,
+  "subtype 5": 3,
+  "subtype 6": 4,
+  "subtype 7": 1
+ },
+ {
+  "parameter": "dexterity modifier",
+  "subtype 0": 4,
+  "subtype 1": 3,
+  "subtype 2": 1,
+  "subtype 3": 1,
+  "subtype 4": 1,
+  "subtype 5": 1,
+  "subtype 6": 1,
+  "subtype 7": 1
+ },
+ {
+  "parameter": "intellect modifier",
+  "subtype 0": 1,
+  "subtype 1": 1,
+  "subtype 2": 4,
+  "subtype 3": 1,
+  "subtype 4": 1,
+  "subtype 5": 1,
+  "subtype 6": 1,
+  "subtype 7": 3
+ },
+ {
+  "parameter": "will modifier",
+  "subtype 0": 1,
+  "subtype 1": 1,
+  "subtype 2": 1,
+  "subtype 3": 4,
+  "subtype 4": 3,
+  "subtype 5": 1,
+  "subtype 6": 1,
+  "subtype 7": 1
+ }
+]
+}
+
+

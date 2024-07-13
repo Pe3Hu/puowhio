@@ -38,8 +38,6 @@ offset_bottom = 20.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_cf06q")
 script = ExtResource("1_v7fld")
 resource = SubResource("Resource_teu53")
-refreshed = true
-avg = 0
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2

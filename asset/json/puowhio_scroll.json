@@ -1,0 +1,140 @@
+{
+"blank":[
+ {
+  "rarity": "F",
+  "type": "generator",
+  "input": 0,
+  "ouptut": 1,
+  "tier minimum": 1,
+  "tier maximum": 3
+ },
+ {
+  "rarity": "C",
+  "type": "generator",
+  "input": 0,
+  "ouptut": 2,
+  "tier minimum": 2,
+  "tier maximum": 5
+ },
+ {
+  "rarity": "S",
+  "type": "generator",
+  "input": 0,
+  "ouptut": 3,
+  "tier minimum": 3,
+  "tier maximum": 6
+ },
+ {
+  "rarity": "E",
+  "type": "converter",
+  "input": 1,
+  "ouptut": 1,
+  "tier minimum": 3,
+  "tier maximum": 4
+ },
+ {
+  "rarity": "D",
+  "type": "converter",
+  "input": 1,
+  "ouptut": 2,
+  "tier minimum": 4,
+  "tier maximum": 6
+ },
+ {
+  "rarity": "C",
+  "type": "converter",
+  "input": 1,
+  "ouptut": 3,
+  "tier minimum": 5,
+  "tier maximum": 8
+ },
+ {
+  "rarity": "B",
+  "type": "converter",
+  "input": 2,
+  "ouptut": 2,
+  "tier minimum": 6,
+  "tier maximum": 10
+ },
+ {
+  "rarity": "A",
+  "type": "converter",
+  "input": 2,
+  "ouptut": 3,
+  "tier minimum": 7,
+  "tier maximum": 12
+ },
+ {
+  "rarity": "S",
+  "type": "converter",
+  "input": 3,
+  "ouptut": 3,
+  "tier minimum": 8,
+  "tier maximum": 16
+ },
+ {
+  "rarity": "E",
+  "type": "duplicator",
+  "input": 1,
+  "ouptut": 2,
+  "tier minimum": 5,
+  "tier maximum": 7
+ },
+ {
+  "rarity": "C",
+  "type": "duplicator",
+  "input": 1,
+  "ouptut": 3,
+  "tier minimum": 7,
+  "tier maximum": 11
+ },
+ {
+  "rarity": "A",
+  "type": "duplicator",
+  "input": 1,
+  "ouptut": 4,
+  "tier minimum": 9,
+  "tier maximum": 15
+ },
+ {
+  "rarity": "F",
+  "type": "absorber",
+  "input": 2,
+  "ouptut": 0,
+  "tier minimum": 5,
+  "tier maximum": 8
+ },
+ {
+  "rarity": "D",
+  "type": "absorber",
+  "input": 3,
+  "ouptut": 0,
+  "tier minimum": 8,
+  "tier maximum": 11
+ },
+ {
+  "rarity": "B",
+  "type": "absorber",
+  "input": 4,
+  "ouptut": 0,
+  "tier minimum": 11,
+  "tier maximum": 15
+ },
+ {
+  "rarity": "A",
+  "type": "absorber",
+  "input": 5,
+  "ouptut": 0,
+  "tier minimum": 15,
+  "tier maximum": 18
+ },
+ {
+  "rarity": "S",
+  "type": "absorber",
+  "input": 6,
+  "ouptut": 0,
+  "tier minimum": 18,
+  "tier maximum": 20
+ }
+]
+}

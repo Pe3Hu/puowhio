@@ -3,6 +3,7 @@ class_name Grimoire extends PanelContainer
 
 @export var mage: Mage
 
+
 func _ready():
 	roll_scrolls()
 

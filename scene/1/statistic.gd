@@ -23,6 +23,11 @@ class_name Statistic extends PanelContainer
 @onready var intellect = %Intellect
 @onready var will = %Will
 
+@export var strength_resources: Array[BaseResource]
+@export var dexterity_resources: Array[BaseResource]
+@export var intellect_resources: Array[BaseResource]
+@export var will_resources: Array[BaseResource]
+
 
 func _ready() -> void:
 	refreshed = !refreshed

@@ -9,3 +9,4 @@ aspect = "intellect"
 level = 1
 current = 9
 limit = 16
+is_barriered = true

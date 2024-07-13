@@ -1,0 +1,100 @@
+[gd_scene load_steps=11 format=3 uid="uid://frscwn6yf1yr"]
+
+[ext_resource type="Script" path="res://scene/4/item.gd" id="1_i2idk"]
+[ext_resource type="Texture2D" uid="uid://thd6bkg4p2tr" path="res://asset/png/item/trigram.png" id="2_l38ii"]
+[ext_resource type="Script" path="res://resource/item/itemResource.gd" id="2_ugwmq"]
+[ext_resource type="Texture2D" uid="uid://cqhmv6fuavm10" path="res://asset/png/item/selected.png" id="3_xx3lj"]
+[ext_resource type="Script" path="res://scene/0/description.gd" id="5_mqoa4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6880f"]
+
+[sub_resource type="Resource" id="Resource_da1w0"]
+script = ExtResource("2_ugwmq")
+type = null
+subtype = null
+rarity = null
+level = null
+bases = null
+affixs = null
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pw7x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_58m1r"]
+bg_color = Color(0.144063, 0.144063, 0.144062, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0bm3"]
+size = Vector2(64, 64)
+
+[node name="Item" type="PanelContainer" node_paths=PackedStringArray("description")]
+z_index = 1
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6880f")
+script = ExtResource("1_i2idk")
+description = NodePath("Description")
+resource = SubResource("Resource_da1w0")
+
+[node name="Selected" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.2, 0.2, 0.2, 1)
+position = Vector2(32, 32)
+texture = ExtResource("3_xx3lj")
+vframes = 2
+frame = 1
+
+[node name="Icon" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(32, 32)
+texture = ExtResource("2_l38ii")
+vframes = 9
+
+[node name="Description" type="MenuBar" parent="." node_paths=PackedStringArray("item")]
+unique_name_in_owner = true
+visible = false
+z_index = 2
+custom_minimum_size = Vector2(42, 21)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_5pw7x")
+script = ExtResource("5_mqoa4")
+item = NodePath("..")
+
+[node name="PanelContainer" type="PanelContainer" parent="Description"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_58m1r")
+
+[node name="VBox" type="VBoxContainer" parent="Description/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Aspects" type="VBoxContainer" parent="Description/PanelContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Parameters" type="VBoxContainer" parent="Description/PanelContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_m0bm3")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

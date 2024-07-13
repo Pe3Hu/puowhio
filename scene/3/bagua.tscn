@@ -1,11 +1,66 @@
-[gd_scene load_steps=3 format=3 uid="uid://crsiesfkvlbmp"]
+[gd_scene load_steps=4 format=3 uid="uid://crsiesfkvlbmp"]
 
 [ext_resource type="Script" path="res://scene/3/bagua.gd" id="1_wb7p8"]
+[ext_resource type="PackedScene" uid="uid://l2ykdsjmltph" path="res://scene/4/slot.tscn" id="2_big11"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf06q"]
 
 [node name="Bagua" type="PanelContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_cf06q")
 script = ExtResource("1_wb7p8")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Slots" type="GridContainer" parent="HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 3
+
+[node name="Slot5" parent="HBox/Slots" instance=ExtResource("2_big11")]
+layout_mode = 2
+type = "trigram"
+subtype = "5"
+
+[node name="Slot4" parent="HBox/Slots" instance=ExtResource("2_big11")]
+layout_mode = 2
+type = "trigram"
+subtype = "4"
+
+[node name="Slot3" parent="HBox/Slots" instance=ExtResource("2_big11")]
+layout_mode = 2
+type = "trigram"
+subtype = "3"
+
+[node name="Slot6" parent="HBox/Slots" instance=ExtResource("2_big11")]
+layout_mode = 2
+type = "trigram"
+subtype = "6"
+
+[node name="Slot8" parent="HBox/Slots" instance=ExtResource("2_big11")]
+layout_mode = 2
+type = "nucleus"
+
+[node name="Slot2" parent="HBox/Slots" instance=ExtResource("2_big11")]
+layout_mode = 2
+type = "trigram"
+subtype = "2"
+
+[node name="Slot7" parent="HBox/Slots" instance=ExtResource("2_big11")]
+layout_mode = 2
+type = "trigram"
+subtype = "7"
+
+[node name="Slot0" parent="HBox/Slots" instance=ExtResource("2_big11")]
+layout_mode = 2
+type = "trigram"
+
+[node name="Slot1" parent="HBox/Slots" instance=ExtResource("2_big11")]
+layout_mode = 2
+type = "trigram"
+subtype = "1"

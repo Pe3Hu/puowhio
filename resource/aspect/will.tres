@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_wwsjm")
-measure = "percentage"
+measure = "integer"
 type = "aspect"
 time = "permanent"
 icon_name = "will"

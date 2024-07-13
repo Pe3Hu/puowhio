@@ -1,0 +1,64 @@
+{
+"blank":[
+ {
+  "title": "damage multiplier",
+  "minimum 1": 10,
+  "maximum 1": 20
+ },
+ {
+  "title": "damage modifier",
+  "minimum 1": 4,
+  "maximum 1": 7
+ },
+ {
+  "title": "evasion chance",
+  "minimum 1": 3,
+  "maximum 1": 6
+ },
+ {
+  "title": "accuracy chance",
+  "minimum 1": 3,
+  "maximum 1": 6
+ },
+ {
+  "title": "critical multiplier",
+  "minimum 1": 10,
+  "maximum 1": 20
+ },
+ {
+  "title": "critical chance",
+  "minimum 1": 3,
+  "maximum 1": 6
+ },
+ {
+  "title": "armor multiplier",
+  "minimum 1": 5,
+  "maximum 1": 15
+ },
+ {
+  "title": "armor modifier",
+  "minimum 1": 2,
+  "maximum 1": 3
+ },
+ {
+  "title": "strength modifier",
+  "minimum 1": 1,
+  "maximum 1": 5
+ },
+ {
+  "title": "dexterity modifier",
+  "minimum 1": 1,
+  "maximum 1": 5
+ },
+ {
+  "title": "intellect modifier",
+  "minimum 1": 1,
+  "maximum 1": 5
+ },
+ {
+  "title": "will modifier",
+  "minimum 1": 1,
+  "maximum 1": 5
+ }
+]
+}

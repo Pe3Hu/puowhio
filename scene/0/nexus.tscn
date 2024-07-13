@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://v6po0i7b41y6"]
+
+[ext_resource type="Script" path="res://scene/0/nexus.gd" id="1_s7tmc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tj6b"]
+
+[node name="Nexus" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7tj6b")
+script = ExtResource("1_s7tmc")

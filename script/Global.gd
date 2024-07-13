@@ -35,6 +35,21 @@ func init_num() -> void:
 
 func init_dict() -> void:
 	init_direction()
+	
+	init_affix()
+	init_base()
+	init_scroll()
+	init_terrain()
+	init_tier()
+	init_trigram()
+	
+	dict.rarity = {}
+	dict.rarity.affix = {}
+	dict.rarity.affix["common"] = 0
+	dict.rarity.affix["uncommon"] = 1
+	dict.rarity.affix["rare"] = 2
+	dict.rarity.affix["epic"] = 3
+	dict.rarity.affix["legendary"] = 4
 
 
 func init_direction() -> void:
@@ -83,26 +98,176 @@ func init_direction() -> void:
 	]
 
 
-func init_blank() -> void:
-	dict.blank = {}
-	dict.blank.rank = {}
-	var exceptions = ["rank"]
+func init_affix() -> void:
+	dict.affix = {}
+	dict.affix.title = {}
+	var exceptions = ["title"]
 	
-	var path = "res://asset/json/maoiri_blank.json"
-	var array = load_data(path)
+	var path = "res://asset/json/puowhio_affix.json"
+	var dictionary = load_data(path)
+	var array = dictionary["blank"]
 	
-	for blank in array:
-		blank.rank = int(blank.rank)
+	for affix in array:
+		var data = {}
+		data.levels = {}
+		
+		for key in affix:
+			if !exceptions.has(key):
+				var words = key.split(" ")
+				var level = int(words[1])
+				
+				if !data.levels.has(level):
+					data.levels[level] = {}
+				
+				data.levels[level][words[0]] = affix[key]
+			
+		if !dict.affix.title.has(affix.title):
+			dict.affix.title[affix.title] = []
+	
+		dict.affix.title[affix.title] = data.levels
+
+
+func init_base() -> void:
+	dict.base = {}
+	dict.base.level = {}
+	var exceptions = ["level"]
+	
+	var path = "res://asset/json/puowhio_base.json"
+	var dictionary = load_data(path)
+	var array = dictionary["blank"]
+	
+	for base in array:
+		base.level = int(base.level)
 		var data = {}
 		
-		for key in blank:
+		for key in base:
 			if !exceptions.has(key):
-				data[key] = blank[key]
+				var words = key.split(" ")
+				
+				if !data.has(words[0]):
+					data[words[0]] = {}
+				
+				data[words[0]][words[1]] = base[key]
 			
-		if !dict.blank.rank.has(blank.rank):
-			dict.blank.rank[blank.rank] = []
+		#if !dict.base.level.has(base.level):
+			#dict.base.level[base.level] = []
 	
-		dict.blank.rank[blank.rank].append(data)
+		dict.base.level[base.level] = data
+
+
+func init_scroll() -> void:
+	dict.scroll = {}
+	dict.scroll.index = {}
+	dict.scroll.type = {}
+	dict.scroll.rarity = {}
+	var exceptions = []
+	var index = 0
+	
+	var path = "res://asset/json/puowhio_scroll.json"
+	var dictionary = load_data(path)
+	var array = dictionary["blank"]
+	
+	for scroll in array:
+		var data = {}
+		data.tier = {}
+		
+		for key in scroll:
+			if !exceptions.has(key):
+				var words = key.split(" ")
+				
+				if words.size() > 1:
+					data[words[0]][words[1]] = scroll[key]
+				else:
+					data[key] = scroll[key]
+		
+		dict.scroll.index[index] = data
+		
+		if !dict.scroll.type.has(scroll.type):
+			dict.scroll.type[scroll.type] = []
+		
+		dict.scroll.type[scroll.type].append(index)
+		
+		if !dict.scroll.rarity.has(scroll.rarity):
+			dict.scroll.rarity[scroll.rarity] = []
+		
+		dict.scroll.rarity[scroll.rarity].append(index)
+		
+		index += 1
+
+
+func init_terrain() -> void:
+	dict.terrain = {}
+	dict.terrain.title = {}
+	dict.terrain.element = {}
+	var exceptions = ["title"]
+	
+	var path = "res://asset/json/puowhio_terrain.json"
+	var dictionary = load_data(path)
+	var array = dictionary["blank"]
+	
+	for terrain in array:
+		var data = {}
+		
+		for key in terrain:
+			if !exceptions.has(key):
+				data[key] = terrain[key]
+				
+				if terrain[key] > 0:
+					if !dict.terrain.element.has(key):
+						dict.terrain.element[key] = {}
+					
+					dict.terrain.element[key][terrain.title] = terrain[key]
+			
+		dict.terrain.title[terrain.title] = data
+
+
+func init_tier() -> void:
+	dict.tier = {}
+	dict.tier.multiplier = {}
+	var exceptions = ["title"]
+	
+	var path = "res://asset/json/puowhio_tier.json"
+	var dictionary = load_data(path)
+	var array = dictionary["blank"]
+	
+	for tier in array:
+		var data = {}
+		data.multiplier = {}
+		
+		for key in tier:
+			if !exceptions.has(key):
+				var words = key.split(" ")
+				data[words[0]][words[1]] = tier[key]
+		
+		dict.tier.multiplier[tier.title] = data.multiplier
+
+
+func init_trigram() -> void:
+	dict.trigram = {}
+	dict.trigram.parameter = {}
+	dict.trigram.subtype = {}
+	var exceptions = ["parameter"]
+	
+	var path = "res://asset/json/puowhio_trigram.json"
+	var dictionary = load_data(path)
+	var array = dictionary["blank"]
+	
+	for trigram in array:
+		var data = {}
+		data.subtypes = {}
+		
+		for key in trigram:
+			if !exceptions.has(key):
+				var words = key.split(" ")
+				var subtype = str(words[1])
+				data.subtypes[subtype] = trigram[key]
+				
+				if !dict.trigram.subtype.has(subtype):
+					dict.trigram.subtype[subtype] = {}
+				
+				dict.trigram.subtype[subtype][trigram.parameter] = trigram[key]
+			
+		dict.trigram.parameter[trigram.parameter] = data.subtypes
 
 
 func init_flag() -> void:
@@ -159,22 +324,22 @@ func load_data(path_: String):
 	return json_object.get_data()
 
 
-func get_random_key(dict_: Dictionary):
-	if dict_.keys().size() == 0:
-		print("!bug! empty array in get_random_key func")
+func get_random_key(weights_: Dictionary):
+	if weights_.keys().size() == 0:
+		print("!bug! empty dictionary in get_random_key func")
 		return null
 	
 	var total = 0
 	
-	for key in dict_.keys():
-		total += dict_[key]
+	for key in weights_.keys():
+		total += weights_[key]
 	
 	rng.randomize()
 	var index_r = rng.randf_range(0, 1)
 	var index = 0
 	
-	for key in dict_.keys():
-		var weight = float(dict_[key])
+	for key in weights_.keys():
+		var weight = float(weights_[key])
 		index += weight/total
 		
 		if index > index_r:
@@ -182,3 +347,13 @@ func get_random_key(dict_: Dictionary):
 	
 	print("!bug! index_r error in get_random_key func")
 	return null
+
+
+func get_random_segment_point(extremes_: Dictionary):
+	if extremes_.keys().size() == 0:
+		print("!bug! empty dictionary in get_random_key func")
+		return null
+	
+	rng.randomize()
+	var index_r = rng.randi_range(extremes_.minimum, extremes_.maximum)
+	return index_r

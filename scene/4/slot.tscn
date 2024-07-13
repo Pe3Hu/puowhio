@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://l2ykdsjmltph"]
+
+[ext_resource type="Script" path="res://scene/4/slot.gd" id="1_fhkh8"]
+[ext_resource type="Texture2D" uid="uid://ciik3nxfc1ugo" path="res://asset/png/item/slot.png" id="2_7gnru"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sfgk8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fyi2k"]
+size = Vector2(64, 64)
+
+[node name="Slot" type="PanelContainer"]
+custom_minimum_size = Vector2(64, 64)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sfgk8")
+script = ExtResource("1_fhkh8")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["dropable"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_fyi2k")
+
+[node name="Background" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.2, 0.2, 0.2, 1)
+position = Vector2(32, 32)
+texture = ExtResource("2_7gnru")
+vframes = 10
+frame = 9
