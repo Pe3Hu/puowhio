@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8ekgsjwxs75i"]
+
+[ext_resource type="PackedScene" uid="uid://frscwn6yf1yr" path="res://scene/5/item.tscn" id="1_8nltt"]
+[ext_resource type="Script" path="res://scene/5/scroll.gd" id="2_rk82v"]
+
+[node name="Scroll" instance=ExtResource("1_8nltt")]
+script = ExtResource("2_rk82v")
+demands = {}
+resource = null
+
+[node name="Description" parent="." index="2"]
+visible = true
+size_flags_horizontal = 0
+size_flags_vertical = 0

@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("1_ro54p")
-aspect = "aqua"
+element = "aqua"
 texture = ExtResource("2_x4qq1")
 color = Color(0.09, 0.2925, 0.9, 1)

@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="DoubletResource" load_steps=2 format=3 uid="uid://vr6w127hxbnr"]
 
-[ext_resource type="Script" path="res://resource/parameter/doubletResource.gd" id="1_8voet"]
+[ext_resource type="Script" path="res://resource/doubletResource.gd" id="1_8voet"]
 
 [resource]
 script = ExtResource("1_8voet")
 measure = "percentage"
 type = "parameter"
 time = "permanent"
-icon_name = "critical multiplier"
-base = 150
+subtype = "critical multiplier"
+value = 0

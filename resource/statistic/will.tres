@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DoubletResource" load_steps=2 format=3 uid="uid://d18u422oi50ls"]
+
+[ext_resource type="Script" path="res://resource/doubletResource.gd" id="1_grqc8"]
+
+[resource]
+script = ExtResource("1_grqc8")
+measure = "integer"
+type = "aspect"
+time = "permanent"
+subtype = "will"
+value = 0

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bewit0b7qirpj"]
+
+[ext_resource type="PackedScene" uid="uid://frscwn6yf1yr" path="res://scene/5/item.tscn" id="1_8te7c"]
+[ext_resource type="Script" path="res://scene/5/trigram.gd" id="2_lmp7r"]
+
+[node name="Trigram" instance=ExtResource("1_8te7c")]
+script = ExtResource("2_lmp7r")
+resource = null

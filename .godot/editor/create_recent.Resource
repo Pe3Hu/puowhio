@@ -1,4 +1,4 @@
-ScrollResource
-CoreResource
 DoubletResource
 Resource
+ScrollResource
+CoreResource

@@ -2,6 +2,8 @@
 class_name Mage extends PanelContainer
 
 
+@export var hsm: LimboHSM
+
 @export var battle: Battle
 
 @export var statistic: Statistic:
@@ -38,3 +40,33 @@ class_name Mage extends PanelContainer
 		inventory.mage = self
 	get:
 		return inventory
+
+@export var library: Library:
+	set(library_):
+		library = library_
+		library.mage = self
+	get:
+		return library
+
+@export var health: Bar:
+	set(health_):
+		health = health_
+		health.proprietor = self
+	
+		if is_node_ready():
+			health.limit = statistic.health.value
+	get:
+		return health
+
+
+func reset() -> void:
+	health.limit = statistic.health.value
+	health.value = health.limit
+	hsm.dispatch(&"searching_started")
+	
+func call_pass() -> void:
+	battle.turn += 1
+	hsm.dispatch(&"searching_started")
+	
+func concede_defeat() -> void:
+	print(battle.turn)

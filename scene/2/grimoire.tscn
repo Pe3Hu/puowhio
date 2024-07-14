@@ -1,119 +1,49 @@
-[gd_scene load_steps=11 format=3 uid="uid://dj3oxp30ak301"]
+[gd_scene load_steps=4 format=3 uid="uid://dj3oxp30ak301"]
 
 [ext_resource type="Script" path="res://scene/2/grimoire.gd" id="1_6r0yl"]
-[ext_resource type="PackedScene" uid="uid://bqct8uvh364xt" path="res://scene/2/scroll.tscn" id="2_e0es0"]
-[ext_resource type="Script" path="res://resource/scroll/scrollResource.gd" id="3_7b4wk"]
+[ext_resource type="PackedScene" uid="uid://l2ykdsjmltph" path="res://scene/0/slot.tscn" id="2_86fd8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf06q"]
 
-[sub_resource type="Resource" id="Resource_y5i0v"]
-script = ExtResource("3_7b4wk")
-type = "generator"
-primary_aspect = "strength"
-secondary_aspect = "dexterity"
-input_limit = 0
-output_limit = 0
-
-[sub_resource type="Resource" id="Resource_b6io1"]
-script = ExtResource("3_7b4wk")
-type = "generator"
-primary_aspect = "strength"
-secondary_aspect = "intellect"
-input_limit = 0
-output_limit = 0
-
-[sub_resource type="Resource" id="Resource_bv1ka"]
-script = ExtResource("3_7b4wk")
-type = "generator"
-primary_aspect = "strength"
-secondary_aspect = "will"
-input_limit = 0
-output_limit = 0
-
-[sub_resource type="Resource" id="Resource_dtfnc"]
-script = ExtResource("3_7b4wk")
-type = "generator"
-primary_aspect = "dexterity"
-secondary_aspect = "intellect"
-input_limit = 0
-output_limit = 0
-
-[sub_resource type="Resource" id="Resource_o76rn"]
-script = ExtResource("3_7b4wk")
-type = "generator"
-primary_aspect = "dexterity"
-secondary_aspect = "will"
-input_limit = 0
-output_limit = 0
-
-[sub_resource type="Resource" id="Resource_y0ent"]
-script = ExtResource("3_7b4wk")
-type = "generator"
-primary_aspect = "will"
-secondary_aspect = "intellect"
-input_limit = 0
-output_limit = 0
-
 [node name="Grimoire" type="PanelContainer"]
+clip_contents = true
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_cf06q")
 script = ExtResource("1_6r0yl")
 
-[node name="Scrolls" type="HBoxContainer" parent="."]
+[node name="Slots" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Scroll1" parent="Scrolls" node_paths=PackedStringArray("grimoire") instance=ExtResource("2_e0es0")]
+[node name="Slot1" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_86fd8")]
 layout_mode = 2
-grimoire = NodePath("../..")
-resource = SubResource("Resource_y5i0v")
-refreshed = false
-primary_share = 75
-secondary_share = 25
-avg = 0.0
+proprietor = NodePath("../..")
+type = "scroll"
 
-[node name="Scroll2" parent="Scrolls" node_paths=PackedStringArray("grimoire") instance=ExtResource("2_e0es0")]
+[node name="Slot2" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_86fd8")]
 layout_mode = 2
-grimoire = NodePath("../..")
-resource = SubResource("Resource_b6io1")
-refreshed = false
-avg = 0.0
+proprietor = NodePath("../..")
+type = "scroll"
 
-[node name="Scroll3" parent="Scrolls" node_paths=PackedStringArray("grimoire") instance=ExtResource("2_e0es0")]
+[node name="Slot3" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_86fd8")]
 layout_mode = 2
-grimoire = NodePath("../..")
-resource = SubResource("Resource_bv1ka")
-refreshed = false
-primary_share = 75
-secondary_share = 25
-avg = 0.0
+proprietor = NodePath("../..")
+type = "scroll"
 
-[node name="Scroll4" parent="Scrolls" node_paths=PackedStringArray("grimoire") instance=ExtResource("2_e0es0")]
+[node name="Slot4" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_86fd8")]
 layout_mode = 2
-grimoire = NodePath("../..")
-resource = SubResource("Resource_dtfnc")
-refreshed = false
-primary_share = 75
-secondary_share = 25
-avg = 0.0
+proprietor = NodePath("../..")
+type = "scroll"
 
-[node name="Scroll5" parent="Scrolls" node_paths=PackedStringArray("grimoire") instance=ExtResource("2_e0es0")]
+[node name="Slot5" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_86fd8")]
 layout_mode = 2
-grimoire = NodePath("../..")
-resource = SubResource("Resource_o76rn")
-refreshed = false
-primary_share = 75
-secondary_share = 25
-avg = 0.0
+proprietor = NodePath("../..")
+type = "scroll"
 
-[node name="Scroll6" parent="Scrolls" node_paths=PackedStringArray("grimoire") instance=ExtResource("2_e0es0")]
+[node name="Slot6" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_86fd8")]
 layout_mode = 2
-grimoire = NodePath("../..")
-resource = SubResource("Resource_y0ent")
-refreshed = false
-primary_share = 75
-secondary_share = 25
-avg = 0.0
+proprietor = NodePath("../..")
+type = "scroll"

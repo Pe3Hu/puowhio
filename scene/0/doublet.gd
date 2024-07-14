@@ -48,13 +48,13 @@ func recolor(flag_: bool) -> void:
 	var color = Color.from_hsv(0, 0, 0.2)
 	
 	if flag_:
-		color = Global.color.aspect[resource.icon_name]
+		color = Global.color.aspect[resource.subtype]
 		
 	%Icon.modulate = color
 	%Label.set("theme_override_colors/font_color", color)
 	
 func set_from_base(resource_: BaseResource) -> void:
-	resource = load("res://resource/aspect/" + resource_.aspect + ".tres")
+	resource = load("res://resource/statistic/" + resource_.aspect + ".tres")
 	update_ui()
 	value = resource_.value
 	
@@ -63,18 +63,26 @@ func set_from_affix(resource_: AffixResource) -> void:
 	update_ui()
 	value = resource_.value
 	
+func set_from_doublet(resource_: DoubletResource) -> void:
+	resource = resource_
+	update_ui()
+	value = resource_.value
+	
 func update_ui() -> void:
 	var _path = resource.type
-	var _name = resource.icon_name
+	var _name = resource.subtype
 	
-	if resource.type == "aspect" and _name.contains("modifier"):
-		_path = "aspect"
-		_name = _name.split(" ")[0]
+	if _name.contains("modifier"):
+		var aspect = _name.split(" ")[0]
+		
+		if Global.arr.aspect.has(aspect):
+			_path = "aspect"
+			_name = aspect
 		
 	%Icon.texture = load("res://asset/png/" + _path +  "/" + _name + ".png")
 	
 	if value == 0 and %Label.text == "":
-		value = resource.base
+		value = resource.value
 	
 		if resource.measure == "percentage":
 			%Label.text += "%"

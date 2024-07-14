@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="DoubletResource" load_steps=2 format=3 uid="uid://o5ovxot20y3d"]
 
-[ext_resource type="Script" path="res://resource/parameter/doubletResource.gd" id="1_bq0rn"]
+[ext_resource type="Script" path="res://resource/doubletResource.gd" id="1_bq0rn"]
 
 [resource]
 script = ExtResource("1_bq0rn")
 measure = "percentage"
 type = "parameter"
 time = "permanent"
-icon_name = "critical chance"
-base = 15
+subtype = "critical chance"
+value = 0

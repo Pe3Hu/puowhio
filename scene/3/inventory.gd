@@ -3,8 +3,6 @@ class_name Inventory extends PanelContainer
 
 @export var mage: Mage
 
-@onready var item_scene = preload("res://scene/4/item.tscn")
-
 var free_slots: Array[Slot]
 var occupied_slots: Array[Slot]
 
@@ -22,7 +20,7 @@ func _ready() -> void:
 	add_item(item)
 	
 	for _i in 8:
-		resource = ItemResource.new()
+		resource = TrigramResource.new()
 		resource.rarity = "uncommon"
 		resource.level = 1
 		resource.type = "trigram"

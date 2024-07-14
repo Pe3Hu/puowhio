@@ -27,6 +27,7 @@ func init_arr() -> void:
 	arr.element = ["fire", "earth", "nature", "wind", "ice", "aqua", "storm", "lava"]
 	arr.aspect = ["strength", "dexterity", "intellect", "will"]
 	arr.order = [0, 1, 2, 3, 4, 5, 6]
+	arr.scroll = ["generator", "converter", "duplicator", "absorber"]
 
 
 func init_num() -> void:
@@ -231,6 +232,7 @@ func init_tier() -> void:
 	var array = dictionary["blank"]
 	
 	for tier in array:
+		tier.title = int(tier.title)
 		var data = {}
 		data.multiplier = {}
 		
@@ -298,16 +300,26 @@ func init_color():
 	var h = 360.0
 	
 	color.aspect = {}
-	color.aspect.strength = Color.from_hsv(0 / h, 0.6, 0.7)
-	color.aspect.will = Color.from_hsv(60 / h, 0.6, 0.7)
-	color.aspect.dexterity = Color.from_hsv(120 / h, 0.6, 0.7)
-	color.aspect.intellect = Color.from_hsv(210 / h, 0.6, 0.7)
+	color.aspect.strength = Color.from_hsv(0 / h, 0.6, 0.3)
+	color.aspect.will = Color.from_hsv(60 / h, 0.6, 0.3)
+	color.aspect.dexterity = Color.from_hsv(120 / h, 0.6, 0.3)
+	color.aspect.intellect = Color.from_hsv(210 / h, 0.6, 0.3)
 	
 	color.element = {}
+	#
+	#for element in arr.element:
+		#var _h = h / arr.element.size() * arr.element.find(element)
+		#color.element[element] = Color.from_hsv(_h / h, 0.6, 0.8)
 	
-	for element in arr.element:
-		var _h = h / arr.element.size() * arr.element.find(element)
-		color.element[element] = Color.from_hsv(_h / h, 0.6, 0.7)
+	color.element.fire = Color.from_hsv(0 / h, 0.6, 0.8)
+	color.element.earth = Color.from_hsv(45 / h, 0.6, 0.8)
+	color.element.nature = Color.from_hsv(90 / h, 0.6, 0.8)
+	color.element.wind = Color.from_hsv(135 / h, 0.6, 0.8)
+	color.element.ice = Color.from_hsv(180 / h, 0.6, 0.8)
+	color.element.aqua = Color.from_hsv(225 / h, 0.6, 0.8)
+	color.element.storm = Color.from_hsv(270 / h, 0.6, 0.8)
+	color.element.lava = Color.from_hsv(315 / h, 0.6, 0.8)
+
 
 
 func save(path_: String, data_: String):

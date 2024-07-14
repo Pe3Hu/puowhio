@@ -18,6 +18,8 @@ class_name Statistic extends PanelContainer
 
 @export var cores: Array[CoreResource]
 
+@onready var health = %Health
+
 @onready var strength = %Strength
 @onready var dexterity = %Dexterity
 @onready var intellect = %Intellect

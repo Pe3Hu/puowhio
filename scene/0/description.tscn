@@ -1,16 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://daqntmdshxx3b"]
+[gd_scene load_steps=5 format=3 uid="uid://daqntmdshxx3b"]
 
 [ext_resource type="Script" path="res://scene/0/description.gd" id="1_utaa5"]
+[ext_resource type="FontFile" uid="uid://33eqagvh85us" path="res://asset/font/digital/Inter-Black.ttf" id="2_e7arr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pw7x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_58m1r"]
-bg_color = Color(0.144063, 0.144063, 0.144062, 1)
+bg_color = Color(0.473976, 0.473976, 0.473974, 1)
 
 [node name="Description" type="MenuBar"]
 custom_minimum_size = Vector2(42, 21)
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5pw7x")
 script = ExtResource("1_utaa5")
 
@@ -18,6 +20,7 @@ script = ExtResource("1_utaa5")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_58m1r")
 
 [node name="VBox" type="VBoxContainer" parent="PanelContainer"]
@@ -33,6 +36,38 @@ alignment = 1
 
 [node name="Parameters" type="VBoxContainer" parent="PanelContainer/VBox"]
 unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Damage" type="Label" parent="PanelContainer/VBox"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 2
+custom_minimum_size = Vector2(65, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.17, 0.17, 0.17, 1)
+theme_override_fonts/font = ExtResource("2_e7arr")
+theme_override_font_sizes/font_size = 14
+text = "999-999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Orbs" type="HBoxContainer" parent="PanelContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Inputs" type="VBoxContainer" parent="PanelContainer/VBox/Orbs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Outputs" type="VBoxContainer" parent="PanelContainer/VBox/Orbs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1

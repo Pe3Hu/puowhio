@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkitagn5whwec"]
+
+[ext_resource type="Script" path="res://scene/3/bar.gd" id="1_r4xo6"]
+[ext_resource type="Texture2D" uid="uid://bha16h5k0x1e3" path="res://asset/png/bar/health.png" id="2_h511b"]
+[ext_resource type="FontFile" uid="uid://33eqagvh85us" path="res://asset/font/digital/Inter-Black.ttf" id="3_dgmfc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhw37"]
+bg_color = Color(0.673908, 0.445357, 0.868908, 1)
+
+[node name="Bar" type="PanelContainer"]
+offset_right = 33.0
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xhw37")
+script = ExtResource("1_r4xo6")
+
+[node name="Fullness" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+texture_under = ExtResource("2_h511b")
+texture_progress = ExtResource("2_h511b")
+tint_under = Color(0.34, 0.1632, 0.1632, 1)
+tint_progress = Color(0.34, 0.034, 0.034, 1)
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_dgmfc")
+theme_override_font_sizes/font_size = 16
+text = "999"
+horizontal_alignment = 1
+vertical_alignment = 1

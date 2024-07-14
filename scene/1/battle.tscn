@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scene/1/battle.gd" id="1_imv5l"]
 [ext_resource type="PackedScene" uid="uid://1yohkulykj6" path="res://scene/1/mage.tscn" id="1_pwwsu"]
 
-[node name="Battle" type="PanelContainer"]
+[node name="Battle" type="PanelContainer" node_paths=PackedStringArray("current_mage")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -13,6 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_imv5l")
+current_mage = NodePath("Mages/Mage")
 
 [node name="Mages" type="HBoxContainer" parent="."]
 layout_mode = 2

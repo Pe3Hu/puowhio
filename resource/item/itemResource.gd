@@ -7,12 +7,6 @@ class_name ItemResource extends Resource
 	get:
 		return type
 
-@export_enum("0", "1", "2", "3", "4", "5", "6", "7") var subtype: String = "0":
-	set(subtype_):
-		subtype = subtype_
-	get:
-		return subtype
-
 @export_enum("common", "uncommon", "rare", "epic", "legendary") var rarity: String = "uncommon":
 	set(rarity_):
 		rarity = rarity_

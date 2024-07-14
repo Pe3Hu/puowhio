@@ -2,12 +2,12 @@
 class_name OrbResource extends Resource
 
 
-@export_enum("aqua", "wind", "fire", "earth", "ice", "storm", "lava", "nature") var aspect: String = "aqua":
-	set(aspect_):
-		aspect = aspect_
+@export_enum("aqua", "wind", "fire", "earth", "ice", "storm", "lava", "nature") var element: String = "aqua":
+	set(element_):
+		element = element_
 		
 	get:
-		return aspect
+		return element
 
 @export var texture: Texture
 

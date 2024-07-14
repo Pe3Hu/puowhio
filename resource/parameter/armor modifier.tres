@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="DoubletResource" load_steps=2 format=3 uid="uid://coc4dvlvxekg5"]
 
-[ext_resource type="Script" path="res://resource/parameter/doubletResource.gd" id="1_nsbup"]
+[ext_resource type="Script" path="res://resource/doubletResource.gd" id="1_nsbup"]
 
 [resource]
 script = ExtResource("1_nsbup")
 measure = "integer"
 type = "parameter"
 time = "permanent"
-icon_name = "armor modifier"
-base = 0
+subtype = "armor modifier"
+value = 0

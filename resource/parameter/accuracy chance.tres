@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="DoubletResource" load_steps=2 format=3 uid="uid://vesjxs8ch023"]
 
-[ext_resource type="Script" path="res://resource/parameter/doubletResource.gd" id="1_u8ff5"]
+[ext_resource type="Script" path="res://resource/doubletResource.gd" id="1_u8ff5"]
 
 [resource]
 script = ExtResource("1_u8ff5")
 measure = "percentage"
 type = "parameter"
 time = "permanent"
-icon_name = "accuracy chance"
-base = 15
+subtype = "accuracy chance"
+value = 0

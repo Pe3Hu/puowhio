@@ -1,0 +1,80 @@
+[gd_scene load_steps=4 format=3 uid="uid://cicawte8jygu3"]
+
+[ext_resource type="Script" path="res://scene/2/library.gd" id="1_suqxb"]
+[ext_resource type="PackedScene" uid="uid://l2ykdsjmltph" path="res://scene/0/slot.tscn" id="2_vyswj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf06q"]
+
+[node name="Library" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cf06q")
+script = ExtResource("1_suqxb")
+
+[node name="Slots" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 6
+
+[node name="Slot1" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]
+layout_mode = 2
+proprietor = NodePath("../..")
+type = "scroll"
+
+[node name="Slot2" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]
+layout_mode = 2
+proprietor = NodePath("../..")
+type = "scroll"
+
+[node name="Slot3" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]
+layout_mode = 2
+proprietor = NodePath("../..")
+type = "scroll"
+
+[node name="Slot4" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]
+layout_mode = 2
+proprietor = NodePath("../..")
+type = "scroll"
+
+[node name="Slot5" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]
+layout_mode = 2
+proprietor = NodePath("../..")
+type = "scroll"
+
+[node name="Slot6" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]
+layout_mode = 2
+proprietor = NodePath("../..")
+type = "scroll"
+
+[node name="Slot7" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]
+layout_mode = 2
+proprietor = NodePath("../..")
+type = "scroll"
+
+[node name="Slot8" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]
+layout_mode = 2
+proprietor = NodePath("../..")
+type = "scroll"
+
+[node name="Slot9" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]
+layout_mode = 2
+proprietor = NodePath("../..")
+type = "scroll"
+
+[node name="Slot10" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]
+layout_mode = 2
+proprietor = NodePath("../..")
+type = "scroll"
+
+[node name="Slot11" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]
+layout_mode = 2
+proprietor = NodePath("../..")
+type = "scroll"
+
+[node name="Slot12" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]
+layout_mode = 2
+proprietor = NodePath("../..")
+type = "scroll"
