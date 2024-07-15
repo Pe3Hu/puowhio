@@ -60,4 +60,10 @@ func suit_up(slot_: Slot, item_: Item) -> void:
 		if !resources.has(resource):
 			resources.append(resource)
 			mage.statistic.update_doublet(resource.subtype + "_" + resource.measure)
+	
+	for slot in mage.library.occupied_slots:
+		slot.item.description.calc_avg()
+	
+	for slot in mage.grimoire.ordered_scrolls:
+		slot.item.description.calc_avg()
 

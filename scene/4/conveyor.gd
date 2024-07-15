@@ -2,19 +2,16 @@ class_name Conveyor extends PanelContainer
 
 
 @export var mage: Mage
+@export var equilibrium: EquilibriumResource = EquilibriumResource.new()
 
 @onready var orb_scene = load("res://scene/4/orb.tscn")
 @onready var orbs = %Orbs
 
 var front_slot: Slot
-var back_slo: Slot
-var presences = {}
+var back_slot: Slot
 
 
 func _ready() -> void:
-	for element in Global.arr.element:
-		presences[element] = []
-	
 	front_slot = %Slots.get_child(0)
 	#var element_ = "fire"
 	#add_orb(element_)
@@ -31,7 +28,7 @@ func add_orb(element_: String) -> void:
 	front_slot.orb = orb
 	orb.element = element_
 	orb.icon_update()
-	presences[element_].append(orb)
+	equilibrium.change(element_, 1)
 	move_front_slot()
 	
 func move_front_slot() -> void:
@@ -43,11 +40,7 @@ func move_front_slot() -> void:
 		pass
 	
 func check_orbs_availability(scroll_: Scroll) -> bool:
-	if scroll_.resource.demands.keys().is_empty():
+	if scroll_.resource.equilibrium.inputs.is_empty():
 		return true
 	
-	for element in scroll_.resource.demands:
-		if presences[element].size() < scroll_.resource.demands[element]:
-			return false
-	
-	return true
+	return equilibrium.is_passes_requirements(scroll_.resource.equilibrium)

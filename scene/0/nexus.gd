@@ -114,24 +114,48 @@ func roll_aspects(resource_: ItemResource)  -> void:
 	
 func roll_orbs(resource_: ItemResource)  -> void:
 	var n = 1
+	var options = []
+	options.append_array(resource_.prioritized_elements)
 	
 	match resource_.subtype:
 		"generator":
 			resource_.output_limit = n
 		"converter":
-			pass
+			resource_.input_limit = n
+			resource_.output_limit = n
 		"duplicator":
-			pass
+			resource_.input_limit = n
+			resource_.output_limit = n + 1
 		"absorber":
 			resource_.input_limit = n
 	
+	
 	for _i in resource_.input_limit:
-		var element = Global.arr.primordial.pick_random()
-		resource_.equilibrium.change(element, 1)
+		if options.is_empty():
+			options.append_array(Global.arr.primordial)
+			
+			for element in resource_.prioritized_elements:
+				options.erase(element)
+		
+		var element = options.pick_random()
+		
+		match resource_.subtype:
+			"converter":
+				options.erase(element)
+			"duplicator":
+				options = [element]
+		
+		resource_.equilibrium.change(element, -1)
 	
 	for _i in resource_.output_limit:
-		var element = Global.arr.primordial.pick_random()
-		resource_.equilibrium.change(element, -1)
+		if options.is_empty():
+			options.append_array(Global.arr.primordial)
+			
+			for element in resource_.prioritized_elements:
+				options.erase(element)
+		
+		var element = options.pick_random()
+		resource_.equilibrium.change(element, 1)
 	
 	#print([resource_.subtype, resource_.input_orbs, resource_.output_orbs])
 	pass

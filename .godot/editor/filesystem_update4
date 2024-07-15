@@ -35,3 +35,5 @@ res://resource/item/itemResource.gd
 res://scene/2/library.gd
 res://scene/5/item.tscn
 res://scene/3/bagua.gd
+res://scene/3/inventory.gd
+res://scene/2/grimoire.tscn

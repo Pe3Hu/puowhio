@@ -16,7 +16,7 @@ script = ExtResource("1_suqxb")
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 8
-theme_override_constants/v_separation = 8
+theme_override_constants/v_separation = 72
 columns = 6
 
 [node name="Slot1" parent="Slots" node_paths=PackedStringArray("proprietor") instance=ExtResource("2_vyswj")]

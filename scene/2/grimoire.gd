@@ -5,7 +5,11 @@ class_name Grimoire extends PanelContainer
 
 var ordered_scrolls: Array[Scroll]
 var lists: Array[ListResource]
-var books: Dictionary
+var books: Array[BookResource]
+var incompletes: Array[BookResource]
+var occupied_slots: Array[Slot]
+var best_book: BookResource
+var resources: Dictionary
 
 
 func _ready():
@@ -15,34 +19,10 @@ func _ready():
 func find_best_items() -> void:
 	if mage.get_index() == 0:
 		calc_books()
+		place_best_book()
 		return
 	else:
 		return
-	#var subtypes = ["generator", "absorber"]
-	var subtypes = {}
-	subtypes["absorber"] = %Slots.get_child(0)
-	subtypes["generator"] = %Slots.get_child(1)
-	
-	for subtype in subtypes:
-		var items = find_best_scroll(subtype)
-		
-		if !items.is_empty():
-			suit_up(subtypes[subtype], items.front())
-	
-func find_best_scroll(subtype_: String) -> Array[Item]:
-	var options: Array[Item]
-	
-	for slot in mage.library.occupied_slots:
-		var flag = false
-		
-		if slot.item.resource.subtype == subtype_:
-			flag = true
-		
-		if flag:
-			options.append(slot.item)
-	
-	options.sort_custom(func(a, b): return a.resource.avg > b.resource.avg)
-	return options
 	
 func update_scrolls() -> void:
 	for scroll in %Scrolls.get_children():
@@ -63,8 +43,12 @@ func recalc_avgs() -> void:
 		slot.item.descriptioncalc_avg()
 	
 func calc_books() -> void:
-	for slot in mage.library.occupied_slots:
-		var equilibrium = slot.item.resource.equilibrium
+	var total = []
+	total.append_array(mage.library.occupied_slots)
+	total.append_array(occupied_slots)
+	
+	for resource in resources:
+		var equilibrium = resource.equilibrium
 		var list = null
 		
 		for list_ in lists:
@@ -77,17 +61,64 @@ func calc_books() -> void:
 			list.equilibrium = equilibrium
 			lists.append(list)
 		
-		list.analogs.append(slot.item.resource)
+		list.analogs.append(resource)
 	
-	books[1] = []
+	incompletes.clear()
 	
 	for list in lists:
+		list.calc_avg()
+		
 		if list.equilibrium.inputs.is_empty():
 			var book = BookResource.new()
 			book.lists.append(list)
-			#book.equilibrium = list.equilibrium
 			book.calc_cycle()
-			books[1].append(book)
+			books.append(book)
+			
+			if book.is_incomplete(self):
+				incompletes.append(book)
 	
-	books[2] = []
-			#print([equilibrium.inputs, equilibrium.outputs, list.analogs.size()])
+	var counter = 0
+	
+	while !incompletes.is_empty() and counter < 5:
+		counter += 1
+		var n = incompletes[0].lists.size() + 1
+		var originals = []
+		originals.append_array(incompletes)
+		incompletes.clear()
+		
+		for original in originals:
+			for list in original.reissues:
+				var reissue = BookResource.new()
+				reissue.lists.append_array(original.lists)
+				reissue.lists.append(list)
+				reissue.calc_cycle()
+				books.append(reissue)
+				
+				if reissue.is_incomplete(self):
+					incompletes.append(reissue)
+	
+	var bests = []
+	books.sort_custom(func(a, b): return a.avg > b.avg)
+	
+	for book in books:
+		if book.avg < books[0].avg:
+			break
+		else:
+			bests.append(book)
+	
+	best_book = bests.pick_random()
+	
+	print(best_book.avg)
+	
+func place_best_book() -> void:
+	erase_slots()
+	var index = 0
+	
+	for list in best_book.lists:
+		var scroll = resources[list.get_best_scroll_resource()]
+		var slot = %Slots.get_child(index)
+		suit_up(slot, scroll)
+		index += 1
+	
+func erase_slots() -> void:
+	pass

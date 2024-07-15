@@ -31,6 +31,7 @@ func _ready() -> void:
 	await get_tree().process_frame
 	resort_items()
 	mage.bagua.find_best_items()
+	mage.grimoire.find_best_items()
 	
 func add_item(item_: Item) -> void:
 	add_child(item_)

@@ -8,6 +8,7 @@ class_name ScrollResource extends ItemResource
 @export var aspects: Array[DoubletResource]
 @export var equilibrium: EquilibriumResource = EquilibriumResource.new()
 
+@export var prioritized_elements: Array[String]
 #@export_subgroup("Digits")
 @export_range(0, 6, 1) var input_limit: int = 0
 @export_range(0, 4, 1) var output_limit: int = 0
