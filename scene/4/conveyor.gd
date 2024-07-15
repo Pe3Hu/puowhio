@@ -4,6 +4,7 @@ class_name Conveyor extends PanelContainer
 @export var mage: Mage
 
 @onready var orb_scene = load("res://scene/4/orb.tscn")
+@onready var orbs = %Orbs
 
 var front_slot: Slot
 var back_slo: Slot
@@ -28,7 +29,8 @@ func add_orb(element_: String) -> void:
 	%Orbs.add_child(orb)
 	#await get_tree().physics_frame
 	front_slot.orb = orb
-	orb.resource = Global.tres[element_]
+	orb.element = element_
+	orb.icon_update()
 	presences[element_].append(orb)
 	move_front_slot()
 	

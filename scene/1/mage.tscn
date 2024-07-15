@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://1yohkulykj6"]
+[gd_scene load_steps=13 format=3 uid="uid://1yohkulykj6"]
 
 [ext_resource type="Script" path="res://scene/1/mage.gd" id="1_6hep8"]
 [ext_resource type="PackedScene" uid="uid://c7p4hl7huywo5" path="res://scene/1/statistic.tscn" id="2_a3gt3"]
 [ext_resource type="PackedScene" uid="uid://crsiesfkvlbmp" path="res://scene/3/bagua.tscn" id="2_u663w"]
 [ext_resource type="PackedScene" uid="uid://coe30eahgmn82" path="res://scene/4/conveyor.tscn" id="3_h2y30"]
 [ext_resource type="PackedScene" uid="uid://bkitagn5whwec" path="res://scene/3/bar.tscn" id="3_pe6ph"]
+[ext_resource type="Script" path="res://resource/statistic/statisticResource.gd" id="3_ve4iq"]
 [ext_resource type="PackedScene" uid="uid://dj3oxp30ak301" path="res://scene/2/grimoire.tscn" id="4_o2k1l"]
 [ext_resource type="PackedScene" uid="uid://cicawte8jygu3" path="res://scene/2/library.tscn" id="5_ycwya"]
 [ext_resource type="PackedScene" uid="uid://d56kp15aev" path="res://scene/3/inventory.tscn" id="6_488wl"]
@@ -12,7 +13,46 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bbq8e"]
 
-[node name="Mage" type="PanelContainer" node_paths=PackedStringArray("hsm", "statistic", "conveyor", "grimoire", "bagua", "inventory", "library", "health")]
+[sub_resource type="Resource" id="Resource_2s3jp"]
+script = ExtResource("3_ve4iq")
+damage_multiplier = 0
+damage_modifier = 0
+evasion_chance = 15
+accuracy_chance = 85
+critical_multiplier = 150
+critical_chance = 15
+armor_multiplier = 0
+armor_modifier = 0
+health_limit = 100
+stamina_limit = 100
+strength_multiplier = 100
+dexterity_multiplier = 100
+intellect_multiplier = 100
+will_multiplier = 100
+strength_modifier = 0
+dexterity_modifier = 0
+intellect_modifier = 0
+will_modifier = 0
+damage_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+damage_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+evasion_chance_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+accuracy_chance_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+critical_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+critical_chance_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+armor_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+armor_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+health_limit_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+stamina_limit_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+strength_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+dexterity_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+intellect_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+will_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+strength_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+dexterity_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+intellect_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+will_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+
+[node name="Mage" type="PanelContainer" node_paths=PackedStringArray("hsm", "statistic", "conveyor", "grimoire", "bagua", "inventory", "library", "health", "stamina")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -35,6 +75,7 @@ bagua = NodePath("HBox/VBox2/Bagua")
 inventory = NodePath("HBox/VBox2/Inventory")
 library = NodePath("HBox/VBox1/VBox/Library")
 health = NodePath("HBox/VBox1/Health")
+stamina = NodePath("HBox/VBox1/Stamina")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -44,7 +85,7 @@ alignment = 1
 [node name="Statistic" parent="HBox" node_paths=PackedStringArray("mage") instance=ExtResource("2_a3gt3")]
 layout_mode = 2
 mage = NodePath("../..")
-refreshed = false
+resource = SubResource("Resource_2s3jp")
 
 [node name="VBox1" type="VBoxContainer" parent="HBox"]
 layout_mode = 2
@@ -58,6 +99,16 @@ proprietor = NodePath("../../..")
 texture_size = Vector2(180, 16)
 color_under = Color(1, 0.411765, 0.411765, 1)
 color_progress = Color(0.75, 0.105, 0.105, 1)
+value = 70
+
+[node name="Stamina" parent="HBox/VBox1" node_paths=PackedStringArray("proprietor") instance=ExtResource("3_pe6ph")]
+custom_minimum_size = Vector2(180, 16)
+layout_mode = 2
+type = "stamina"
+proprietor = NodePath("../../..")
+texture_size = Vector2(180, 16)
+color_under = Color(1, 1, 0.41, 1)
+color_progress = Color(0.75, 0.75, 0.105, 1)
 value = 70
 
 [node name="Conveyor" parent="HBox/VBox1" node_paths=PackedStringArray("mage") instance=ExtResource("3_h2y30")]
@@ -78,6 +129,7 @@ layout_mode = 2
 mage = NodePath("../../../..")
 
 [node name="VBox2" type="VBoxContainer" parent="HBox"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
@@ -91,5 +143,4 @@ layout_mode = 2
 mage = NodePath("../../..")
 
 [node name="LimboHSM" parent="." node_paths=PackedStringArray("mage") instance=ExtResource("9_lu2iu")]
-update_mode = 0
 mage = NodePath("..")

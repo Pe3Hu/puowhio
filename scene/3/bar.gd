@@ -2,7 +2,7 @@
 class_name Bar extends PanelContainer
 
 
-@export_enum("health") var type: String = "health"
+@export_enum("health", "stamina") var type: String = "health"
 
 @export_enum("standard", "drain") var tempo: String = "standard"
 
@@ -50,10 +50,11 @@ class_name Bar extends PanelContainer
 			var tween = create_tween().set_parallel()
 			var modifier = get(tempo + "_modifier")
 			var time = treatment_time * modifier
+			var points = type.capitalize()[0]+ "P "
 			
-			tween.tween_property(%Fullness, "value", value, treatment_time)
+			tween.tween_property(%Fullness, "value", value, time)
 			tween.tween_method(
-				func(value): %Label.text = "HP " + str(round(value)), %Fullness.value, value, treatment_time
+				func(value): %Label.text = points + str(round(value)), %Fullness.value, value, time
 				)
 			tween.connect("finished", on_tween_finished)
 	get:
@@ -65,12 +66,12 @@ class_name Bar extends PanelContainer
 func on_tween_finished() -> void:
 	match type:
 		"health":
-			if value > 0:
-				proprietor.call_pass()
-			else:
-				proprietor.concede_defeat()
-
-
+			if proprietor.hsm.get_active_state().name == "inflicting":
+				if value > 0:
+					proprietor.call_pass()
+				else:
+					proprietor.concede_defeat()
+	
 func update_cavity_value() -> void:
 	var income = 0
 	var _limit = 0 #stomach.limit - stomach.value

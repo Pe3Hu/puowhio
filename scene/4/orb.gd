@@ -32,7 +32,8 @@ func icon_update() -> void:
 	%TextureRect.size = base_size
 	#%TextureRect.texture = element.texture
 	%TextureRect.modulate = Global.color.element[element]
-	%TextureRect.texture = "res://asset/png/orb/" + element + ".png"
+	%TextureRect.texture = load("res://asset/png/orb/" + element + ".png")
+	pass
 	
 func move_to_slot_position(delay_: float) -> void:
 	if true:

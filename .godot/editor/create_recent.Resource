@@ -1,4 +1,5 @@
-DoubletResource
 Resource
+DoubletResource
+AffixResource
 ScrollResource
 CoreResource

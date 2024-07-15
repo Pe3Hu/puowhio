@@ -8,7 +8,9 @@ class_name Battle extends PanelContainer
 
 @export var turn: int = 0
 
+@onready var mages = %Mages
 
 func _ready() -> void:
 	await get_tree().process_frame
 	current_mage.reset()
+	#current_mage.start_turn()

@@ -1,35 +1,166 @@
-[gd_scene load_steps=21 format=3 uid="uid://c7p4hl7huywo5"]
+[gd_scene load_steps=24 format=3 uid="uid://c7p4hl7huywo5"]
 
 [ext_resource type="PackedScene" uid="uid://i14mnupyvsff" path="res://scene/0/doublet.tscn" id="1_p1m0h"]
 [ext_resource type="Script" path="res://scene/1/statistic.gd" id="1_pjymf"]
-[ext_resource type="Resource" uid="uid://c0elnjrcc3xhb" path="res://resource/parameter/damage modifier.tres" id="2_1cwpc"]
-[ext_resource type="Resource" uid="uid://d00snfx2s2j0g" path="res://resource/core/strength.tres" id="2_jv4kf"]
-[ext_resource type="Resource" uid="uid://dor7lp3vfil63" path="res://resource/core/dexterity.tres" id="3_ntrsa"]
-[ext_resource type="Resource" uid="uid://cq7lteho04d2x" path="res://resource/core/intellect.tres" id="4_7be4j"]
-[ext_resource type="Resource" uid="uid://dobt254p05ymb" path="res://resource/parameter/damage multiplier.tres" id="4_npvfp"]
-[ext_resource type="Resource" uid="uid://vesjxs8ch023" path="res://resource/parameter/accuracy chance.tres" id="5_sf3va"]
-[ext_resource type="Resource" uid="uid://tu8vwlpsrske" path="res://resource/core/will.tres" id="5_sneee"]
-[ext_resource type="Resource" uid="uid://b4wmpo4gre3tc" path="res://resource/parameter/evasion chance.tres" id="6_jmslm"]
-[ext_resource type="Resource" uid="uid://o5ovxot20y3d" path="res://resource/parameter/critical chance.tres" id="7_4s28r"]
-[ext_resource type="Resource" uid="uid://vr6w127hxbnr" path="res://resource/parameter/critical multiplier.tres" id="8_ymf0k"]
-[ext_resource type="Resource" uid="uid://coc4dvlvxekg5" path="res://resource/parameter/armor modifier.tres" id="9_2ryyd"]
-[ext_resource type="Resource" uid="uid://b6b07ncodpgb7" path="res://resource/parameter/armor multiplier.tres" id="10_b2q3f"]
-[ext_resource type="Resource" uid="uid://dg1u5wkxnrqud" path="res://resource/parameter/health limit.tres" id="11_adweo"]
-[ext_resource type="Resource" uid="uid://dhavhg1h1w6ki" path="res://resource/statistic/strength.tres" id="16_ywlvn"]
-[ext_resource type="Resource" uid="uid://deow2swudtudp" path="res://resource/statistic/dexterity.tres" id="17_mo552"]
-[ext_resource type="Resource" uid="uid://dttbjeb2x7nkp" path="res://resource/statistic/intellect.tres" id="18_5rtt1"]
-[ext_resource type="Resource" uid="uid://d18u422oi50ls" path="res://resource/statistic/will.tres" id="19_lea5g"]
+[ext_resource type="Script" path="res://resource/core/coreResource.gd" id="2_viduw"]
+[ext_resource type="Script" path="res://resource/doublet/doubletResource.gd" id="4_sclfr"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l7gpq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyumh"]
+
+[sub_resource type="Resource" id="Resource_23ftn"]
+script = ExtResource("2_viduw")
+aspect = "strength"
+level = 1
+current = 9
+limit = 16
+is_barriered = true
+
+[sub_resource type="Resource" id="Resource_rjwel"]
+script = ExtResource("2_viduw")
+aspect = "dexterity"
+level = 1
+current = 9
+limit = 16
+is_barriered = true
+
+[sub_resource type="Resource" id="Resource_3668j"]
+script = ExtResource("2_viduw")
+aspect = "intellect"
+level = 1
+current = 9
+limit = 16
+is_barriered = true
+
+[sub_resource type="Resource" id="Resource_x2pra"]
+script = ExtResource("2_viduw")
+aspect = "will"
+level = 1
+current = 9
+limit = 16
+is_barriered = true
+
+[sub_resource type="Resource" id="Resource_fx6sg"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "modifier"
+type = "parameter"
+subtype = "damage"
+value = 0
+
+[sub_resource type="Resource" id="Resource_36cmr"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "multiplier"
+type = "parameter"
+subtype = "damage"
+value = 0
+
+[sub_resource type="Resource" id="Resource_rbgcj"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "chance"
+type = "parameter"
+subtype = "evasion"
+value = 15
+
+[sub_resource type="Resource" id="Resource_diptl"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "chance"
+type = "parameter"
+subtype = "accuracy"
+value = 15
+
+[sub_resource type="Resource" id="Resource_ppadl"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "chance"
+type = "parameter"
+subtype = "critical"
+value = 15
+
+[sub_resource type="Resource" id="Resource_7wyuq"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "multiplier"
+type = "parameter"
+subtype = "critical"
+value = 150
+
+[sub_resource type="Resource" id="Resource_ntpgp"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "modifier"
+type = "parameter"
+subtype = "armor"
+value = 0
+
+[sub_resource type="Resource" id="Resource_gip30"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "multiplier"
+type = "parameter"
+subtype = "armor"
+value = 0
+
+[sub_resource type="Resource" id="Resource_hnofm"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "limit"
+type = "parameter"
+subtype = "health"
+value = 100
+
+[sub_resource type="Resource" id="Resource_58u2c"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "limit"
+type = "parameter"
+subtype = "stamina"
+value = 100
+
+[sub_resource type="Resource" id="Resource_ic76n"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "limit"
+type = "aspect"
+subtype = "strength"
+value = 9
+
+[sub_resource type="Resource" id="Resource_cdpeb"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "limit"
+type = "aspect"
+subtype = "dexterity"
+value = 9
+
+[sub_resource type="Resource" id="Resource_ktaun"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "limit"
+type = "aspect"
+subtype = "intellect"
+value = 9
+
+[sub_resource type="Resource" id="Resource_etlut"]
+script = ExtResource("4_sclfr")
+time = "permanent"
+measure = "limit"
+type = "aspect"
+subtype = "will"
+value = 9
 
 [node name="Statistic" type="PanelContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_l7gpq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_qyumh")
 script = ExtResource("1_pjymf")
 refreshed = true
-cores = Array[Resource("res://resource/core/coreResource.gd")]([ExtResource("2_jv4kf"), ExtResource("3_ntrsa"), ExtResource("4_7be4j"), ExtResource("5_sneee")])
+cores = Array[ExtResource("2_viduw")]([SubResource("Resource_23ftn"), SubResource("Resource_rjwel"), SubResource("Resource_3668j"), SubResource("Resource_x2pra")])
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -43,57 +174,65 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 2
 
-[node name="Doublet" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
-layout_mode = 2
-panel = NodePath("../../..")
-resource = ExtResource("2_1cwpc")
-
-[node name="Doublet2" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
-layout_mode = 2
-panel = NodePath("../../..")
-resource = ExtResource("4_npvfp")
-
-[node name="Doublet3" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
-layout_mode = 2
-panel = NodePath("../../..")
-resource = ExtResource("5_sf3va")
-value = 15
-
-[node name="Doublet4" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
-layout_mode = 2
-panel = NodePath("../../..")
-resource = ExtResource("6_jmslm")
-value = 15
-
-[node name="Doublet5" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
-layout_mode = 2
-panel = NodePath("../../..")
-resource = ExtResource("7_4s28r")
-value = 15
-
-[node name="Doublet6" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
-layout_mode = 2
-panel = NodePath("../../..")
-resource = ExtResource("8_ymf0k")
-value = 150
-
-[node name="Doublet7" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
-layout_mode = 2
-panel = NodePath("../../..")
-resource = ExtResource("9_2ryyd")
-
-[node name="Doublet8" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
-layout_mode = 2
-panel = NodePath("../../..")
-resource = ExtResource("10_b2q3f")
-
-[node name="Health" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
+[node name="DamageModifier" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 panel = NodePath("../../..")
-resource = ExtResource("11_adweo")
-value = 100
+resource = SubResource("Resource_fx6sg")
+
+[node name="DamageMultiplier" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
+unique_name_in_owner = true
+layout_mode = 2
+panel = NodePath("../../..")
+resource = SubResource("Resource_36cmr")
+
+[node name="EvasionChance" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
+unique_name_in_owner = true
+layout_mode = 2
+panel = NodePath("../../..")
+resource = SubResource("Resource_rbgcj")
+
+[node name="AccuracyChance" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
+unique_name_in_owner = true
+layout_mode = 2
+panel = NodePath("../../..")
+resource = SubResource("Resource_diptl")
+
+[node name="CriticalChance" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
+unique_name_in_owner = true
+layout_mode = 2
+panel = NodePath("../../..")
+resource = SubResource("Resource_ppadl")
+
+[node name="CriticalMultiplier" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
+unique_name_in_owner = true
+layout_mode = 2
+panel = NodePath("../../..")
+resource = SubResource("Resource_7wyuq")
+
+[node name="ArmorModifier" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
+unique_name_in_owner = true
+layout_mode = 2
+panel = NodePath("../../..")
+resource = SubResource("Resource_ntpgp")
+
+[node name="ArmorMultiplier" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
+unique_name_in_owner = true
+layout_mode = 2
+panel = NodePath("../../..")
+resource = SubResource("Resource_gip30")
+
+[node name="HealthLimit" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
+unique_name_in_owner = true
+layout_mode = 2
+panel = NodePath("../../..")
+resource = SubResource("Resource_hnofm")
+
+[node name="StaminaLimit" parent="VBox/Parameters" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
+unique_name_in_owner = true
+layout_mode = 2
+panel = NodePath("../../..")
+resource = SubResource("Resource_58u2c")
 
 [node name="Aspects" type="GridContainer" parent="VBox"]
 unique_name_in_owner = true
@@ -106,22 +245,22 @@ columns = 2
 unique_name_in_owner = true
 layout_mode = 2
 panel = NodePath("../../..")
-resource = ExtResource("16_ywlvn")
+resource = SubResource("Resource_ic76n")
 
 [node name="Dexterity" parent="VBox/Aspects" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
 unique_name_in_owner = true
 layout_mode = 2
 panel = NodePath("../../..")
-resource = ExtResource("17_mo552")
+resource = SubResource("Resource_cdpeb")
 
 [node name="Intellect" parent="VBox/Aspects" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
 unique_name_in_owner = true
 layout_mode = 2
 panel = NodePath("../../..")
-resource = ExtResource("18_5rtt1")
+resource = SubResource("Resource_ktaun")
 
 [node name="Will" parent="VBox/Aspects" node_paths=PackedStringArray("panel") instance=ExtResource("1_p1m0h")]
 unique_name_in_owner = true
 layout_mode = 2
 panel = NodePath("../../..")
-resource = ExtResource("19_lea5g")
+resource = SubResource("Resource_etlut")

@@ -45,8 +45,8 @@ func roll_trigram(resource_: ItemResource) -> void:
 		count -= value
 	
 	for aspect in bases:
-		var resource = BaseResource.new()
-		resource.aspect = aspect
+		var resource = DoubletResource.new()
+		resource.subtype = aspect
 		resource.value = bases[aspect]
 		resource_.bases.append(resource)
 	
@@ -60,9 +60,11 @@ func roll_trigram(resource_: ItemResource) -> void:
 				var parameter = Global.get_random_key(weights)
 				weights.erase(parameter)
 				extremes = Global.dict.affix.title[parameter][resource_.level]
+				var words = parameter.split(" ")
 				
-				var resource = AffixResource.new()
-				resource.parameter = parameter
+				var resource = DoubletResource.new()
+				resource.subtype = words[0]
+				resource.measure = words[1]
 				resource.value = Global.get_random_segment_point(extremes)
 				resource_.affixs.append(resource)
 	
@@ -77,8 +79,9 @@ func roll_scroll(resource_: ItemResource) -> void:
 	extremes = Global.dict.tier.multiplier[resource_.tier]
 	resource_.multiplier = Global.get_random_segment_point(extremes)
 	
-	var resource = AffixResource.new()
-	resource.parameter = "damage multiplier"
+	var resource = DoubletResource.new()
+	resource.subtype = "damage"
+	resource.measure = "multiplier"
 	resource.value = resource_.multiplier
 	resource_.affixs.append(resource)
 	
@@ -102,9 +105,10 @@ func roll_aspects(resource_: ItemResource)  -> void:
 	var measure = remainder / sum
 	
 	for _i in n:
-		var aspect = options.pop_front()
-		var resource = load("res://resource/share/" + aspect + ".tres")
-		#var resource = aspect_resource.insi
+		var resource = DoubletResource.new()
+		resource.type = "aspect"
+		resource.measure = "multiplier"
+		resource.subtype = options.pop_front()
 		resource.value = round(shares[_i] * measure)
 		resource_.aspects.append(resource)
 	
@@ -113,23 +117,21 @@ func roll_orbs(resource_: ItemResource)  -> void:
 	
 	match resource_.subtype:
 		"generator":
-			resource_.output_limit = 1
+			resource_.output_limit = n
 		"converter":
 			pass
 		"duplicator":
 			pass
 		"absorber":
-			resource_.input_limit = 1
+			resource_.input_limit = n
 	
 	for _i in resource_.input_limit:
-		var element = Global.arr.element.pick_random()
-		resource_.input_orbs.append(element)
-		
-		if !resource_.demands.has(element):
-			resource_.demands[element] = 0
-			
-		resource_.demands[element] += 1
+		var element = Global.arr.primordial.pick_random()
+		resource_.equilibrium.change(element, 1)
 	
 	for _i in resource_.output_limit:
-		var element = Global.arr.element.pick_random()
-		resource_.input_orbs.append(element)
+		var element = Global.arr.primordial.pick_random()
+		resource_.equilibrium.change(element, -1)
+	
+	#print([resource_.subtype, resource_.input_orbs, resource_.output_orbs])
+	pass

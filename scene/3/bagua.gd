@@ -32,18 +32,32 @@ func find_best_item(slot_: Slot) -> Array[Item]:
 	
 func suit_up(slot_: Slot, item_: Item) -> void:
 	if slot_.item != null:
+		slot_.item.is_description_locked = false
+		slot_.item.is_description_visible = false
+		
 		for resource in item_.resource.bases:
-			var resources = mage.statistic.get(resource.aspect + "_resources")
+			var resources = mage.statistic.resource.get(resource.subtype + "_" + resource.measure +  "_resources")
 			resources.erase(resource)
-			var doublet = mage.statistic.get(resource.aspect)
-			doublet.value -= resource.value
+			mage.statistic.update_doublet(resource.subtype + "_modifier")
 	
 	slot_.item = item_
+	slot_.item.is_description_visible = true
+	slot_.item.is_description_locked = true
 	item_.move_to_initial_position(0)
 	
 	for resource in item_.resource.bases:
-		var resources = mage.statistic.get(resource.aspect + "_resources")
-		resources.append(resource)
-		var doublet = mage.statistic.get(resource.aspect)
-		doublet.value += resource.value
+		var title = resource.subtype + "_" + resource.measure +  "_resources"
+		var resources = mage.statistic.resource.get(title)
+		
+		if !resources.has(resource):
+			resources.append(resource)
+			mage.statistic.update_doublet(resource.subtype + "_modifier")
+	
+	for resource in item_.resource.affixs:
+		var title = resource.subtype + "_" + resource.measure +  "_resources"
+		var resources = mage.statistic.resource.get(title)
+		
+		if !resources.has(resource):
+			resources.append(resource)
+			mage.statistic.update_doublet(resource.subtype + "_" + resource.measure)
 

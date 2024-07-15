@@ -34,12 +34,12 @@ class_name Description extends MenuBar
 func init_doublets() -> void:
 	for resource in item.resource.bases:
 		var doublet = doublet_scene.instantiate()
-		doublet.set_from_base(resource)
+		doublet.set_from_doublet(resource)
 		%Aspects.add_child(doublet)
 	
 	for resource in item.resource.affixs:
 		var doublet = doublet_scene.instantiate()
-		doublet.set_from_affix(resource)
+		doublet.set_from_doublet(resource)
 		%Parameters.add_child(doublet)
 	
 	if item.resource.type == "scroll":
@@ -47,23 +47,29 @@ func init_doublets() -> void:
 			var doublet = doublet_scene.instantiate()
 			doublet.set_from_doublet(resource)
 			%Aspects.add_child(doublet)
-		
-		recolor()
+	
+	recolor()
 	
 func init_orbs() -> void:
-	for element in item.resource.input_orbs:
-		var orb = orb_scene.instantiate()
-		orb.element = element
-		%Inputs.add_child(orb)
-		
-		#orb.icon_update()
+	%Orbs.visible = true
 	
-	for element in item.resource.output_orbs:
-		var orb = orb_scene.instantiate()
-		orb.element = element
-		%Outputs.add_child(orb)
-		#orb.icon_update()
-	pass
+	for element in item.resource.equilibrium.inputs:
+		var n = abs(item.resource.equilibrium.get(element))
+		
+		for _i in n:
+			var orb = orb_scene.instantiate()
+			%Inputs.add_child(orb)
+			orb.element = element
+			orb.icon_update()
+	
+	for element in item.resource.equilibrium.outputs:
+		var n = abs(item.resource.equilibrium.get(element))
+		
+		for _i in n:
+			var orb = orb_scene.instantiate()
+			%Outputs.add_child(orb)
+			orb.element = element
+			orb.icon_update()
 	
 func recolor() -> void:
 	for doublet in %Aspects.get_children():
@@ -73,9 +79,9 @@ func calc_avg() -> void:
 	item.resource.avg = 0
 	
 	for resource in item.resource.aspects:
-		var doublet = item.slot.proprietor.mage.statistic.get(resource.subtype)
+		var doublet = item.slot.proprietor.mage.statistic.get(resource.subtype + "_modifier")
 		var share = resource.value
-		item.resource.avg += doublet.value * share * float(item.resource.multiplier) / 10000
+		item.resource.avg += doublet.resource.value * share * float(item.resource.multiplier) / 10000
 	
 	item.resource.minimum = floor(float(100 - item.resource.dispersion) / 100 * item.resource.avg)
 	item.resource.maximum = floor(float(100 + item.resource.dispersion) / 100 * item.resource.avg)

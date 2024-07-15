@@ -19,5 +19,3 @@ func _ready() -> void:
 	#var random = Global.rng.randi_range(0, 1)
 	pass
 
-
-

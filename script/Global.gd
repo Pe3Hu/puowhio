@@ -20,14 +20,40 @@ func _ready() -> void:
 	init_color()
 	init_dict()
 	init_flag()
-	init_tres()
 
 
 func init_arr() -> void:
 	arr.element = ["fire", "earth", "nature", "wind", "ice", "aqua", "storm", "lava"]
+	arr.primordial = ["aqua", "fire", "wind", "earth"]
+	arr.lateral = ["ice", "storm", "lava", "nature"]
 	arr.aspect = ["strength", "dexterity", "intellect", "will"]
 	arr.order = [0, 1, 2, 3, 4, 5, 6]
 	arr.scroll = ["generator", "converter", "duplicator", "absorber"]
+	arr.parameter = [
+		"damage_multiplier", 
+		"damage_modifier", 
+		"evasion_chance",
+		"accuracy_chance", 
+		"critical_multiplier", 
+		"critical_chance",
+		"armor_multiplier", 
+		"armor_modifier", 
+		"health_limit", 
+		"stamina_limit"
+		]
+	arr.aspect = ["strength", "dexterity", "intellect", "will"]
+	arr.avg = [
+		#"damage_modifier", 
+		"strength_modifier", 
+		"dexterity_modifier", 
+		"intellect_modifier",
+		"will_modifier",
+		#"damage_multiplier", 
+		"strength_multiplier", 
+		"dexterity_multiplier", 
+		"intellect_multiplier",
+		"will_multiplier"
+		]
 
 
 func init_num() -> void:
@@ -276,11 +302,6 @@ func init_flag() -> void:
 	flag.is_dragging = false
 
 
-func init_tres() -> void:
-	for element in Global.arr.element:
-		tres[element] = load("res://resource/orb/" + element + ".tres")
-
-
 func init_vec():
 	vec.size = {}
 	vec.size.sixteen = Vector2(16, 16)
@@ -309,16 +330,16 @@ func init_color():
 	#
 	#for element in arr.element:
 		#var _h = h / arr.element.size() * arr.element.find(element)
-		#color.element[element] = Color.from_hsv(_h / h, 0.6, 0.8)
+		#color.element[element] = Color.from_hsv(_h / h, 0.5, 0.8)
 	
-	color.element.fire = Color.from_hsv(0 / h, 0.6, 0.8)
-	color.element.earth = Color.from_hsv(45 / h, 0.6, 0.8)
-	color.element.nature = Color.from_hsv(90 / h, 0.6, 0.8)
-	color.element.wind = Color.from_hsv(135 / h, 0.6, 0.8)
-	color.element.ice = Color.from_hsv(180 / h, 0.6, 0.8)
-	color.element.aqua = Color.from_hsv(225 / h, 0.6, 0.8)
-	color.element.storm = Color.from_hsv(270 / h, 0.6, 0.8)
-	color.element.lava = Color.from_hsv(315 / h, 0.6, 0.8)
+	color.element.fire = Color.from_hsv(0 / h, 0.7, 0.9)
+	color.element.earth = Color.from_hsv(45 / h, 0.7, 0.9)
+	color.element.nature = Color.from_hsv(90 / h, 0.7, 0.9)
+	color.element.wind = Color.from_hsv(135 / h, 0.7, 0.9)
+	color.element.ice = Color.from_hsv(180 / h, 0.7, 0.9)
+	color.element.aqua = Color.from_hsv(225 / h, 0.7, 0.9)
+	color.element.storm = Color.from_hsv(270 / h, 0.7, 0.9)
+	color.element.lava = Color.from_hsv(315 / h, 0.7, 0.9)
 
 
 

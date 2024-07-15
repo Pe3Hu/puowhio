@@ -34,58 +34,64 @@ func _ready() -> void:
 	set_active(true)
 	
 func idle_enter() -> void:
+	if mage.is_active:
+		print("idle")
 	pass
-	#print("idle")
 	
 func idle_exit() -> void:
 	pass
 
 func searching_enter() -> void:
-	#print("searching")
-	
-	for scroll in mage.grimoire.ordered_scrolls:
-		if mage.conveyor.check_orbs_availability(scroll):
-			active_scroll = scroll
-			dispatch(&"searching_ended")
-			return
-	
-	if active_scroll == null:
-		return 
+	if mage.is_active:
+		print("searching")
+		
+		for scroll in mage.grimoire.ordered_scrolls:
+			if mage.conveyor.check_orbs_availability(scroll):
+				active_scroll = scroll
+				dispatch(&"searching_ended")
+				return
+		
+		if active_scroll == null:
+			return 
 	
 func searching_exit() -> void:
 	pass
 	
 func consuming_enter() -> void:
-	#print("consuming")
-	
-	for element in active_scroll.resource.demands:
-		for _i in active_scroll.resource.demands[element]:
-			var orb = mage.conveyor.presences[element].front()
-			orb.smash()
-	
-	dispatch(&"consuming_ended")
+	if mage.is_active:
+		print("consuming")
+		#var a = active_scroll.resource.output_orbs
+		for element in active_scroll.resource.demands:
+			for _i in active_scroll.resource.demands[element]:
+				var orb = mage.conveyor.presences[element].front()
+				orb.smash()
+		
+		dispatch(&"consuming_ended")
 	
 func consuming_exit() -> void:
 	pass
 	
 func creating_enter() -> void:
-	#print("creating")
+	if mage.is_active:
+		print("creating")
+		#var a = active_scroll.resource.output_orbs
+		for element in active_scroll.resource.output_orbs:
+			mage.conveyor.add_orb(element)
 	
-	for element in active_scroll.resource.output_orbs:
-		mage.conveyor.add_orb(element)
-	
-	dispatch(&"creating_ended")
+		dispatch(&"creating_ended")
 	
 func creating_exit() -> void:
 	pass
 	
 func inflicting_enter() -> void:
-	#print("inflicting")
-	
-	Global.rng.randomize()
-	var damage = Global.rng.randi_range(active_scroll.resource.minimum, active_scroll.resource.maximum)
-	mage.health.value -= damage
-	dispatch(&"inflicting_ended")
+	if mage.is_active:
+		print("inflicting")
+		
+		Global.rng.randomize()
+		var damage = Global.rng.randi_range(active_scroll.resource.minimum, active_scroll.resource.maximum)
+		mage.health.value -= damage
+		dispatch(&"inflicting_ended")
 	
 func inflicting_exit() -> void:
 	active_scroll = null
+	mage.is_active = false

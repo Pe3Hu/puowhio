@@ -16,10 +16,16 @@ script = ExtResource("1_imv5l")
 current_mage = NodePath("Mages/Mage")
 
 [node name="Mages" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
 [node name="Mage" parent="Mages" node_paths=PackedStringArray("battle") instance=ExtResource("1_pwwsu")]
+layout_mode = 2
+battle = NodePath("../..")
+
+[node name="Mage2" parent="Mages" node_paths=PackedStringArray("battle") instance=ExtResource("1_pwwsu")]
+visible = false
 layout_mode = 2
 battle = NodePath("../..")

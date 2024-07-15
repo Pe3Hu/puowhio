@@ -22,6 +22,7 @@ func _ready() -> void:
 			resource.level = 1
 			resource.type = "scroll"
 			resource.subtype = subtype
+			#resource.equilibrium = EquilibriumResource.new()
 			var item = nexus.generate_item(resource)
 			add_item(item)
 	
@@ -39,3 +40,7 @@ func add_item(item_: Item) -> void:
 func resort_items() -> void:
 	for slot in occupied_slots:
 		slot.item.move_to_initial_position(0)
+	
+func recalc_avgs() -> void:
+	for slot in occupied_slots:
+		slot.item.description.calc_avg()

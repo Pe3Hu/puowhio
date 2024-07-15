@@ -13,8 +13,8 @@ script = ExtResource("2_ugwmq")
 type = "trigram"
 rarity = "uncommon"
 level = 0
-bases = Array[Resource("res://resource/item/baseResource.gd")]([])
-affixs = Array[Resource("res://resource/item/affixResource.gd")]([])
+bases = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+affixs = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0bm3"]
 size = Vector2(64, 64)

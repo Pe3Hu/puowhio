@@ -26,20 +26,10 @@ class_name Doublet extends PanelContainer
 		cell_size = cell_size_
 		
 		if is_node_ready():
-			%Icon.custom_minimum_size = cell_size
+			%Icon.custom_inimum_size = cell_size
 			%Label.custom_minimum_size = Vector2(cell_size.x * 2, base_cell_size.y)
 	get:
 		return cell_size
-
-@export var value: int = 0:
-	set(value_):
-		value = value_
-		%Label.text = str(value)
-		
-		if resource.measure == "percentage":
-			%Label.text += "%"
-	get:
-		return value
 
 const base_cell_size = Vector2(21, 21)
 
@@ -53,39 +43,25 @@ func recolor(flag_: bool) -> void:
 	%Icon.modulate = color
 	%Label.set("theme_override_colors/font_color", color)
 	
-func set_from_base(resource_: BaseResource) -> void:
-	resource = load("res://resource/statistic/" + resource_.aspect + ".tres")
-	update_ui()
-	value = resource_.value
-	
-func set_from_affix(resource_: AffixResource) -> void:
-	resource = load("res://resource/parameter/" + resource_.parameter + ".tres")
-	update_ui()
-	value = resource_.value
-	
 func set_from_doublet(resource_: DoubletResource) -> void:
 	resource = resource_
 	update_ui()
-	value = resource_.value
+	update_label()
 	
 func update_ui() -> void:
 	var _path = resource.type
 	var _name = resource.subtype
 	
-	if _name.contains("modifier"):
-		var aspect = _name.split(" ")[0]
-		
-		if Global.arr.aspect.has(aspect):
-			_path = "aspect"
-			_name = aspect
+	if resource.type == "parameter":
+		_name += " " + resource.measure
 		
 	%Icon.texture = load("res://asset/png/" + _path +  "/" + _name + ".png")
 	
-	if value == 0 and %Label.text == "":
-		value = resource.value
-	
-		if resource.measure == "percentage":
-			%Label.text += "%"
-	
 	if resource.type == "aspect":
 		recolor(resource.time == "temporary")
+	
+func update_label() -> void:
+	%Label.text = str(resource.value)
+	
+	if resource.measure == "multiplier" or resource.measure == "chance":
+		%Label.text += "%"

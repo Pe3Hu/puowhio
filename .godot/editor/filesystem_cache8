@@ -1,12 +1,12 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1720963433
+::res://::1721019254
 ::res://addons/::1720963232
 ::res://addons/limboai/::1720963232
 LICENSE.md::TextFile::-1::1720948488::0::1::::<><>::
 LOGO_LICENSE.md::TextFile::-1::1720948488::0::1::::<><>::
 README.md::TextFile::-1::1720948488::0::1::::<><>::
 version.txt::TextFile::-1::1720948494::0::1::::<><>::
-::res://addons/limboai/bin/::1720963428
+::res://addons/limboai/bin/::1721012100
 limboai.gdextension::GDExtension::-1::1720948488::0::1::::<><>::
 ::res://addons/limboai/bin/liblimboai.macos.editor.framework/::1720963232
 ::res://addons/limboai/bin/liblimboai.macos.template_release.framework/::1720963232
@@ -120,7 +120,7 @@ lava.png::CompressedTexture2D::3407003466717775789::1720753663::1720775228::1:::
 nature.png::CompressedTexture2D::6768026016825826592::1720753663::1720775228::1::::<><>::
 storm.png::CompressedTexture2D::2536539546347337291::1720753693::1720775228::1::::<><>::
 wind.png::CompressedTexture2D::441505656631196946::1720753692::1720775228::1::::<><>::
-::res://asset/png/parameter/::1720963232
+::res://asset/png/parameter/::1721022189
 accuracy chance.png::CompressedTexture2D::1845438933211737276::1720750704::1720756769::1::::<><>::
 armor modifier.png::CompressedTexture2D::2514828785093099996::1720759830::1720759943::1::::<><>::
 armor multiplier.png::CompressedTexture2D::4460040636275817616::1720751305::1720756769::1::::<><>::
@@ -128,99 +128,74 @@ critical chance.png::CompressedTexture2D::8438274589315421179::1720751588::17207
 critical multiplier.png::CompressedTexture2D::8994562016121377868::1720751635::1720756769::1::::<><>::
 damage modifier.png::CompressedTexture2D::5858539672439159549::1720752731::1720756769::1::::<><>::
 damage multiplier.png::CompressedTexture2D::6000447366254134141::1720752781::1720756768::1::::<><>::
+dexterity modifier.png::CompressedTexture2D::4405642272184009916::1720753595::1721022191::1::::<><>::
 evasion chance.png::CompressedTexture2D::6633736928935053251::1720759917::1720759943::1::::<><>::
 health limit.png::CompressedTexture2D::8343858087994382739::1720760015::1720760034::1::::<><>::
-::res://resource/::1720963233
-doubletResource.gd::GDScript::-1::1720934278::0::1::::DoubletResource<>Resource<>::
-::res://resource/core/::1720963232
-coreResource.gd::GDScript::-1::1720939386::0::1::::CoreResource<>Resource<>::
-dexterity.tres::Resource/Resource::8178963703398183062::1720764549::0::1::::<><>::res://resource/core/coreResource.gd
-intellect.tres::Resource/Resource::5962624992306937265::1720934744::0::1::::<><>::res://resource/core/coreResource.gd
-strength.tres::Resource/Resource::8966709006471302420::1720764181::0::1::::<><>::res://resource/core/coreResource.gd
-will.tres::Resource/Resource::1376917919849933416::1720764181::0::1::::<><>::res://resource/core/coreResource.gd
-::res://resource/item/::1720963232
-affixResource.gd::GDScript::-1::1720873138::0::1::::AffixResource<>Resource<>::
-baseResource.gd::GDScript::-1::1720867817::0::1::::BaseResource<>Resource<>::
-itemResource.gd::GDScript::-1::1720926788::0::1::::ItemResource<>Resource<>::
+intellect modifier.png::CompressedTexture2D::9104438773593946737::1720753519::1721022191::1::::<><>::
+stamina limit.png::CompressedTexture2D::8773432475024081195::1721012577::1721012636::1::::<><>::
+strength modifier.png::CompressedTexture2D::1724103005255388686::1720753546::1721022191::1::::<><>::
+will modifier.png::CompressedTexture2D::7600923835757903934::1720754128::1721022191::1::::<><>::
+::res://resource/::1721019254
+::res://resource/combo/::1721021013
+bookResource.gd::GDScript::-1::1721021013::0::1::::BookResource<>Resource<>::
+equilibriumResource.gd::GDScript::-1::1721017558::0::1::::EquilibriumResource<>Resource<>::
+listResource.gd::GDScript::-1::1721016610::0::1::::ListResource<>Resource<>::
+::res://resource/core/::1721019160
+coreResource.gd::GDScript::-1::1721012124::0::1::::CoreResource<>Resource<>::
+::res://resource/doublet/::1721020378
+doubletResource.gd::GDScript::-1::1721020378::0::1::::DoubletResource<>Resource<>::
+::res://resource/item/::1721020930
+itemResource.gd::GDScript::-1::1721020356::0::1::::ItemResource<>Resource<>::
 nucleusResource.gd::GDScript::-1::1720927163::0::1::::NucleusResource<>ItemResource<>::
-scrollResource.gd::GDScript::-1::1720961975::0::1::::ScrollResource<>ItemResource<>::
+scrollResource.gd::GDScript::-1::1721020930::0::1::::ScrollResource<>ItemResource<>::
 trigramResource.gd::GDScript::-1::1720927163::0::1::::TrigramResource<>ItemResource<>::
-::res://resource/orb/::1720963232
-aqua.tres::Resource/OrbResource::4972117135995194046::1720951076::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://mu1optdj243h::::res://asset/png/orb/aqua.png
-earth.tres::Resource/OrbResource::552145319530572574::1720961054::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://d1mta2rw7e7yl::::res://asset/png/orb/earth.png
-fire.tres::Resource/OrbResource::7268525128245481434::1720961054::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://bu4opsiwdirlu::::res://asset/png/orb/fire.png
-ice.tres::Resource/OrbResource::6977011916711740481::1720961054::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://dje84ghmk142c::::res://asset/png/orb/ice.png
-lava.tres::Resource/OrbResource::4791056528522642094::1720961054::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://bosm3427117dx::::res://asset/png/orb/lava.png
-nature.tres::Resource/OrbResource::7222544283275329910::1720961054::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://c3oqnua4vec5m::::res://asset/png/orb/nature.png
+::res://resource/orb/::1720963565
 orbResource.gd::GDScript::-1::1720951076::0::1::::OrbResource<>Resource<>::
-storm.tres::Resource/OrbResource::5740098684327554589::1720961054::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://bceyo2yey77j0::::res://asset/png/orb/storm.png
-wind.tres::Resource/OrbResource::3183117029630589953::1720961054::0::1::::<><>::res://resource/orb/orbResource.gd<>uid://gj4se578j0vm::::res://asset/png/orb/wind.png
-::res://resource/parameter/::1720963233
-accuracy chance.tres::Resource/Resource::1483333442775739022::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-armor modifier.tres::Resource/Resource::5761381204966967426::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-armor multiplier.tres::Resource/Resource::4565914970984145218::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-critical chance.tres::Resource/Resource::1045463913689660531::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-critical multiplier.tres::Resource/Resource::1510983061240380855::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-damage modifier.tres::Resource/Resource::6536511570660942795::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-damage multiplier.tres::Resource/Resource::8145173700279790745::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-dexterity modifier.tres::Resource/Resource::1633366482404326132::1720936300::0::1::::<><>::res://resource/doubletResource.gd
-evasion chance.tres::Resource/Resource::4468069631028876840::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-health limit.tres::Resource/Resource::7635338020210349603::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-intellect modifier.tres::Resource/Resource::2066759669681646187::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-strength modifier.tres::Resource/Resource::8811076609210567446::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-will modifier.tres::Resource/Resource::3108060907661622119::1720934701::0::1::::<><>::res://resource/doubletResource.gd
 ::res://resource/scroll/::1720934441
-::res://resource/share/::1720963233
-dexterity.tres::Resource/Resource::7222051548194343044::1720934545::0::1::::<><>::res://resource/doubletResource.gd
-intellect.tres::Resource/Resource::4546816734700469858::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-strength.tres::Resource/Resource::1339355291965244343::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-will.tres::Resource/Resource::6247958555192041663::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-::res://resource/statistic/::1720963233
-dexterity.tres::Resource/Resource::7470303684784051213::1720935037::0::1::::<><>::res://resource/doubletResource.gd
-intellect.tres::Resource/Resource::8532150259563935015::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-strength.tres::Resource/Resource::7651871869609669128::1720934701::0::1::::<><>::res://resource/doubletResource.gd
-will.tres::Resource/Resource::9053564039918857180::1720934701::0::1::::<><>::res://resource/doubletResource.gd
+::res://resource/share/::1721019211
+::res://resource/statistic/::1721019051
+statisticResource.gd::GDScript::-1::1721018572::0::1::::<>Resource<>::
 ::res://scene/::1720963233
-::res://scene/0/::1720963233
-description.gd::GDScript::-1::1720962010::0::1::::Description<>MenuBar<>::
-description.tscn::PackedScene::7193115981877155133::1720963067::0::1::::<><>::res://scene/0/description.gd<>uid://33eqagvh85us::::res://asset/font/digital/Inter-Black.ttf
-doublet.gd::GDScript::-1::1720941941::0::1::::Doublet<>PanelContainer<>::
-doublet.tscn::PackedScene::616967507440989439::1720943095::0::1::::<><>::res://scene/0/doublet.gd<>uid://33eqagvh85us::::res://asset/font/digital/Inter-Black.ttf
-nexus.gd::GDScript::-1::1720963085::0::1::::Nexus<>PanelContainer<>::
+::res://scene/0/::1721022134
+description.gd::GDScript::-1::1721021646::0::1::::Description<>MenuBar<>::
+description.tscn::PackedScene::7193115981877155133::1721022098::0::1::::<><>::res://scene/0/description.gd<>uid://33eqagvh85us::::res://asset/font/digital/Inter-Black.ttf
+doublet.gd::GDScript::-1::1721022134::0::1::::Doublet<>PanelContainer<>::
+doublet.tscn::PackedScene::616967507440989439::1721017904::0::1::::<><>::res://scene/0/doublet.gd<>uid://33eqagvh85us::::res://asset/font/digital/Inter-Black.ttf
+nexus.gd::GDScript::-1::1721021729::0::1::::Nexus<>PanelContainer<>::
 nexus.tscn::PackedScene::1538898509679328175::1720875637::0::1::::<><>::res://scene/0/nexus.gd
 slot.gd::GDScript::-1::1720959824::0::1::::Slot<>PanelContainer<>::
-slot.tscn::PackedScene::829290730945353865::1720963067::0::1::::<><>::res://scene/0/slot.gd<>uid://ciik3nxfc1ugo::::res://asset/png/item/slot.png
-world.gd::GDScript::-1::1720961483::0::1::::World<>Node<>::
+slot.tscn::PackedScene::829290730945353865::1721015136::0::1::::<><>::res://scene/0/slot.gd<>uid://ciik3nxfc1ugo::::res://asset/png/item/slot.png
+world.gd::GDScript::-1::1721012411::0::1::::World<>Node<>::
 world.tscn::PackedScene::8246655032211948728::1720875424::0::1::::<><>::res://scene/0/world.gd<>uid://v6po0i7b41y6::::res://scene/0/nexus.tscn<>uid://bseteyq6bu7a6::::res://scene/1/battle.tscn
-::res://scene/1/::1720963276
-battle.gd::GDScript::-1::1720962982::0::1::::Battle<>PanelContainer<>::
-battle.tscn::PackedScene::3659239432920037167::1720962148::0::1::::<><>::res://scene/1/battle.gd<>uid://1yohkulykj6::::res://scene/1/mage.tscn
-mage.gd::GDScript::-1::1720963067::0::1::::Mage<>PanelContainer<>::
-mage.tscn::PackedScene::55156414582476393::1720963085::0::1::::<><>::res://scene/1/mage.gd<>uid://c7p4hl7huywo5::::res://scene/1/statistic.tscn<>uid://crsiesfkvlbmp::::res://scene/3/bagua.tscn<>uid://coe30eahgmn82::::res://scene/4/conveyor.tscn<>uid://bkitagn5whwec::::res://scene/3/bar.tscn<>uid://dj3oxp30ak301::::res://scene/2/grimoire.tscn<>uid://cicawte8jygu3::::res://scene/2/library.tscn<>uid://d56kp15aev::::res://scene/3/inventory.tscn<>uid://ha0pebaf10xy::::res://scene/1/stateMachine.tscn
-stateMachine.gd::GDScript::-1::1720962953::0::1::::StateMachine<>LimboHSM<>::
-stateMachine.tscn::PackedScene::492866828839900010::1720963067::0::1::::<><>::res://scene/1/stateMachine.gd
-statistic.gd::GDScript::-1::1720960726::0::1::::Statistic<>PanelContainer<>::
-statistic.tscn::PackedScene::7051623950998033586::1720960726::0::1::::<><>::uid://i14mnupyvsff::::res://scene/0/doublet.tscn<>res://scene/1/statistic.gd<>uid://c0elnjrcc3xhb::::res://resource/parameter/damage modifier.tres<>uid://d00snfx2s2j0g::::res://resource/core/strength.tres<>uid://dor7lp3vfil63::::res://resource/core/dexterity.tres<>uid://cq7lteho04d2x::::res://resource/core/intellect.tres<>uid://dobt254p05ymb::::res://resource/parameter/damage multiplier.tres<>uid://vesjxs8ch023::::res://resource/parameter/accuracy chance.tres<>uid://tu8vwlpsrske::::res://resource/core/will.tres<>uid://b4wmpo4gre3tc::::res://resource/parameter/evasion chance.tres<>uid://o5ovxot20y3d::::res://resource/parameter/critical chance.tres<>uid://vr6w127hxbnr::::res://resource/parameter/critical multiplier.tres<>uid://coc4dvlvxekg5::::res://resource/parameter/armor modifier.tres<>uid://b6b07ncodpgb7::::res://resource/parameter/armor multiplier.tres<>uid://dg1u5wkxnrqud::::res://resource/parameter/health limit.tres<>uid://dhavhg1h1w6ki::::res://resource/statistic/strength.tres<>uid://deow2swudtudp::::res://resource/statistic/dexterity.tres<>uid://dttbjeb2x7nkp::::res://resource/statistic/intellect.tres<>uid://d18u422oi50ls::::res://resource/statistic/will.tres
-::res://scene/2/::1720963233
-grimoire.gd::GDScript::-1::1720957463::0::1::::Grimoire<>PanelContainer<>::
+::res://scene/1/::1721022134
+battle.gd::GDScript::-1::1721016282::0::1::::Battle<>PanelContainer<>::
+battle.tscn::PackedScene::3659239432920037167::1721020976::0::1::::<><>::res://scene/1/battle.gd<>uid://1yohkulykj6::::res://scene/1/mage.tscn
+mage.gd::GDScript::-1::1721021857::0::1::::Mage<>PanelContainer<>::
+mage.tscn::PackedScene::55156414582476393::1721022098::0::1::::<><>::res://scene/1/mage.gd<>uid://c7p4hl7huywo5::::res://scene/1/statistic.tscn<>uid://crsiesfkvlbmp::::res://scene/3/bagua.tscn<>uid://coe30eahgmn82::::res://scene/4/conveyor.tscn<>uid://bkitagn5whwec::::res://scene/3/bar.tscn<>uid://dj3oxp30ak301::::res://scene/2/grimoire.tscn<>uid://cicawte8jygu3::::res://scene/2/library.tscn<>uid://d56kp15aev::::res://scene/3/inventory.tscn<>uid://ha0pebaf10xy::::res://scene/1/stateMachine.tscn
+stateMachine.gd::GDScript::-1::1721017447::0::1::::StateMachine<>LimboHSM<>::
+stateMachine.tscn::PackedScene::492866828839900010::1721022098::0::1::::<><>::res://scene/1/stateMachine.gd
+statistic.gd::GDScript::-1::1721021833::0::1::::Statistic<>PanelContainer<>::
+statistic.tscn::PackedScene::7051623950998033586::1721022134::0::1::::<><>::uid://i14mnupyvsff::::res://scene/0/doublet.tscn<>res://scene/1/statistic.gd<>res://resource/core/coreResource.gd<>res://resource/doublet/doubletResource.gd
+::res://scene/2/::1721022098
+grimoire.gd::GDScript::-1::1721016587::0::1::::Grimoire<>PanelContainer<>::
 grimoire.tscn::PackedScene::7849656164334899148::1720962148::0::1::::<><>::res://scene/2/grimoire.gd<>uid://l2ykdsjmltph::::res://scene/0/slot.tscn
-library.gd::GDScript::-1::1720962107::0::1::::Library<>PanelContainer<>::
-library.tscn::PackedScene::5338521165099705804::1720941523::0::1::::<><>::res://scene/2/library.gd<>uid://l2ykdsjmltph::::res://scene/0/slot.tscn
-::res://scene/3/::1720963233
-bagua.gd::GDScript::-1::1720875198::0::1::::Bagua<>PanelContainer<>::
+library.gd::GDScript::-1::1721020295::0::1::::Library<>PanelContainer<>::
+library.tscn::PackedScene::5338521165099705804::1721022098::0::1::::<><>::res://scene/2/library.gd<>uid://l2ykdsjmltph::::res://scene/0/slot.tscn
+::res://scene/3/::1721021788
+bagua.gd::GDScript::-1::1721021788::0::1::::Bagua<>PanelContainer<>::
 bagua.tscn::PackedScene::6003704341550755795::1720941524::0::1::::<><>::res://scene/3/bagua.gd<>uid://l2ykdsjmltph::::res://scene/0/slot.tscn
-bar.gd::GDScript::-1::1720963067::0::1::::Bar<>PanelContainer<>::
-bar.tscn::PackedScene::3105978101583787002::1720963067::0::1::::<><>::res://scene/3/bar.gd<>uid://bha16h5k0x1e3::::res://asset/png/bar/health.png<>uid://33eqagvh85us::::res://asset/font/digital/Inter-Black.ttf
+bar.gd::GDScript::-1::1721017447::0::1::::Bar<>PanelContainer<>::
+bar.tscn::PackedScene::3105978101583787002::1721015137::0::1::::<><>::res://scene/3/bar.gd<>uid://bha16h5k0x1e3::::res://asset/png/bar/health.png<>uid://33eqagvh85us::::res://asset/font/digital/Inter-Black.ttf
 inventory.gd::GDScript::-1::1720935075::0::1::::Inventory<>PanelContainer<>::
 inventory.tscn::PackedScene::237369184800269::1720941524::0::1::::<><>::res://scene/3/inventory.gd<>uid://l2ykdsjmltph::::res://scene/0/slot.tscn
-::res://scene/4/::1720963233
-conveyor.gd::GDScript::-1::1720962083::0::1::::Conveyor<>PanelContainer<>::
-conveyor.tscn::PackedScene::5765487620399932369::1720963067::0::1::::<><>::res://scene/4/conveyor.gd<>uid://l2ykdsjmltph::::res://scene/0/slot.tscn
-orb.gd::GDScript::-1::1720962362::0::1::::Orb<>PanelContainer<>::
-orb.tscn::PackedScene::6330502550273876493::1720963067::0::1::::<><>::res://scene/4/orb.gd<>uid://mu1optdj243h::::res://asset/png/orb/aqua.png
-::res://scene/5/::1720963303
+::res://scene/4/::1721022098
+conveyor.gd::GDScript::-1::1721014694::0::1::::Conveyor<>PanelContainer<>::
+conveyor.tscn::PackedScene::5765487620399932369::1721015136::0::1::::<><>::res://scene/4/conveyor.gd<>uid://l2ykdsjmltph::::res://scene/0/slot.tscn
+orb.gd::GDScript::-1::1720963879::0::1::::Orb<>PanelContainer<>::
+orb.tscn::PackedScene::6330502550273876493::1721022098::0::1::::<><>::res://scene/4/orb.gd<>uid://mu1optdj243h::::res://asset/png/orb/aqua.png
+::res://scene/5/::1721022098
 item.gd::GDScript::-1::1720959710::0::1::::Item<>PanelContainer<>::
-item.tscn::PackedScene::387136294503742449::1720941554::0::1::::<><>::res://scene/5/item.gd<>res://resource/item/itemResource.gd<>uid://cqhmv6fuavm10::::res://asset/png/item/selected.png<>uid://d2buf3h8w8yw1::::res://asset/png/item/item.png<>uid://daqntmdshxx3b::::res://scene/0/description.tscn
+item.tscn::PackedScene::387136294503742449::1721022098::0::1::::<><>::res://scene/5/item.gd<>res://resource/item/itemResource.gd<>uid://cqhmv6fuavm10::::res://asset/png/item/selected.png<>uid://d2buf3h8w8yw1::::res://asset/png/item/item.png<>uid://daqntmdshxx3b::::res://scene/0/description.tscn
 nucleus.gd::GDScript::-1::1720927553::0::1::::<>Item<>::
 nucleus.tscn::PackedScene::3594042518504023270::1720931983::0::1::::<><>::uid://frscwn6yf1yr::::res://scene/5/item.tscn<>res://scene/5/nucleus.gd
 scroll.gd::GDScript::-1::1720961949::0::1::::Scroll<>Item<>::
@@ -229,5 +204,5 @@ trigram.gd::GDScript::-1::1720926834::0::1::::<>Item<>::
 trigram.tscn::PackedScene::2713113350965077963::1720931983::0::1::::<><>::uid://frscwn6yf1yr::::res://scene/5/item.tscn<>res://scene/5/trigram.gd
 ::res://scene/6/::1720775138
 ::res://scene/7/::1720766588
-::res://script/::1720963233
-Global.gd::GDScript::-1::1720961483::0::1::::<>Node<>::
+::res://script/::1721013503
+Global.gd::GDScript::-1::1721013503::0::1::::<>Node<>::

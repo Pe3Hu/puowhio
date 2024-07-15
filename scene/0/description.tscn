@@ -18,8 +18,8 @@ script = ExtResource("1_utaa5")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 7.0
+offset_bottom = 8.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_58m1r")
 
@@ -44,7 +44,6 @@ alignment = 1
 unique_name_in_owner = true
 visible = false
 texture_filter = 2
-custom_minimum_size = Vector2(65, 20)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.17, 0.17, 0.17, 1)
 theme_override_fonts/font = ExtResource("2_e7arr")
@@ -54,8 +53,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Orbs" type="HBoxContainer" parent="PanelContainer/VBox"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 0
 alignment = 1
 
 [node name="Inputs" type="VBoxContainer" parent="PanelContainer/VBox/Orbs"]

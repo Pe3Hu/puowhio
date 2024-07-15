@@ -3,5 +3,5 @@
 [ext_resource type="Script" path="res://scene/1/stateMachine.gd" id="1_3v7mh"]
 
 [node name="LimboHSM" type="LimboHSM"]
-update_mode = 2
+update_mode = 0
 script = ExtResource("1_3v7mh")

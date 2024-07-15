@@ -1,7 +1,7 @@
 class_name ItemResource extends Resource
 
 
-@export_enum("trigram", "nucleus") var type: String = "trigram":
+@export_enum("trigram", "nucleus", "scroll") var type: String = "trigram":
 	set(type_):
 		type = type_
 	get:
@@ -19,6 +19,5 @@ class_name ItemResource extends Resource
 	get:
 		return level
 
-@export var bases: Array[BaseResource]
-
-@export var affixs: Array[AffixResource]
+@export var bases: Array[DoubletResource]
+@export var affixs: Array[DoubletResource]
