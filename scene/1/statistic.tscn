@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://i14mnupyvsff" path="res://scene/0/doublet.tscn" id="1_p1m0h"]
 [ext_resource type="Script" path="res://scene/1/statistic.gd" id="1_pjymf"]
-[ext_resource type="Script" path="res://resource/core/coreResource.gd" id="2_viduw"]
+[ext_resource type="Script" path="res://resource/coreResource.gd" id="2_viduw"]
 [ext_resource type="Script" path="res://resource/doublet/doubletResource.gd" id="4_sclfr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyumh"]

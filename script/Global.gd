@@ -54,14 +54,22 @@ func init_arr() -> void:
 		"intellect_multiplier",
 		"will_multiplier"
 		]
+	arr.terrain = ["swamp", "plain", "desert", "mountain", "tundra", "coast", "volcano", "jungle"]
+
 
 
 func init_num() -> void:
 	num.index = {}
+	num.index.fiefdom = 0
+	num.index.earldom = 0
+	num.index.dukedom = 0
+	num.index.kingdom = 0
+	num.index.empire = 0
 
 
 func init_dict() -> void:
 	init_direction()
+	init_class()
 	
 	init_affix()
 	init_base()
@@ -88,41 +96,50 @@ func init_direction() -> void:
 		Vector3(-1, 0,  0)
 	]
 	dict.direction.linear2 = [
-		Vector2( 0,-1),
-		Vector2( 1, 0),
-		Vector2( 0, 1),
-		Vector2(-1, 0)
+		Vector2i( 0,-1),
+		Vector2i( 1, 0),
+		Vector2i( 0, 1),
+		Vector2i(-1, 0)
 	]
 	dict.direction.diagonal = [
-		Vector2( 1,-1),
-		Vector2( 1, 1),
-		Vector2(-1, 1),
-		Vector2(-1,-1)
+		Vector2i( 1,-1),
+		Vector2i( 1, 1),
+		Vector2i(-1, 1),
+		Vector2i(-1,-1)
 	]
 	dict.direction.zero = [
-		Vector2( 0, 0),
-		Vector2( 1, 0),
-		Vector2( 1, 1),
-		Vector2( 0, 1)
+		Vector2i( 0, 0),
+		Vector2i( 1, 0),
+		Vector2i( 1, 1),
+		Vector2i( 0, 1)
 	]
 	dict.direction.hex = [
 		[
-			Vector2( 1,-1), 
-			Vector2( 1, 0), 
-			Vector2( 0, 1), 
-			Vector2(-1, 0), 
-			Vector2(-1,-1),
-			Vector2( 0,-1)
+			Vector2i( 1,-1), 
+			Vector2i( 1, 0), 
+			Vector2i( 0, 1), 
+			Vector2i(-1, 0), 
+			Vector2i(-1,-1),
+			Vector2i( 0,-1)
 		],
 		[
-			Vector2( 1, 0),
-			Vector2( 1, 1),
-			Vector2( 0, 1),
-			Vector2(-1, 1),
-			Vector2(-1, 0),
-			Vector2( 0,-1)
+			Vector2i( 1, 0),
+			Vector2i( 1, 1),
+			Vector2i( 0, 1),
+			Vector2i(-1, 1),
+			Vector2i(-1, 0),
+			Vector2i( 0,-1)
 		]
 	]
+
+
+func init_class() -> void:
+	dict.class = {}
+	dict.class.element = {}
+	dict.class.element["aqua"] = ["healer", "poisoner", "breakwater"]
+	dict.class.element["wind"] = ["shadow", "destroyer", "illusionist"]
+	dict.class.element["fire"] = ["arsonist", "berserker", "reaper"]
+	dict.class.element["earth"] = ["keeper", "fortress", "undertaker"]
 
 
 func init_affix() -> void:
@@ -311,10 +328,10 @@ func init_vec():
 
 
 func init_window_size():
-	vec.size.window = {}
-	vec.size.window.width = ProjectSettings.get_setting("display/window/size/viewport_width")
-	vec.size.window.height = ProjectSettings.get_setting("display/window/size/viewport_height")
-	vec.size.window.center = Vector2(vec.size.window.width/2, vec.size.window.height/2)
+	vec.window = {}
+	vec.window.width = ProjectSettings.get_setting("display/window/size/viewport_width")
+	vec.window.height = ProjectSettings.get_setting("display/window/size/viewport_height")
+	vec.window.center = Vector2(vec.window.width / 2, vec.window.height / 2)
 
 
 func init_color():

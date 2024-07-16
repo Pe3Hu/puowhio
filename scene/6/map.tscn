@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4f8m3d1e1ehp"]
+
+[ext_resource type="Script" path="res://scene/6/map.gd" id="1_sj5gh"]
+
+[node name="Map" type="Node2D"]
+script = ExtResource("1_sj5gh")
+
+[node name="Fiefdoms" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Dukedoms" type="Node2D" parent="."]
+visible = false
+
+[node name="Kingdoms" type="Node2D" parent="."]
+visible = false
+
+[node name="Empires" type="Node2D" parent="."]
+visible = false

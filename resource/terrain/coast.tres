@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TerrainResource" load_steps=2 format=3 uid="uid://dapo0dc1bti85"]
+
+[ext_resource type="Script" path="res://resource/terrain/terrainResource.gd" id="1_vyvmq"]
+
+[resource]
+script = ExtResource("1_vyvmq")
+title = "coast"
+aqua = 1.2
+wind = 1.0
+fire = 1.0
+earth = 1.1
+ice = 1.0
+storm = 1.2
+lava = 1.0
+nature = 1.0
+elements = Array[String]([])

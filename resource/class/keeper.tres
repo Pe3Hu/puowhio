@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ClassResource" load_steps=2 format=3 uid="uid://dtjfoalb3sq48"]
+
+[ext_resource type="Script" path="res://resource/class/classResource.gd" id="1_v52vc"]
+
+[resource]
+script = ExtResource("1_v52vc")
+title = "keeper"
+condition = "volume"
+trigger = "damage blocked"
+effect = "fade"
+on_self = ""
+on_enemy = ""
+effect_value = 5.0
+effect_step = 0.0
+condition_value = 100

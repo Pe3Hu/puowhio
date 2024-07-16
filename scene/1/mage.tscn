@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://crsiesfkvlbmp" path="res://scene/3/bagua.tscn" id="2_u663w"]
 [ext_resource type="PackedScene" uid="uid://coe30eahgmn82" path="res://scene/4/conveyor.tscn" id="3_h2y30"]
 [ext_resource type="PackedScene" uid="uid://bkitagn5whwec" path="res://scene/3/bar.tscn" id="3_pe6ph"]
-[ext_resource type="Script" path="res://resource/statistic/statisticResource.gd" id="3_ve4iq"]
+[ext_resource type="Script" path="res://resource/statisticResource.gd" id="3_ve4iq"]
 [ext_resource type="PackedScene" uid="uid://dj3oxp30ak301" path="res://scene/2/grimoire.tscn" id="4_o2k1l"]
 [ext_resource type="PackedScene" uid="uid://cicawte8jygu3" path="res://scene/2/library.tscn" id="5_ycwya"]
 [ext_resource type="PackedScene" uid="uid://d56kp15aev" path="res://scene/3/inventory.tscn" id="6_488wl"]
@@ -33,24 +33,24 @@ strength_modifier = 0
 dexterity_modifier = 0
 intellect_modifier = 0
 will_modifier = 0
-damage_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-damage_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-evasion_chance_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-accuracy_chance_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-critical_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-critical_chance_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-armor_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-armor_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-health_limit_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-stamina_limit_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-strength_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-dexterity_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-intellect_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-will_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-strength_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-dexterity_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-intellect_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-will_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+damage_multiplier_resources = []
+damage_modifier_resources = []
+evasion_chance_resources = []
+accuracy_chance_resources = []
+critical_multiplier_resources = []
+critical_chance_resources = []
+armor_multiplier_resources = []
+armor_modifier_resources = []
+health_limit_resources = []
+stamina_limit_resources = []
+strength_multiplier_resources = []
+dexterity_multiplier_resources = []
+intellect_multiplier_resources = []
+will_multiplier_resources = []
+strength_modifier_resources = []
+dexterity_modifier_resources = []
+intellect_modifier_resources = []
+will_modifier_resources = []
 
 [node name="Mage" type="PanelContainer" node_paths=PackedStringArray("hsm", "statistic", "conveyor", "grimoire", "bagua", "inventory", "library", "health", "stamina")]
 anchors_preset = 8
@@ -85,6 +85,7 @@ alignment = 1
 [node name="Statistic" parent="HBox" node_paths=PackedStringArray("mage") instance=ExtResource("2_a3gt3")]
 layout_mode = 2
 mage = NodePath("../..")
+refreshed = false
 resource = SubResource("Resource_2s3jp")
 
 [node name="VBox1" type="VBoxContainer" parent="HBox"]

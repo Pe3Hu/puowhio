@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ClassResource" load_steps=2 format=3 uid="uid://dwmrbo5gh6e3k"]
+
+[ext_resource type="Script" path="res://resource/class/classResource.gd" id="1_jweos"]
+
+[resource]
+script = ExtResource("1_jweos")
+title = "arsonist"
+condition = "counter"
+trigger = "turn start"
+effect = "curse"
+on_self = ""
+on_enemy = ""
+effect_value = 9.0
+effect_step = 0.0
+condition_value = 3

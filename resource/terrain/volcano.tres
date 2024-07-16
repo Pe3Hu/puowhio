@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TerrainResource" load_steps=2 format=3 uid="uid://bsxtmhxjq4i2y"]
+
+[ext_resource type="Script" path="res://resource/terrain/terrainResource.gd" id="1_ksvqf"]
+
+[resource]
+script = ExtResource("1_ksvqf")
+title = "volcano"
+aqua = 0
+wind = 0
+fire = 1.2
+earth = 0
+ice = 0
+storm = 0
+lava = 1.3
+nature = 0
+elements = Array[String]([])

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ClassResource" load_steps=2 format=3 uid="uid://b5eqnqhjlluny"]
+
+[ext_resource type="Script" path="res://resource/class/classResource.gd" id="1_t5iiv"]
+
+[resource]
+script = ExtResource("1_t5iiv")
+title = "reaper"
+condition = "no"
+trigger = "turn end"
+effect = "swap stance"
+on_self = "damage multiplier"
+on_enemy = "damage multiplier"
+effect_value = 10.0
+effect_step = 3.0
+condition_value = 1

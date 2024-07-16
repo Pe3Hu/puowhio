@@ -1,3 +1,5 @@
+Node2D
+Polygon2D
 VBoxContainer
 Control
 GridContainer
@@ -7,8 +9,6 @@ HBoxContainer
 MenuBar
 Sprite2D
 TextureRect
-Node2D
 Label
 StaticBody2D
 ColorRect
-Area2D

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ClassResource" load_steps=2 format=3 uid="uid://bp43lctydaee5"]
+
+[ext_resource type="Script" path="res://resource/class/classResource.gd" id="1_0vu4c"]
+
+[resource]
+script = ExtResource("1_0vu4c")
+title = "undertaker"
+condition = "no"
+trigger = "turn end"
+effect = "swap stance"
+on_self = "armor multiplier"
+on_enemy = "armor multiplier"
+effect_value = 10.0
+effect_step = 3.0
+condition_value = 1

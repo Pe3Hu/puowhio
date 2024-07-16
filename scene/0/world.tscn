@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpq0g6jrlkuea"]
+[gd_scene load_steps=5 format=3 uid="uid://dpq0g6jrlkuea"]
 
 [ext_resource type="Script" path="res://scene/0/world.gd" id="1_sbgiu"]
 [ext_resource type="PackedScene" uid="uid://v6po0i7b41y6" path="res://scene/0/nexus.tscn" id="2_8ptkv"]
+[ext_resource type="PackedScene" uid="uid://b4f8m3d1e1ehp" path="res://scene/6/map.tscn" id="2_him4q"]
 [ext_resource type="PackedScene" uid="uid://bseteyq6bu7a6" path="res://scene/1/battle.tscn" id="2_vbn10"]
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("nexus", "battle")]
@@ -10,10 +11,15 @@ script = ExtResource("1_sbgiu")
 nexus = NodePath("CanvasLayer/Nexus")
 battle = NodePath("CanvasLayer/Battle")
 
+[node name="Map" parent="." instance=ExtResource("2_him4q")]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
+visible = false
 
 [node name="Nexus" parent="CanvasLayer" instance=ExtResource("2_8ptkv")]
+visible = false
 
 [node name="Battle" parent="CanvasLayer" node_paths=PackedStringArray("world") instance=ExtResource("2_vbn10")]
+visible = false
 world = NodePath("../..")

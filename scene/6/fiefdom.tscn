@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://eo8finl0jj03"]
+
+[ext_resource type="Script" path="res://scene/6/fiefdom.gd" id="1_1vwbm"]
+
+[node name="Fiefdom" type="Polygon2D"]
+script = ExtResource("1_1vwbm")

@@ -12,5 +12,5 @@ class_name Battle extends PanelContainer
 
 func _ready() -> void:
 	await get_tree().process_frame
-	current_mage.reset()
+	#current_mage.reset()
 	#current_mage.start_turn()

@@ -8,6 +8,8 @@ var occupied_slots: Array[Slot]
 
 
 func _ready() -> void:
+	if true:
+		return
 	for slot in %Slots.get_children():
 		free_slots.push_front(slot)
 		slot.refresh_background()

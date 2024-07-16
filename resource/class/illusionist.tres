@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ClassResource" load_steps=2 format=3 uid="uid://ry7dfjxjes41"]
+
+[ext_resource type="Script" path="res://resource/class/classResource.gd" id="1_k3gbs"]
+
+[resource]
+script = ExtResource("1_k3gbs")
+title = "illusionist"
+condition = "counter"
+trigger = "turn start"
+effect = "swap stance"
+on_self = "evasion chance"
+on_enemy = "accuracy chance"
+effect_value = 3.0
+effect_step = 1.0
+condition_value = 1

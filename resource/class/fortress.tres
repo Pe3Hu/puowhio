@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ClassResource" load_steps=2 format=3 uid="uid://2cf2y53v4pes"]
+
+[ext_resource type="Script" path="res://resource/class/classResource.gd" id="1_vbn66"]
+
+[resource]
+script = ExtResource("1_vbn66")
+title = "fortress"
+condition = "volume"
+trigger = "damage blocked"
+effect = "second breath"
+on_self = "armor modifier"
+on_enemy = ""
+effect_value = 25.0
+effect_step = 0.0
+condition_value = 100

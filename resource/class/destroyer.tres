@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ClassResource" load_steps=2 format=3 uid="uid://c854fsn7i7twp"]
+
+[ext_resource type="Script" path="res://resource/class/classResource.gd" id="1_s4oyv"]
+
+[resource]
+script = ExtResource("1_s4oyv")
+title = "destroyer"
+condition = "volume"
+trigger = "damage done"
+effect = "fade"
+on_self = ""
+on_enemy = ""
+effect_value = 10.0
+effect_step = 0.0
+condition_value = 100

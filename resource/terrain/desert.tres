@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TerrainResource" load_steps=2 format=3 uid="uid://b4iokkqakxg1l"]
+
+[ext_resource type="Script" path="res://resource/terrain/terrainResource.gd" id="1_65827"]
+
+[resource]
+script = ExtResource("1_65827")
+title = "desert"
+aqua = 0
+wind = 0
+fire = 1.2
+earth = 1.1
+ice = 0
+storm = 1.2
+lava = 0
+nature = 0
+elements = Array[String]([])
