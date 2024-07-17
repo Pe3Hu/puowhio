@@ -1,140 +1,234 @@
 {
 "blank":[
  {
-  "rarity": "F",
+  "index": 0,
   "type": "generator",
-  "input": 0,
-  "ouptut": 1,
-  "tier minimum": 1,
-  "tier maximum": 3
+  "output": "1",
+  "level": 1,
+  "tier": "T1"
  },
  {
-  "rarity": "C",
+  "index": 1,
   "type": "generator",
-  "input": 0,
-  "ouptut": 2,
-  "tier minimum": 2,
-  "tier maximum": 5
+  "output": "1,1",
+  "level": 5,
+  "tier": "T2"
  },
  {
-  "rarity": "S",
+  "index": 2,
   "type": "generator",
-  "input": 0,
-  "ouptut": 3,
-  "tier minimum": 3,
-  "tier maximum": 6
+  "output": "1,2",
+  "level": 5,
+  "tier": "T2"
  },
  {
-  "rarity": "E",
+  "index": 3,
+  "type": "generator",
+  "output": "1,1,1",
+  "level": 6,
+  "tier": "T3"
+ },
+ {
+  "index": 4,
+  "type": "generator",
+  "output": "1,1,2",
+  "level": 6,
+  "tier": "T3"
+ },
+ {
+  "index": 5,
+  "type": "generator",
+  "output": "5",
+  "level": 7,
+  "tier": "T2"
+ },
+ {
+  "index": 6,
+  "type": "generator",
+  "output": "1,2,3",
+  "level": 9,
+  "tier": "T3"
+ },
+ {
+  "index": 7,
+  "type": "generator",
+  "output": "1,5",
+  "level": 10,
+  "tier": "T4"
+ },
+ {
+  "index": 8,
+  "type": "generator",
+  "output": "1,1,5",
+  "level": 12,
+  "tier": "T5"
+ },
+ {
+  "index": 9,
+  "type": "generator",
+  "output": "5,5",
+  "level": 13,
+  "tier": "T4"
+ },
+ {
+  "index": 10,
+  "type": "generator",
+  "output": "1,2,5",
+  "level": 15,
+  "tier": "T5"
+ },
+ {
+  "index": 11,
+  "type": "generator",
+  "output": "5,6",
+  "level": 16,
+  "tier": "T4"
+ },
+ {
+  "index": 12,
   "type": "converter",
-  "input": 1,
-  "ouptut": 1,
-  "tier minimum": 3,
-  "tier maximum": 4
+  "input": "1",
+  "output": "2",
+  "level": 1,
+  "tier": "T3"
  },
  {
-  "rarity": "D",
+  "index": 13,
   "type": "converter",
-  "input": 1,
-  "ouptut": 2,
-  "tier minimum": 4,
-  "tier maximum": 6
+  "input": "1,1",
+  "output": "2,2",
+  "level": 4,
+  "tier": "T5"
  },
  {
-  "rarity": "C",
+  "index": 14,
   "type": "converter",
-  "input": 1,
-  "ouptut": 3,
-  "tier minimum": 5,
-  "tier maximum": 8
+  "input": "1,2",
+  "output": "5",
+  "level": 5,
+  "tier": "T5"
  },
  {
-  "rarity": "B",
+  "index": 15,
   "type": "converter",
-  "input": 2,
-  "ouptut": 2,
-  "tier minimum": 6,
-  "tier maximum": 10
+  "input": "1",
+  "output": "2,2",
+  "level": 7,
+  "tier": "T7"
  },
  {
-  "rarity": "A",
+  "index": 16,
   "type": "converter",
-  "input": 2,
-  "ouptut": 3,
-  "tier minimum": 7,
-  "tier maximum": 12
+  "input": "1",
+  "output": "2,3",
+  "level": 8,
+  "tier": "T7"
  },
  {
-  "rarity": "S",
+  "index": 17,
   "type": "converter",
-  "input": 3,
-  "ouptut": 3,
-  "tier minimum": 8,
-  "tier maximum": 16
+  "input": "1,2",
+  "output": "3,4",
+  "level": 10,
+  "tier": "T9"
  },
  {
-  "rarity": "E",
-  "type": "duplicator",
-  "input": 1,
-  "ouptut": 2,
-  "tier minimum": 5,
-  "tier maximum": 7
- },
- {
-  "rarity": "C",
-  "type": "duplicator",
-  "input": 1,
-  "ouptut": 3,
-  "tier minimum": 7,
-  "tier maximum": 11
- },
- {
-  "rarity": "A",
-  "type": "duplicator",
-  "input": 1,
-  "ouptut": 4,
-  "tier minimum": 9,
-  "tier maximum": 15
- },
- {
-  "rarity": "F",
+  "index": 18,
   "type": "absorber",
-  "input": 2,
-  "ouptut": 0,
-  "tier minimum": 5,
-  "tier maximum": 8
+  "input": "1,1",
+  "level": 1,
+  "tier": "T5"
  },
  {
-  "rarity": "D",
+  "index": 19,
   "type": "absorber",
-  "input": 3,
-  "ouptut": 0,
-  "tier minimum": 8,
-  "tier maximum": 11
+  "input": "1,2",
+  "level": 3,
+  "tier": "T6"
  },
  {
-  "rarity": "B",
+  "index": 20,
   "type": "absorber",
-  "input": 4,
-  "ouptut": 0,
-  "tier minimum": 11,
-  "tier maximum": 15
+  "input": "1,1,1",
+  "level": 4,
+  "tier": "T7"
  },
  {
-  "rarity": "A",
+  "index": 21,
   "type": "absorber",
-  "input": 5,
-  "ouptut": 0,
-  "tier minimum": 15,
-  "tier maximum": 18
+  "input": "1,5",
+  "level": 5,
+  "tier": "T8"
  },
  {
-  "rarity": "S",
+  "index": 22,
   "type": "absorber",
-  "input": 6,
-  "ouptut": 0,
-  "tier minimum": 18,
-  "tier maximum": 20
+  "input": "1,1,2",
+  "level": 7,
+  "tier": "T9"
+ },
+ {
+  "index": 23,
+  "type": "absorber",
+  "input": "5,5",
+  "level": 7,
+  "tier": "T10"
+ },
+ {
+  "index": 24,
+  "type": "absorber",
+  "input": "1,1,5",
+  "level": 8,
+  "tier": "T11"
+ },
+ {
+  "index": 25,
+  "type": "absorber",
+  "input": "1,5,5",
+  "level": 9,
+  "tier": "T12"
+ },
+ {
+  "index": 26,
+  "type": "absorber",
+  "input": "5,6",
+  "level": 9,
+  "tier": "T13"
+ },
+ {
+  "index": 27,
+  "type": "absorber",
+  "input": "1,2,3",
+  "level": 10,
+  "tier": "T14"
+ },
+ {
+  "index": 28,
+  "type": "absorber",
+  "input": "1,2,5",
+  "level": 11,
+  "tier": "T15"
+ },
+ {
+  "index": 29,
+  "type": "absorber",
+  "input": "5,5,5",
+  "level": 13,
+  "tier": "T16"
+ },
+ {
+  "index": 30,
+  "type": "absorber",
+  "input": "5,5,6",
+  "level": 16,
+  "tier": "T17"
+ },
+ {
+  "index": 31,
+  "type": "absorber",
+  "input": "5,6,7",
+  "level": 18,
+  "tier": "T18"
  }
 ]
 }

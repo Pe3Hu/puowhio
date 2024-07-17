@@ -17,12 +17,8 @@ func _ready():
 		slot.refresh_background()
 	
 func find_best_items() -> void:
-	if mage.get_index() == 0:
-		calc_books()
-		place_best_book()
-		return
-	else:
-		return
+	calc_books()
+	place_best_book()
 	
 func update_scrolls() -> void:
 	for scroll in %Scrolls.get_children():
@@ -43,10 +39,6 @@ func recalc_avgs() -> void:
 		slot.item.descriptioncalc_avg()
 	
 func calc_books() -> void:
-	var total = []
-	total.append_array(mage.library.occupied_slots)
-	total.append_array(occupied_slots)
-	
 	for resource in resources:
 		var equilibrium = resource.equilibrium
 		var list = null
@@ -81,7 +73,6 @@ func calc_books() -> void:
 	
 	while !incompletes.is_empty() and counter < 5:
 		counter += 1
-		var n = incompletes[0].lists.size() + 1
 		var originals = []
 		originals.append_array(incompletes)
 		incompletes.clear()
@@ -108,7 +99,13 @@ func calc_books() -> void:
 	
 	best_book = bests.pick_random()
 	
-	print(best_book.avg)
+	for best in bests:
+		if best.lists.size() > best.lists_cycle.size():
+			var list_equilibriums = []
+			
+			for list in best.lists:
+				list_equilibriums.append(list.equilibrium)
+	#print(">",best_book.avg)
 	
 func place_best_book() -> void:
 	erase_slots()

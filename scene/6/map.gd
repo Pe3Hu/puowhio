@@ -8,8 +8,10 @@ class_name Map extends Node2D
 @export var grids: Dictionary
 
 @onready var fiefdom_scene = preload("res://scene/6/fiefdom.tscn")
+@onready var trail_scene = preload("res://scene/6/trail.tscn")
 @onready var domain_scene = preload("res://scene/6/domain.tscn")
 @onready var fiefdoms = %Fiefdoms
+@onready var trails = %Trails
 
 #const earldom_l = 40
 const earldom_size = Vector2i(40, 40)
@@ -30,10 +32,14 @@ const dukedom_fiefdoms = 6
 
 
 func _ready() -> void:
+	pass
 	init_fiefdoms()
-	init_fiefdoms_neighbors()
-	init_empires()
-	init_kingdoms()
+	init_trails()
+	
+	init_dukedoms()
+	#init_fiefdoms_neighbors()
+	#init_empires()
+	#init_kingdoms()
 	
 func init_fiefdoms() -> void:
 	for _i in n:
@@ -42,19 +48,6 @@ func init_fiefdoms() -> void:
 			fiefdom.resource.grid = Vector2i(_j, _i)
 			fiefdom.map = self
 			fiefdoms.add_child(fiefdom)
-	
-func init_fiefdoms_neighbors() -> void:
-	for fiefdom in fiefdoms.get_children():
-		if !fiefdom.resource.is_locked:
-			for direction in Global.dict.direction.linear2:
-				var grid = fiefdom.resource.grid + direction
-				
-				if grids.has(grid):
-					var neighbor = grids[grid]
-					
-					if !neighbor.resource.is_locked:
-						neighbor.neighbors.append(fiefdom)
-						fiefdom.neighbors.append(neighbor)
 	
 func init_empires() -> void:
 	Global.rng.randomize()
@@ -142,3 +135,219 @@ func roll_layer_lazy_flood_fill(layer_: String) -> void:
 		
 		#print([counter, consumer.fiefdoms.size(), donor.fiefdoms.size()])
 	
+func init_trails() -> void:
+	for fiefdom in fiefdoms.get_children():
+		if !fiefdom.resource.is_locked:
+			for direction in Global.dict.direction.windrose:
+				var grid = fiefdom.resource.grid + direction
+				
+				if grids.has(grid):
+					var neighbor_fiefdom = grids[grid]
+					
+					if !fiefdom.neighbors.has(neighbor_fiefdom) and !neighbor_fiefdom.resource.is_locked:
+						var trail = trail_scene.instantiate()
+						trail.map = self
+						trail.direction = direction
+						trails.add_child(trail)
+						var pair: Array[Fiefdom]#[fiefdom, neighbor_fiefdom]
+						#trail.fiefdoms = Array[Fiefdom]
+						pair.append(fiefdom)
+						pair.append(neighbor_fiefdom)
+						trail.fiefdoms = pair
+						pass
+	
+	clear_intersecting_trails()
+	clear_redundant_trails()
+	
+func clear_intersecting_trails() -> void:
+	var k = int(n - 2)
+	var exceptions = []
+	exceptions.append(Vector2i(0, 0))
+	exceptions.append(Vector2i(k, 0))
+	exceptions.append(Vector2i(k, k))
+	exceptions.append(Vector2i(0, k))
+	var directions = []
+	directions.append(Vector2i(1, -1))
+	directions.append(Vector2i(1, 1))
+	directions.append(Vector2i(1, -1))
+	directions.append(Vector2i(1, 1))
+	var offsets = []
+	offsets.append(Vector2i(0, 1))
+	offsets.append(Vector2i(0, 0))
+	offsets.append(Vector2i(0, 1))
+	offsets.append(Vector2i(0, 0))
+	
+	for _i in n - 1:
+		for _j in n - 1:
+			var grid = Vector2i(_j, _i)
+			
+			if !exceptions.has(grid):
+				var options = []
+				var fiefdom = grids[grid]
+				var direction = Vector2i(1, 1)
+				
+				if fiefdom.directions.has(direction):
+					var trail = fiefdom.directions[direction]
+					options.append(trail)
+					
+					grid.x += 1
+					fiefdom = grids[grid]
+				
+				direction = Vector2i(-1, 1)
+				
+				if fiefdom.directions.has(direction):
+					var trail = fiefdom.directions[direction]
+					options.append(trail)
+				
+				if !options.is_empty():
+					var option = options.pick_random()
+					option.crush()
+	
+	for _i in exceptions.size():
+		var grid = exceptions[_i] + offsets[_i]
+		var fiefdom = grids[grid]
+		var direction = directions[_i]
+		var trail = fiefdom.directions[direction]
+		trail.crush()
+	
+func clear_redundant_trails() -> void:
+	var redundants = {}
+	var exceptions = []
+	var problems = []
+	var maximum = 0
+	
+	for fiefdom in fiefdoms.get_children():
+		var n = fiefdom.trails.keys().size()
+		
+		if n > Global.num.trail.min:
+			if !redundants.has(n):
+				redundants[n] = []
+				
+				if maximum < n:
+					maximum = int(n)
+			
+			redundants[n].append(fiefdom)
+		else:
+			exceptions.append(fiefdom)
+	
+	#reduce trails each fiefdom of which exceeds the maximum number of trails
+	while maximum > Global.num.trail.max:
+		if redundants[maximum].is_empty():
+			redundants.erase(maximum)
+			maximum -= 1
+		else:
+			var fiefdom = redundants[maximum].pick_random()
+			var options = []
+			
+			for trail in fiefdom.trails:
+				if !exceptions.has(fiefdom.trails[trail]):
+					options.append(trail)
+			
+			if !options.is_empty():
+				var trail = options.pick_random()
+				var flag = true
+				
+				for _fiefdom in trail.fiefdoms:
+					if exceptions.has(_fiefdom):
+						flag = false
+			
+				if flag:
+					var keys = redundants.keys()
+					keys.sort()
+					
+					for _fiefdom in trail.fiefdoms:
+						for _i in keys:
+							if redundants[_i].has(_fiefdom):
+								redundants[_i].erase(_fiefdom)
+								var _j = _i - 1
+								
+								if _j > Global.num.trail.min:
+									redundants[_j].append(_fiefdom)
+								else:
+									exceptions.append(_fiefdom)
+					
+					trail.crush()
+			else:
+				redundants[maximum].erase(fiefdom)
+				problems.append(fiefdom)
+	
+	#for fiefdom in fiefdoms.get_children():
+		#var n = fiefdom.trails.keys().size() - Global.num.trail.min
+		#var hue = float(n) / 6
+		#fiefdom.color = Color.from_hsv(hue, 0.9, 0.9)
+		#
+		#if n == -1:
+			#fiefdom.color = Color.BLACK
+	
+func init_dukedoms() -> void:
+	var contacts = {}
+	contacts.count = {}
+	contacts.fiefdom = {}
+	contacts.corner = []
+	var m = Global.num.trail.max + 2
+	var corners = [0, n - 1]
+	
+	for _i in corners:
+		for _j in corners:
+			var grid = Vector2i(_j, _i)
+			var fiefdom = grids[grid]
+			contacts.corner.append(fiefdom)
+	
+	for _i in m:
+		contacts.count[_i] = []
+	
+	for fiefdom in fiefdoms.get_children():
+		if !fiefdom.resource.is_locked:
+			var n = fiefdom.neighbors.keys().size()
+			contacts.count[n].append(fiefdom)
+			contacts.fiefdom[fiefdom] = fiefdom.neighbors.keys()
+			#contacts[fiefdom].append_array(fiefdom.neighbors.keys())
+			
+			if n > Global.num.trail.max:
+				fiefdom.color = Color.BLACK
+	
+	for _i in 1:#dukedom_count
+		var domain = domain_scene.instantiate()
+		domain.map = self
+		domain.layer = "dukedom"
+		dukedoms.append(domain)
+		
+		#var min_contacts = null
+		#
+		#for _j in range(1, k, 1):
+			#if !contacts.count[_j].is_empty():
+				#min_contacts = _j
+				#break
+		
+		var options = []
+		options.append_array(contacts.corner)
+		options.sort_custom(func(a, b): return contacts.fiefdom[a].size() < contacts.fiefdom[b].size())
+		var k = contacts.fiefdom[options.front()].size()
+		options = options.filter(func (a): return contacts.fiefdom[a].size() == k)
+		#options = contacts.count[min_contacts].filter(func (a): return contacts.corner.has(a))
+		var fiefdom = options.pick_random()
+		contacts.corner.erase(fiefdom)
+		domain.add_fiefdom(fiefdom)
+		cross_out(contacts, fiefdom)
+		domain.apply_flood_fill(contacts)
+		
+	for domain in dukedoms:
+		domain.recolor_fiefdoms()
+		#print(domain.fiefdoms.size())
+	
+func cross_out(contacts_: Dictionary, fiefdom_: Fiefdom) -> void:
+	if !contacts_.fiefdom.has(fiefdom_):
+		pass
+	var n = contacts_.fiefdom[fiefdom_].size()
+	contacts_.count[n].erase(fiefdom_)
+	
+	for neighbor_fiefdom in contacts_.fiefdom[fiefdom_]:
+		n = contacts_.fiefdom[neighbor_fiefdom].size()
+		contacts_.count[n].erase(neighbor_fiefdom)
+		n -= 1
+		contacts_.fiefdom[neighbor_fiefdom].erase(fiefdom_)
+		
+		if n > 0:
+			contacts_.count[n].append(neighbor_fiefdom)
+	
+	contacts_.fiefdom.erase(fiefdom_)

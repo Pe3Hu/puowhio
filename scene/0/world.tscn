@@ -18,8 +18,6 @@ process_mode = 3
 visible = false
 
 [node name="Nexus" parent="CanvasLayer" instance=ExtResource("2_8ptkv")]
-visible = false
 
 [node name="Battle" parent="CanvasLayer" node_paths=PackedStringArray("world") instance=ExtResource("2_vbn10")]
-visible = false
 world = NodePath("../..")

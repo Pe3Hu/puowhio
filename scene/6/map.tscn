@@ -5,6 +5,9 @@
 [node name="Map" type="Node2D"]
 script = ExtResource("1_sj5gh")
 
+[node name="Trails" type="Node2D" parent="."]
+unique_name_in_owner = true
+
 [node name="Fiefdoms" type="Node2D" parent="."]
 unique_name_in_owner = true
 

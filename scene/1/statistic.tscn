@@ -1,43 +1,50 @@
-[gd_scene load_steps=24 format=3 uid="uid://c7p4hl7huywo5"]
+[gd_scene load_steps=21 format=3 uid="uid://c7p4hl7huywo5"]
 
 [ext_resource type="PackedScene" uid="uid://i14mnupyvsff" path="res://scene/0/doublet.tscn" id="1_p1m0h"]
 [ext_resource type="Script" path="res://scene/1/statistic.gd" id="1_pjymf"]
-[ext_resource type="Script" path="res://resource/coreResource.gd" id="2_viduw"]
+[ext_resource type="Script" path="res://resource/statisticResource.gd" id="2_ayk36"]
 [ext_resource type="Script" path="res://resource/doublet/doubletResource.gd" id="4_sclfr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyumh"]
 
-[sub_resource type="Resource" id="Resource_23ftn"]
-script = ExtResource("2_viduw")
-aspect = "strength"
-level = 1
-current = 9
-limit = 16
-is_barriered = true
-
-[sub_resource type="Resource" id="Resource_rjwel"]
-script = ExtResource("2_viduw")
-aspect = "dexterity"
-level = 1
-current = 9
-limit = 16
-is_barriered = true
-
-[sub_resource type="Resource" id="Resource_3668j"]
-script = ExtResource("2_viduw")
-aspect = "intellect"
-level = 1
-current = 9
-limit = 16
-is_barriered = true
-
-[sub_resource type="Resource" id="Resource_x2pra"]
-script = ExtResource("2_viduw")
-aspect = "will"
-level = 1
-current = 9
-limit = 16
-is_barriered = true
+[sub_resource type="Resource" id="Resource_g1uc8"]
+script = ExtResource("2_ayk36")
+damage_multiplier = 0
+damage_modifier = 0
+evasion_chance = 15
+accuracy_chance = 85
+critical_multiplier = 150
+critical_chance = 15
+armor_multiplier = 0
+armor_modifier = 0
+health_limit = 100
+stamina_limit = 100
+strength_multiplier = 100
+dexterity_multiplier = 100
+intellect_multiplier = 100
+will_multiplier = 100
+strength_modifier = 0
+dexterity_modifier = 0
+intellect_modifier = 0
+will_modifier = 0
+damage_multiplier_resources = Array[ExtResource("4_sclfr")]([])
+damage_modifier_resources = Array[ExtResource("4_sclfr")]([])
+evasion_chance_resources = Array[ExtResource("4_sclfr")]([])
+accuracy_chance_resources = Array[ExtResource("4_sclfr")]([])
+critical_multiplier_resources = Array[ExtResource("4_sclfr")]([])
+critical_chance_resources = Array[ExtResource("4_sclfr")]([])
+armor_multiplier_resources = Array[ExtResource("4_sclfr")]([])
+armor_modifier_resources = Array[ExtResource("4_sclfr")]([])
+health_limit_resources = Array[ExtResource("4_sclfr")]([])
+stamina_limit_resources = Array[ExtResource("4_sclfr")]([])
+strength_multiplier_resources = Array[ExtResource("4_sclfr")]([])
+dexterity_multiplier_resources = Array[ExtResource("4_sclfr")]([])
+intellect_multiplier_resources = Array[ExtResource("4_sclfr")]([])
+will_multiplier_resources = Array[ExtResource("4_sclfr")]([])
+strength_modifier_resources = Array[ExtResource("4_sclfr")]([])
+dexterity_modifier_resources = Array[ExtResource("4_sclfr")]([])
+intellect_modifier_resources = Array[ExtResource("4_sclfr")]([])
+will_modifier_resources = Array[ExtResource("4_sclfr")]([])
 
 [sub_resource type="Resource" id="Resource_fx6sg"]
 script = ExtResource("4_sclfr")
@@ -159,8 +166,7 @@ size_flags_vertical = 4
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qyumh")
 script = ExtResource("1_pjymf")
-refreshed = true
-cores = Array[ExtResource("2_viduw")]([SubResource("Resource_23ftn"), SubResource("Resource_rjwel"), SubResource("Resource_3668j"), SubResource("Resource_x2pra")])
+resource = SubResource("Resource_g1uc8")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2

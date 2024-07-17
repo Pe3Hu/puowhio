@@ -72,11 +72,11 @@ func roll_nucleus(resource_: ItemResource) -> void:
 	roll_trigram(resource_)
 	
 func roll_scroll(resource_: ItemResource) -> void:
-	var options = Global.dict.scroll.type[resource_.subtype]
-	var index = options.front()
-	var extremes = Global.dict.scroll.index[index].tier
-	resource_.tier = Global.get_random_segment_point(extremes)
-	extremes = Global.dict.tier.multiplier[resource_.tier]
+	var indexs = Global.dict.scroll.level[resource_.level].filter(func(index): return Global.dict.scroll.index[index].type == resource_.subtype)
+	#indexs = indexs
+	resource_.index = indexs.front()
+	resource_.tier = Global.dict.scroll.index[resource_.index].tier
+	var extremes = Global.dict.tier.multiplier[resource_.tier]
 	resource_.multiplier = Global.get_random_segment_point(extremes)
 	
 	var resource = DoubletResource.new()
@@ -123,12 +123,8 @@ func roll_orbs(resource_: ItemResource)  -> void:
 		"converter":
 			resource_.input_limit = n
 			resource_.output_limit = n
-		"duplicator":
-			resource_.input_limit = n
-			resource_.output_limit = n + 1
 		"absorber":
 			resource_.input_limit = n
-	
 	
 	for _i in resource_.input_limit:
 		if options.is_empty():

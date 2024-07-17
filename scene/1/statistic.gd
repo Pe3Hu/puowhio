@@ -37,15 +37,21 @@ class_name Statistic extends PanelContainer
 @onready var intellect_modifier = %Intellect
 @onready var will_modifier = %Will
 
-@export var resource: StatisticResource = StatisticResource.new()
+@export var resource: StatisticResource
 
 func _ready() -> void:
 	refreshed = !refreshed
+	resource = StatisticResource.new()
 	
 	roll_cores()
 	recalc_doublet_values()
 	
 func roll_cores() -> void:
+	for aspect in Global.arr.aspect:
+		var coreResource = CoreResource.new()
+		coreResource.aspect = aspect
+		cores.append(coreResource)
+	
 	var rolls = [3, 2, 1, 0]
 	var aspects = []
 	aspects.append_array(Global.arr.aspect)

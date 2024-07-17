@@ -20,8 +20,7 @@ func _ready() -> void:
 	init_color()
 	init_dict()
 	init_flag()
-
-
+	
 func init_arr() -> void:
 	arr.element = ["fire", "earth", "nature", "wind", "ice", "aqua", "storm", "lava"]
 	arr.primordial = ["aqua", "fire", "wind", "earth"]
@@ -55,9 +54,7 @@ func init_arr() -> void:
 		"will_multiplier"
 		]
 	arr.terrain = ["swamp", "plain", "desert", "mountain", "tundra", "coast", "volcano", "jungle"]
-
-
-
+	
 func init_num() -> void:
 	num.index = {}
 	num.index.fiefdom = 0
@@ -65,10 +62,14 @@ func init_num() -> void:
 	num.index.dukedom = 0
 	num.index.kingdom = 0
 	num.index.empire = 0
-
-
+	
+	num.trail = {}
+	num.trail.min = 3
+	num.trail.max = 4
+	
 func init_dict() -> void:
 	init_direction()
+	init_rarity()
 	init_class()
 	
 	init_affix()
@@ -77,16 +78,9 @@ func init_dict() -> void:
 	init_terrain()
 	init_tier()
 	init_trigram()
+	init_book()
+	init_beast()
 	
-	dict.rarity = {}
-	dict.rarity.affix = {}
-	dict.rarity.affix["common"] = 0
-	dict.rarity.affix["uncommon"] = 1
-	dict.rarity.affix["rare"] = 2
-	dict.rarity.affix["epic"] = 3
-	dict.rarity.affix["legendary"] = 4
-
-
 func init_direction() -> void:
 	dict.direction = {}
 	dict.direction.linear3 = [
@@ -131,8 +125,24 @@ func init_direction() -> void:
 			Vector2i( 0,-1)
 		]
 	]
-
-
+	
+	dict.direction.windrose = []
+	
+	for _i in dict.direction.linear2.size():
+		var direction = dict.direction.linear2[_i]
+		dict.direction.windrose.append(direction)
+		direction = dict.direction.diagonal[_i]
+		dict.direction.windrose.append(direction)
+	
+func init_rarity() -> void:
+	dict.rarity = {}
+	dict.rarity.affix = {}
+	dict.rarity.affix["common"] = 0
+	dict.rarity.affix["uncommon"] = 1
+	dict.rarity.affix["rare"] = 2
+	dict.rarity.affix["epic"] = 3
+	dict.rarity.affix["legendary"] = 4
+	
 func init_class() -> void:
 	dict.class = {}
 	dict.class.element = {}
@@ -140,8 +150,7 @@ func init_class() -> void:
 	dict.class.element["wind"] = ["shadow", "destroyer", "illusionist"]
 	dict.class.element["fire"] = ["arsonist", "berserker", "reaper"]
 	dict.class.element["earth"] = ["keeper", "fortress", "undertaker"]
-
-
+	
 func init_affix() -> void:
 	dict.affix = {}
 	dict.affix.title = {}
@@ -169,8 +178,7 @@ func init_affix() -> void:
 			dict.affix.title[affix.title] = []
 	
 		dict.affix.title[affix.title] = data.levels
-
-
+	
 func init_base() -> void:
 	dict.base = {}
 	dict.base.level = {}
@@ -197,48 +205,48 @@ func init_base() -> void:
 			#dict.base.level[base.level] = []
 	
 		dict.base.level[base.level] = data
-
-
+	
 func init_scroll() -> void:
 	dict.scroll = {}
 	dict.scroll.index = {}
 	dict.scroll.type = {}
-	dict.scroll.rarity = {}
-	var exceptions = []
-	var index = 0
+	dict.scroll.level = {}
+	var exceptions = ["index"]
 	
 	var path = "res://asset/json/puowhio_scroll.json"
 	var dictionary = load_data(path)
 	var array = dictionary["blank"]
 	
 	for scroll in array:
+		scroll.index = int(scroll.index)
+		scroll.level = int(scroll.level)
 		var data = {}
-		data.tier = {}
 		
 		for key in scroll:
 			if !exceptions.has(key):
-				var words = key.split(" ")
-				
-				if words.size() > 1:
-					data[words[0]][words[1]] = scroll[key]
+				if key == "input" or key == "output":
+					data[key] = []
+					var masks = scroll[key].split(",")
+					
+					for mask in masks:
+						data[key].append(int(mask))
 				else:
 					data[key] = scroll[key]
 		
-		dict.scroll.index[index] = data
+		dict.scroll.index[scroll.index] = data
 		
 		if !dict.scroll.type.has(scroll.type):
 			dict.scroll.type[scroll.type] = []
 		
-		dict.scroll.type[scroll.type].append(index)
+		dict.scroll.type[scroll.type].append(scroll.index)
 		
-		if !dict.scroll.rarity.has(scroll.rarity):
-			dict.scroll.rarity[scroll.rarity] = []
+		if !dict.scroll.level.has(scroll.level):
+			dict.scroll.level[scroll.level] = []
 		
-		dict.scroll.rarity[scroll.rarity].append(index)
-		
-		index += 1
-
-
+		dict.scroll.level[scroll.level].append(scroll.index)
+	var a = dict.scroll.index
+	pass
+	
 func init_terrain() -> void:
 	dict.terrain = {}
 	dict.terrain.title = {}
@@ -263,8 +271,7 @@ func init_terrain() -> void:
 					dict.terrain.element[key][terrain.title] = terrain[key]
 			
 		dict.terrain.title[terrain.title] = data
-
-
+	
 func init_tier() -> void:
 	dict.tier = {}
 	dict.tier.multiplier = {}
@@ -285,8 +292,7 @@ func init_tier() -> void:
 				data[words[0]][words[1]] = tier[key]
 		
 		dict.tier.multiplier[tier.title] = data.multiplier
-
-
+	
 func init_trigram() -> void:
 	dict.trigram = {}
 	dict.trigram.parameter = {}
@@ -313,27 +319,80 @@ func init_trigram() -> void:
 				dict.trigram.subtype[subtype][trigram.parameter] = trigram[key]
 			
 		dict.trigram.parameter[trigram.parameter] = data.subtypes
-
-
+	
+func init_book() -> void:
+	dict.book = {}
+	dict.book.level = {}
+	dict.book.index = {}
+	var exceptions = ["index", "level"]
+	
+	var path = "res://asset/json/puowhio_book.json"
+	var dictionary = load_data(path)
+	var array = dictionary["blank"]
+	
+	for book in array:
+		var data = {}
+		
+		for key in book:
+			if !exceptions.has(key):
+				var words = key.split(" ")
+				var order = int(words[1])
+				
+				data[order] = book[key]
+			
+		if !dict.book.level.has(book.level):
+			dict.book.level[book.level] = []
+	
+		dict.book.level[book.level].append(book.index)
+		dict.book.index[book.index] = data
+	
+func init_beast() -> void:
+	dict.beast = {}
+	dict.beast.title = {}
+	dict.beast.terrain = {}
+	var exceptions = ["title"]
+	
+	var path = "res://asset/json/puowhio_beast.json"
+	var dictionary = load_data(path)
+	var array = dictionary["blank"]
+	
+	for beast in array:
+		var data = {}
+		
+		for key in beast:
+			if !exceptions.has(key):
+				var words = key.split(" ")
+				
+				if words.size() > 1:
+					if !data.has(words[0]):
+						data[words[0]] = {}
+					
+					data[words[0]][words[1]] = beast[key]
+				else:
+					data[words[0]] = beast[key]
+			
+		if !dict.beast.terrain.has(beast.terrain):
+			dict.beast.terrain[beast.terrain] = []
+	
+		dict.beast.terrain[beast.terrain].append(beast.title)
+		dict.beast.title[beast.title] = data
+	
 func init_flag() -> void:
 	flag.is_dragging = false
-
-
+	
 func init_vec():
 	vec.size = {}
 	vec.size.sixteen = Vector2(16, 16)
 	vec.size.slot = Vector2(64, 64)
 	
 	init_window_size()
-
-
+	
 func init_window_size():
 	vec.window = {}
 	vec.window.width = ProjectSettings.get_setting("display/window/size/viewport_width")
 	vec.window.height = ProjectSettings.get_setting("display/window/size/viewport_height")
 	vec.window.center = Vector2(vec.window.width / 2, vec.window.height / 2)
-
-
+	
 func init_color():
 	var h = 360.0
 	
@@ -357,23 +416,35 @@ func init_color():
 	color.element.aqua = Color.from_hsv(225 / h, 0.7, 0.9)
 	color.element.storm = Color.from_hsv(270 / h, 0.7, 0.9)
 	color.element.lava = Color.from_hsv(315 / h, 0.7, 0.9)
-
-
-
-func save(path_: String, data_: String):
-	var path = path_ + ".json"
-	var file = FileAccess.open(path, FileAccess.WRITE)
-	file.store_string(data_)
-
-
+	
+func expand_file(path_: String, data_: String):
+	var file = FileAccess.open(path_, FileAccess.READ)
+	var text = file.get_as_text()
+	text.erase(1)
+	#text.erase(text.length() - 1)
+	var first = text.split(",")
+	var second = data_.split(",")
+	
+	first.append_array(second)
+	var json_string = JSON.stringify(first)
+	file = FileAccess.open(path_, FileAccess.WRITE)
+	#donor.append_array(donor)
+	file.store_string(json_string)
+	
+#func save(path_: String, vars_: Array):
+	#var path = path_ + ".json"
+	#var file = FileAccess.open(path, FileAccess.WRITE)
+	#
+	#for var_ in vars_:
+		#file.store_var(var_)
+	
 func load_data(path_: String):
 	var file = FileAccess.open(path_, FileAccess.READ)
 	var text = file.get_as_text()
 	var json_object = JSON.new()
 	var _parse_err = json_object.parse(text)
 	return json_object.get_data()
-
-
+	
 func get_random_key(weights_: Dictionary):
 	if weights_.keys().size() == 0:
 		print("!bug! empty dictionary in get_random_key func")
@@ -397,8 +468,7 @@ func get_random_key(weights_: Dictionary):
 	
 	print("!bug! index_r error in get_random_key func")
 	return null
-
-
+	
 func get_random_segment_point(extremes_: Dictionary):
 	if extremes_.keys().size() == 0:
 		print("!bug! empty dictionary in get_random_key func")

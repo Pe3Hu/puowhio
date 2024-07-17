@@ -38,12 +38,28 @@ func change(element_: String, value_: int) -> void:
 			inputs.erase(element_)
 	
 func is_equal(equlibrium_: EquilibriumResource) -> bool:
+	if !is_equal_inputs(equlibrium_):
+		return false
+	elif !is_equal_outputs(equlibrium_):
+		return false
+	
+	return true
+	
+func is_negative(equlibrium_: EquilibriumResource) -> bool:
+	for element in equlibrium_.inputs:
+		if equlibrium_.get(element) != -get(element):
+			return false
+	
+	for element in equlibrium_.outputs:
+		if equlibrium_.get(element) != -get(element):
+			return false
+	
 	for element in inputs:
-		if equlibrium_.get(element) != get(element):
+		if equlibrium_.get(element) != -get(element):
 			return false
 	
 	for element in outputs:
-		if equlibrium_.get(element) != get(element):
+		if equlibrium_.get(element) != -get(element):
 			return false
 	
 	return true
@@ -73,3 +89,28 @@ func merge(equlibrium_: EquilibriumResource) -> void:
 		change(element, value)
 	
 	pass
+	
+func is_empty() -> bool:
+	return inputs.size() == 0 and outputs.size() == 0
+	
+func is_equal_inputs(equlibrium_: EquilibriumResource) -> bool:
+	for element in equlibrium_.inputs:
+		if equlibrium_.get(element) != get(element):
+			return false
+	
+	for element in inputs:
+		if equlibrium_.get(element) != get(element):
+			return false
+	
+	return true
+	
+func is_equal_outputs(equlibrium_: EquilibriumResource) -> bool:
+	for element in equlibrium_.outputs:
+		if equlibrium_.get(element) != get(element):
+			return false
+	
+	for element in outputs:
+		if equlibrium_.get(element) != get(element):
+			return false
+	
+	return true

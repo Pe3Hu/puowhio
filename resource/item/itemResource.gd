@@ -18,6 +18,6 @@ class_name ItemResource extends Resource
 		level = level_
 	get:
 		return level
-
+@export var index: int
 @export var bases: Array[DoubletResource]
 @export var affixs: Array[DoubletResource]

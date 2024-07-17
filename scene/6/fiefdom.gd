@@ -12,7 +12,11 @@ class_name Fiefdom extends Polygon2D
 	get:
 		return map
 @export var resource: FiefdomResource = FiefdomResource.new()
-@export var neighbors: Array[Fiefdom]
+
+@export var neighbors: Dictionary
+@export var trails: Dictionary
+@export var directions: Dictionary
+
 @export var index_color: Color
 @export var domains: Array[Domain]
 
@@ -24,12 +28,13 @@ class_name Fiefdom extends Polygon2D
 func init_vertexs() -> void:
 	var vertexs = []
 	
-	for direction in Global.dict.direction.diagonal:
-		var vertex = Vector2(direction) * Vector2(map.earldom_size) / 2
+	for direction in Global.dict.direction.linear2:
+		var vertex = Vector2(direction) * Vector2(map.earldom_size) / 2 * 0.66
 		vertexs.append(vertex)
 	
 	set_polygon(vertexs)
 	index_color =  Color.from_hsv(resource.index / 360.0, 0.7, 0.9)
+	#color = index_color
 	#print(Vector2i.ONE * floor(map.n / 2), resource.grid)
 	if Vector2i.ONE * floor(map.n / 2) == resource.grid:
 		resource.is_locked = true

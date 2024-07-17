@@ -8,12 +8,18 @@ var occupied_slots: Array[Slot]
 
 
 func _ready() -> void:
-	if true:
-		return
 	for slot in %Slots.get_children():
 		free_slots.push_front(slot)
 		slot.refresh_background()
 	
+	roll_starter_items()
+	
+	await get_tree().process_frame
+	resort_items()
+
+func roll_starter_items() -> void:
+	if false:
+		return
 	var nexus = mage.battle.world.nexus
 	var subtypes = ["generator", "converter", "absorber"]
 	
@@ -33,9 +39,6 @@ func _ready() -> void:
 			#resource.equilibrium = EquilibriumResource.new()
 			var item = nexus.generate_item(resource)
 			add_item(item)
-	
-	await get_tree().process_frame
-	resort_items()
 	#mage.grimoire.find_best_items()
 	
 func add_item(item_: Item) -> void:

@@ -1,102 +1,102 @@
 {
 "blank":[
  {
-  "title": 1,
+  "title": "T1",
   "multiplier minimum": 100,
   "multiplier maximum": 120
  },
  {
-  "title": 2,
+  "title": "T2",
   "multiplier minimum": 120,
   "multiplier maximum": 145
  },
  {
-  "title": 3,
+  "title": "T3",
   "multiplier minimum": 145,
   "multiplier maximum": 170
  },
  {
-  "title": 4,
+  "title": "T4",
   "multiplier minimum": 170,
   "multiplier maximum": 195
  },
  {
-  "title": 5,
+  "title": "T5",
   "multiplier minimum": 195,
   "multiplier maximum": 225
  },
  {
-  "title": 6,
+  "title": "T6",
   "multiplier minimum": 225,
   "multiplier maximum": 255
  },
  {
-  "title": 7,
+  "title": "T7",
   "multiplier minimum": 255,
   "multiplier maximum": 290
  },
  {
-  "title": 8,
+  "title": "T8",
   "multiplier minimum": 290,
   "multiplier maximum": 325
  },
  {
-  "title": 9,
+  "title": "T9",
   "multiplier minimum": 325,
   "multiplier maximum": 360
  },
  {
-  "title": 10,
+  "title": "T10",
   "multiplier minimum": 360,
   "multiplier maximum": 400
  },
  {
-  "title": 11,
+  "title": "T11",
   "multiplier minimum": 400,
   "multiplier maximum": 440
  },
  {
-  "title": 12,
+  "title": "T12",
   "multiplier minimum": 440,
   "multiplier maximum": 485
  },
  {
-  "title": 13,
+  "title": "T13",
   "multiplier minimum": 485,
   "multiplier maximum": 530
  },
  {
-  "title": 14,
+  "title": "T14",
   "multiplier minimum": 530,
   "multiplier maximum": 575
  },
  {
-  "title": 15,
+  "title": "T15",
   "multiplier minimum": 575,
   "multiplier maximum": 625
  },
  {
-  "title": 16,
+  "title": "T16",
   "multiplier minimum": 625,
   "multiplier maximum": 675
  },
  {
-  "title": 17,
+  "title": "T17",
   "multiplier minimum": 675,
   "multiplier maximum": 730
  },
  {
-  "title": 18,
+  "title": "T18",
   "multiplier minimum": 730,
   "multiplier maximum": 785
  },
  {
-  "title": 19,
+  "title": "T19",
   "multiplier minimum": 785,
   "multiplier maximum": 840
  },
  {
-  "title": 20,
+  "title": "T20",
   "multiplier minimum": 840,
   "multiplier maximum": 900
  }

@@ -1,11 +1,12 @@
+Line2D
+VBoxContainer
+HBoxContainer
+PanelContainer
 Node2D
 Polygon2D
-VBoxContainer
 Control
 GridContainer
-PanelContainer
 LimboHSM
-HBoxContainer
 MenuBar
 Sprite2D
 TextureRect

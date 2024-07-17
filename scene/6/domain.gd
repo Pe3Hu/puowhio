@@ -25,30 +25,18 @@ class_name Domain extends Node2D
 @export var senor: Domain
 
 var fill_end = false
-var expansion_chance = 100.0
-var decay_factor = 1#.995
-var deque = []
-var visited = []
 var boundary = []
 var frontiers: Dictionary
 
 func add_fiefdom(fiefdom_: Fiefdom) -> void:
-	if fiefdom_.get(layer) != null:
-		fiefdom_.get(layer).fiefdoms.erase(fiefdom_)
+	#if fiefdom_.get(layer) != null:
+		#fiefdom_.get(layer).fiefdoms.erase(fiefdom_)
 	
 	if !fiefdoms.has(fiefdom_):
 		fiefdoms.append(fiefdom_)
 		fiefdom_.set(layer, self)
 	
-	if !visited.has(fiefdom_):
-		deque.append(fiefdom_)
-		visited.append(fiefdom_)
-	
-	if fiefdom_.domains.size() > 1:
-		pass
-	while !fiefdom_.domains.is_empty():
-		var domain = fiefdom_.domains.pop_back()
-		domain.deque.erase(fiefdom_)
+	update_boundary(fiefdom_)
 	
 func recolor_fiefdoms() -> void:
 	for fiefdom in fiefdoms:
@@ -57,36 +45,39 @@ func recolor_fiefdoms() -> void:
 		if boundary.has(fiefdom):
 			fiefdom.color.v = 0.5
 	
-func apply_lazy_flood_fill() -> void:
-	if fill_end:
-		return
-	if deque.is_empty():
-		fill_end = true
-		return
-	
-	var fiefdom = deque.pop_front()
-	add_fiefdom(fiefdom)
-	
-	if fiefdom.get(layer) != null:
-		pass
-	
-	Global.rng.randomize()
-	var random = Global.rng.randi_range(0, 100)
-	
-	if random <= expansion_chance:
-		for neighbor in fiefdom.neighbors:
-			#print(neighbor.get(layer))
-			if neighbor.get(layer) == null:
-				if !visited.has(neighbor) and !deque.has(neighbor):
-					deque.append(neighbor)
-					neighbor.domains.append(self)
-			else:
-				pass
+func apply_flood_fill(contacts_: Dictionary) -> void:
+	while !fill_end:
+		if fill_end:
+			return
+		if boundary.is_empty():
+			fill_end = true
+			return
 		
-		expansion_chance *= decay_factor
-	
-	fill_end = deque.is_empty()
-	#print([expansion_chance, random, deque.size(), fill_end])
+		var options = []
+		options.append_array(boundary)
+		options = options.filter(func (a): return contacts_.fiefdom.has(a))
+		options.sort_custom(func(a, b): return contacts_.fiefdom[a].size() < contacts_.fiefdom[b].size())
+		var k = contacts_.fiefdom[options.front()].size()
+		options = options.filter(func (a): return contacts_.fiefdom[a].size() == k)
+		
+		if !options.is_empty():
+			var fiefdom = options.pick_random()
+			add_fiefdom(fiefdom)
+			map.cross_out(contacts_, fiefdom)
+			
+			fill_end = boundary.is_empty()
+			#print([fiefdoms.size(), boundary.size()])
+			
+			if map.get(layer + "_vassals") == fiefdoms.size():
+				fill_end = true
+		else:
+			pass
+		
+	for fiefdom in boundary:
+		if contacts_.fiefdom.has(fiefdom):
+			contacts_.corner.append(fiefdom)
+			fiefdom.color = Color.BLACK
+		#fill_end = true
 	
 func init_frontier() -> void:
 	boundary.clear()
@@ -153,4 +144,13 @@ func move_frontier(neighbor_: Domain) -> void:
 	
 func init_vassals() -> void:
 	var options = fiefdoms.filter(func(fiefdom): return !boundary.has(fiefdom))
-	print([options.size(), fiefdoms.size() - boundary.size()])
+	#print([options.size(), fiefdoms.size() - boundary.size()])
+	
+func update_boundary(fiefdom_: Fiefdom) -> void:
+	boundary.erase(fiefdom_)
+	fiefdom_.color = Color.RED
+	
+	for neighbor in fiefdom_.neighbors:
+		if !boundary.has(neighbor) and !fiefdoms.has(neighbor):
+			boundary.append(neighbor)
+			#neighbor.color = Color.BLACK
