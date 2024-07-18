@@ -1,0 +1,172 @@
+[gd_scene load_steps=18 format=3 uid="uid://cfbpcda5nbj1k"]
+
+[ext_resource type="Script" path="res://scene/1/minion.gd" id="1_tkocj"]
+[ext_resource type="PackedScene" uid="uid://c7p4hl7huywo5" path="res://scene/2/statistic.tscn" id="2_f0fpg"]
+[ext_resource type="Script" path="res://resource/statisticResource.gd" id="3_buwlm"]
+[ext_resource type="Script" path="res://resource/coreResource.gd" id="3_fweki"]
+[ext_resource type="Script" path="res://resource/levelResource.gd" id="3_ujjln"]
+[ext_resource type="PackedScene" uid="uid://bkitagn5whwec" path="res://scene/0/bar.tscn" id="4_yjqhk"]
+[ext_resource type="PackedScene" uid="uid://coe30eahgmn82" path="res://scene/4/conveyor.tscn" id="5_0qam4"]
+[ext_resource type="PackedScene" uid="uid://dj3oxp30ak301" path="res://scene/2/grimoire.tscn" id="6_lw7sg"]
+[ext_resource type="PackedScene" uid="uid://cicawte8jygu3" path="res://scene/2/library.tscn" id="7_t33ck"]
+[ext_resource type="PackedScene" uid="uid://ha0pebaf10xy" path="res://scene/3/stateMachine.tscn" id="8_6xi6c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bbq8e"]
+
+[sub_resource type="Resource" id="Resource_u5kfd"]
+script = ExtResource("3_fweki")
+aspect = "dexterity"
+level = null
+current = 9
+limit = 16
+is_barriered = true
+
+[sub_resource type="Resource" id="Resource_jsggt"]
+script = ExtResource("3_fweki")
+aspect = "intellect"
+level = null
+current = 9
+limit = 16
+is_barriered = true
+
+[sub_resource type="Resource" id="Resource_gievl"]
+script = ExtResource("3_fweki")
+aspect = "strength"
+level = null
+current = 9
+limit = 16
+is_barriered = true
+
+[sub_resource type="Resource" id="Resource_mow5g"]
+script = ExtResource("3_fweki")
+aspect = "will"
+level = null
+current = 9
+limit = 16
+is_barriered = true
+
+[sub_resource type="Resource" id="Resource_swtm4"]
+script = ExtResource("3_ujjln")
+value = 0
+strength = SubResource("Resource_gievl")
+dexterity = SubResource("Resource_u5kfd")
+intellect = SubResource("Resource_jsggt")
+will = SubResource("Resource_mow5g")
+
+[sub_resource type="Resource" id="Resource_gqrmo"]
+script = ExtResource("3_buwlm")
+damage_multiplier = 0
+damage_modifier = 0
+evasion_chance = 15
+accuracy_chance = 85
+critical_multiplier = 150
+critical_chance = 15
+armor_multiplier = 0
+armor_modifier = 0
+health_limit = 200
+stamina_limit = 100
+strength_multiplier = 100
+dexterity_multiplier = 100
+intellect_multiplier = 100
+will_multiplier = 100
+strength_modifier = 0
+dexterity_modifier = 0
+intellect_modifier = 0
+will_modifier = 0
+damage_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+damage_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+evasion_chance_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+accuracy_chance_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+critical_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+critical_chance_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+armor_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+armor_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+health_limit_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+stamina_limit_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+strength_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+dexterity_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+intellect_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+will_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+strength_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+dexterity_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+intellect_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+will_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+
+[node name="Minion" type="PanelContainer" node_paths=PackedStringArray("hsm", "statistic", "conveyor", "grimoire", "library", "health", "stamina")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -60.0
+offset_right = 228.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_bbq8e")
+script = ExtResource("1_tkocj")
+hsm = NodePath("LimboHSM")
+statistic = NodePath("HBox/Statistic")
+conveyor = NodePath("HBox/VBox1/Conveyor")
+grimoire = NodePath("HBox/VBox1/VBox/Grimoire")
+library = NodePath("HBox/VBox1/VBox/Library")
+health = NodePath("HBox/VBox1/Health")
+stamina = NodePath("HBox/VBox1/Stamina")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Statistic" parent="HBox" node_paths=PackedStringArray("minion") instance=ExtResource("2_f0fpg")]
+layout_mode = 2
+minion = NodePath("../..")
+refreshed = false
+level = SubResource("Resource_swtm4")
+resource = SubResource("Resource_gqrmo")
+
+[node name="VBox1" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Health" parent="HBox/VBox1" node_paths=PackedStringArray("proprietor") instance=ExtResource("4_yjqhk")]
+custom_minimum_size = Vector2(180, 16)
+layout_mode = 2
+proprietor = NodePath("../../..")
+texture_size = Vector2(180, 16)
+color_under = Color(1, 0.411765, 0.411765, 1)
+color_progress = Color(0.75, 0.105, 0.105, 1)
+value = 70
+
+[node name="Stamina" parent="HBox/VBox1" node_paths=PackedStringArray("proprietor") instance=ExtResource("4_yjqhk")]
+custom_minimum_size = Vector2(180, 16)
+layout_mode = 2
+type = "stamina"
+proprietor = NodePath("../../..")
+texture_size = Vector2(180, 16)
+color_under = Color(1, 1, 0.41, 1)
+color_progress = Color(0.75, 0.75, 0.105, 1)
+value = 70
+
+[node name="Conveyor" parent="HBox/VBox1" node_paths=PackedStringArray("minion") instance=ExtResource("5_0qam4")]
+layout_mode = 2
+minion = NodePath("../../..")
+
+[node name="VBox" type="VBoxContainer" parent="HBox/VBox1"]
+layout_mode = 2
+theme_override_constants/separation = 68
+alignment = 1
+
+[node name="Grimoire" parent="HBox/VBox1/VBox" node_paths=PackedStringArray("minion") instance=ExtResource("6_lw7sg")]
+layout_mode = 2
+minion = NodePath("../../../..")
+
+[node name="Library" parent="HBox/VBox1/VBox" node_paths=PackedStringArray("minion") instance=ExtResource("7_t33ck")]
+layout_mode = 2
+minion = NodePath("../../../..")
+
+[node name="LimboHSM" parent="." node_paths=PackedStringArray("minion") instance=ExtResource("8_6xi6c")]
+minion = NodePath("..")

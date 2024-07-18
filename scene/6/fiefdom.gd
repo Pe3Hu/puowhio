@@ -8,6 +8,9 @@ class_name Fiefdom extends Polygon2D
 		position = Global.vec.window.center + Vector2(map.earldom_size) * (Vector2(resource.grid) - Vector2.ONE * map.n * 0.5 + Vector2.ONE * 0.5)
 		init_vertexs()
 		map.grids[resource.grid] = self
+		resource.ring = max(abs(map.r - resource.grid.x), abs(map.r - resource.grid.y))
+		map.rings[resource.ring].append(self)
+		#color = Color.from_hsv(float(resource.ring) / map.rings, 1, 1)
 		#map.earldoms.append(resource)
 	get:
 		return map

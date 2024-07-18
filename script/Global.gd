@@ -79,7 +79,7 @@ func init_dict() -> void:
 	init_tier()
 	init_trigram()
 	init_book()
-	init_beast()
+	init_monster()
 	
 func init_direction() -> void:
 	dict.direction = {}
@@ -244,8 +244,6 @@ func init_scroll() -> void:
 			dict.scroll.level[scroll.level] = []
 		
 		dict.scroll.level[scroll.level].append(scroll.index)
-	var a = dict.scroll.index
-	pass
 	
 func init_terrain() -> void:
 	dict.terrain = {}
@@ -346,20 +344,20 @@ func init_book() -> void:
 		dict.book.level[book.level].append(book.index)
 		dict.book.index[book.index] = data
 	
-func init_beast() -> void:
-	dict.beast = {}
-	dict.beast.title = {}
-	dict.beast.terrain = {}
+func init_monster() -> void:
+	dict.monster = {}
+	dict.monster.title = {}
+	dict.monster.terrain = {}
 	var exceptions = ["title"]
 	
-	var path = "res://asset/json/puowhio_beast.json"
+	var path = "res://asset/json/puowhio_monster.json"
 	var dictionary = load_data(path)
 	var array = dictionary["blank"]
 	
-	for beast in array:
+	for monster in array:
 		var data = {}
 		
-		for key in beast:
+		for key in monster:
 			if !exceptions.has(key):
 				var words = key.split(" ")
 				
@@ -367,15 +365,15 @@ func init_beast() -> void:
 					if !data.has(words[0]):
 						data[words[0]] = {}
 					
-					data[words[0]][words[1]] = beast[key]
+					data[words[0]][words[1]] = monster[key]
 				else:
-					data[words[0]] = beast[key]
+					data[words[0]] = monster[key]
 			
-		if !dict.beast.terrain.has(beast.terrain):
-			dict.beast.terrain[beast.terrain] = []
+		if !dict.monster.terrain.has(monster.terrain):
+			dict.monster.terrain[monster.terrain] = []
 	
-		dict.beast.terrain[beast.terrain].append(beast.title)
-		dict.beast.title[beast.title] = data
+		dict.monster.terrain[monster.terrain].append(monster.title)
+		dict.monster.title[monster.title] = data
 	
 func init_flag() -> void:
 	flag.is_dragging = false

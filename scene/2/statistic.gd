@@ -2,8 +2,7 @@
 class_name Statistic extends PanelContainer
 
 
-@export var mage: Mage
-
+@export var minion: Minion
 @export var refreshed: bool = false:
 	set(refreshed_):
 		refreshed = refreshed_
@@ -15,8 +14,7 @@ class_name Statistic extends PanelContainer
 				doublet.resource = doublet.resource
 	get:
 		return refreshed
-
-@export var cores: Array[CoreResource]
+@export var level: LevelResource
 
 @onready var health = %HealthLimit
 @onready var stamina = %StaminaLimit
@@ -47,30 +45,34 @@ func _ready() -> void:
 	recalc_doublet_values()
 	
 func roll_cores() -> void:
-	for aspect in Global.arr.aspect:
-		var coreResource = CoreResource.new()
-		coreResource.aspect = aspect
-		cores.append(coreResource)
+	level = LevelResource.new()
+	#level.value = 1
 	
-	var rolls = [3, 2, 1, 0]
-	var aspects = []
-	aspects.append_array(Global.arr.aspect)
-	aspects.shuffle()
+	match minion.type:
+		"mage":
+			var rolls = [3, 2, 1, 0]
+			var aspects = []
+			aspects.append_array(Global.arr.aspect)
+			aspects.shuffle()
+			
+			while !rolls.is_empty():
+				var roll = rolls.pop_back()
+				var aspect = aspects.pop_back()
+				var core = level.get(aspect)
+				core.current += roll
+				#change_core_current(aspect, roll)
+		#"monster":
+		#	pass
 	
-	while !rolls.is_empty():
-		var roll = rolls.pop_back()
-		var aspect = aspects.pop_back()
-		change_core_current(aspect, roll)
-	
-func change_core_current(type_: String, value_: int) -> void:
-	var index = Global.arr.aspect.find(type_)
-	var core = cores[index]
-	core.current += value_
-	
-func get_core_current(aspect_: String) -> int:
-	var index = Global.arr.aspect.find(aspect_)
-	var core = cores[index]
-	return core.current
+#func change_core_current(type_: String, value_: int) -> void:
+	#var index = Global.arr.aspect.find(type_)
+	#var core = cores[index]
+	#core.current += value_
+	#
+#func get_core_current(aspect_: String) -> int:
+	#var index = Global.arr.aspect.find(aspect_)
+	#var core = cores[index]
+	#return core.current
 	
 func recalc_doublet_values() -> void:
 	for parameter in Global.arr.parameter:
@@ -92,10 +94,10 @@ func update_doublet(title_: String) -> void:
 	
 	if Global.arr.avg.has(title_):
 		var words = title_.split("_")
-		doublet.resource.value += get_core_current(words[0])
+		doublet.resource.value += level.get(words[0]).current
 	
 	doublet.update_label()
 	
 	if Global.arr.avg.has(title_):
-		mage.library.recalc_avgs()
-		mage.grimoire.recalc_avgs()
+		minion.library.recalc_avgs()
+		minion.grimoire.recalc_avgs()

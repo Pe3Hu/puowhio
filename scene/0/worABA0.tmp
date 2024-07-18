@@ -12,6 +12,7 @@ nexus = NodePath("CanvasLayer/Nexus")
 battle = NodePath("CanvasLayer/Battle")
 
 [node name="Map" parent="." instance=ExtResource("2_him4q")]
+visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3

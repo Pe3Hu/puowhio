@@ -1,55 +1,54 @@
-[gd_scene load_steps=14 format=3 uid="uid://ca1g83af4htah"]
+[gd_scene load_steps=13 format=3 uid="uid://p5ey6uj7052r"]
 
-[ext_resource type="Script" path="res://scene/1/mage.gd" id="1_6hep8"]
-[ext_resource type="PackedScene" uid="uid://cfbpcda5nbj1k" path="res://scene/1/minion.tscn" id="1_m6nri"]
-[ext_resource type="PackedScene" uid="uid://crsiesfkvlbmp" path="res://scene/3/bagua.tscn" id="2_u663w"]
-[ext_resource type="Script" path="res://resource/statisticResource.gd" id="3_ve4iq"]
-[ext_resource type="Script" path="res://resource/coreResource.gd" id="3_vgf7c"]
-[ext_resource type="Script" path="res://resource/levelResource.gd" id="4_hlkbv"]
-[ext_resource type="PackedScene" uid="uid://d56kp15aev" path="res://scene/3/inventory.tscn" id="6_488wl"]
+[ext_resource type="PackedScene" uid="uid://cfbpcda5nbj1k" path="res://scene/1/minion.tscn" id="1_tfjat"]
+[ext_resource type="Script" path="res://scene/1/monster.gd" id="2_k1ag5"]
+[ext_resource type="Script" path="res://resource/statisticResource.gd" id="2_yi0xi"]
+[ext_resource type="Script" path="res://resource/coreResource.gd" id="3_ngnw3"]
+[ext_resource type="Script" path="res://resource/levelResource.gd" id="4_10cnl"]
+[ext_resource type="FontFile" uid="uid://33eqagvh85us" path="res://asset/font/digital/Inter-Black.ttf" id="6_ro10y"]
 
-[sub_resource type="Resource" id="Resource_w7ia4"]
-script = ExtResource("3_vgf7c")
+[sub_resource type="Resource" id="Resource_v1mmq"]
+script = ExtResource("3_ngnw3")
 aspect = "dexterity"
 level = null
 current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_6gd14"]
-script = ExtResource("3_vgf7c")
+[sub_resource type="Resource" id="Resource_24yty"]
+script = ExtResource("3_ngnw3")
 aspect = "intellect"
 level = null
 current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_uju4v"]
-script = ExtResource("3_vgf7c")
+[sub_resource type="Resource" id="Resource_dj51i"]
+script = ExtResource("3_ngnw3")
 aspect = "strength"
 level = null
 current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_by1rh"]
-script = ExtResource("3_vgf7c")
+[sub_resource type="Resource" id="Resource_7mwn5"]
+script = ExtResource("3_ngnw3")
 aspect = "will"
 level = null
 current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_b28f1"]
-script = ExtResource("4_hlkbv")
+[sub_resource type="Resource" id="Resource_b60y3"]
+script = ExtResource("4_10cnl")
 value = 0
-strength = SubResource("Resource_uju4v")
-dexterity = SubResource("Resource_w7ia4")
-intellect = SubResource("Resource_6gd14")
-will = SubResource("Resource_by1rh")
+strength = SubResource("Resource_dj51i")
+dexterity = SubResource("Resource_v1mmq")
+intellect = SubResource("Resource_24yty")
+will = SubResource("Resource_7mwn5")
 
-[sub_resource type="Resource" id="Resource_23lcp"]
-script = ExtResource("3_ve4iq")
+[sub_resource type="Resource" id="Resource_idgyb"]
+script = ExtResource("2_yi0xi")
 damage_multiplier = 0
 damage_modifier = 0
 evasion_chance = 15
@@ -87,26 +86,21 @@ dexterity_modifier_resources = Array[Resource("res://resource/doublet/doubletRes
 intellect_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
 will_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
 
-[node name="Mage" node_paths=PackedStringArray("bagua", "inventory") instance=ExtResource("1_m6nri")]
-script = ExtResource("1_6hep8")
-bagua = NodePath("HBox/VBox2/Bagua")
-inventory = NodePath("HBox/VBox2/Inventory")
-type = "mage"
+[node name="Monster" instance=ExtResource("1_tfjat")]
+script = ExtResource("2_k1ag5")
+summary = null
+terrain = null
+type = "monster"
 
 [node name="Statistic" parent="HBox" index="0"]
-level = SubResource("Resource_b28f1")
-resource = SubResource("Resource_23lcp")
+level = SubResource("Resource_b60y3")
+resource = SubResource("Resource_idgyb")
 
-[node name="VBox2" type="VBoxContainer" parent="HBox" index="2"]
-visible = false
+[node name="Kind" type="Label" parent="HBox/VBox1" index="0"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="Bagua" parent="HBox/VBox2" index="0" node_paths=PackedStringArray("minion") instance=ExtResource("2_u663w")]
-layout_mode = 2
-minion = NodePath("../../..")
-
-[node name="Inventory" parent="HBox/VBox2" index="1" node_paths=PackedStringArray("minion") instance=ExtResource("6_488wl")]
-layout_mode = 2
-minion = NodePath("../../..")
+theme_override_fonts/font = ExtResource("6_ro10y")
+theme_override_font_sizes/font_size = 16
+text = "999"
+horizontal_alignment = 1
+vertical_alignment = 1

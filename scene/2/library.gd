@@ -1,7 +1,7 @@
 class_name Library extends PanelContainer
 
 
-@export var mage: Mage
+@export var minion: Minion
 
 var free_slots: Array[Slot]
 var occupied_slots: Array[Slot]
@@ -16,30 +16,37 @@ func _ready() -> void:
 	
 	await get_tree().process_frame
 	resort_items()
-
+	
 func roll_starter_items() -> void:
 	if false:
 		return
-	var nexus = mage.battle.world.nexus
-	var subtypes = ["generator", "converter", "absorber"]
 	
-	for subtype in subtypes:
-		var prioritized_elements = []
-		prioritized_elements.append_array(Global.arr.primordial)
-		prioritized_elements.shuffle()
-		
-		for _j in 3:
-			var resource = ScrollResource.new()
-			resource.rarity = "common"
-			resource.level = 1
-			resource.type = "scroll"
-			resource.subtype = subtype
-			var element = prioritized_elements.pop_back()
-			resource.prioritized_elements.append(element)
-			#resource.equilibrium = EquilibriumResource.new()
-			var item = nexus.generate_item(resource)
-			add_item(item)
-	#mage.grimoire.find_best_items()
+	var nexus = minion.battle.world.nexus
+	
+	match minion.type:
+		"mage":
+			var subtypes = ["generator", "converter", "absorber"]
+			
+			for subtype in subtypes:
+				var prioritized_elements = []
+				prioritized_elements.append_array(Global.arr.primordial)
+				prioritized_elements.shuffle()
+				
+				for _j in 3:
+					var resource = ScrollResource.new()
+					resource.rarity = "common"
+					resource.level = 1
+					resource.type = "scroll"
+					resource.subtype = subtype
+					var element = prioritized_elements.pop_back()
+					resource.prioritized_elements.append(element)
+					#resource.equilibrium = EquilibriumResource.new()
+					var item = nexus.generate_item(resource)
+					add_item(item)
+		#"monster":
+			#var options = Global.dict.book.level[minion.re]
+	
+	#minion.grimoire.find_best_items()
 	
 func add_item(item_: Item) -> void:
 	add_child(item_)
@@ -47,7 +54,7 @@ func add_item(item_: Item) -> void:
 	occupied_slots.append(slot)
 	slot.item = item_
 	item_.description.calc_avg()
-	mage.grimoire.resources[item_.resource] = item_
+	minion.grimoire.resources[item_.resource] = item_
 	
 func resort_items() -> void:
 	for slot in occupied_slots:

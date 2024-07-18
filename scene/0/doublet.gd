@@ -3,7 +3,6 @@ class_name Doublet extends PanelContainer
 
 
 @export var panel: PanelContainer
-
 @export var resource: DoubletResource:
 	set(resource_):
 		resource = resource_
@@ -12,7 +11,6 @@ class_name Doublet extends PanelContainer
 			update_ui()
 	get:
 		return resource
-
 @export_range(1, 4, 1) var zoom: int = 1:
 	set(zoom_):
 		zoom = zoom_
@@ -20,7 +18,6 @@ class_name Doublet extends PanelContainer
 		cell_size = base_cell_size * (zoom)
 	get:
 		return zoom
-
 @export var cell_size: Vector2 = base_cell_size:
 	set(cell_size_):
 		cell_size = cell_size_

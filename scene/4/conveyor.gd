@@ -1,7 +1,7 @@
 class_name Conveyor extends PanelContainer
 
 
-@export var mage: Mage
+@export var minion: Minion
 @export var equilibrium: EquilibriumResource = EquilibriumResource.new()
 
 @onready var orb_scene = load("res://scene/4/orb.tscn")

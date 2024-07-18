@@ -5,11 +5,11 @@ class_name World extends Node
 @export var nexus: Nexus
 @export var battle: Battle
 
-@export var mage: int = 0:
-	set(mage_):
-		mage = mage_
+@export var blabla: int = 0:
+	set(blabla_):
+		blabla = blabla_
 	get:
-		return mage
+		return blabla
 
 
 func _ready() -> void:
@@ -18,4 +18,3 @@ func _ready() -> void:
 	#Global.rng.randomize()
 	#var random = Global.rng.randi_range(0, 1)
 	pass
-

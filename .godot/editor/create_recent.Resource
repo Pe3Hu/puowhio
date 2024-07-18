@@ -1,6 +1,6 @@
+Resource
 ClassResource
 TerrainResource
-Resource
 DoubletResource
 ScrollResource
 CoreResource

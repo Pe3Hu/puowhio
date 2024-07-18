@@ -6,7 +6,6 @@ class_name ItemResource extends Resource
 		type = type_
 	get:
 		return type
-
 @export_enum("common", "uncommon", "rare", "epic", "legendary") var rarity: String = "uncommon":
 	set(rarity_):
 		rarity = rarity_

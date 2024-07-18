@@ -42,41 +42,62 @@ func recolor_fiefdoms() -> void:
 	for fiefdom in fiefdoms:
 		fiefdom.color = color
 		
+		fiefdom.color.v = (6.0 + index % 6) / 12.0
+		
+		if fiefdoms.size() != 6:
+			fiefdom.color = Color.DIM_GRAY
+		
 		if boundary.has(fiefdom):
 			fiefdom.color.v = 0.5
+		
 	
 func apply_flood_fill(contacts_: Dictionary) -> void:
 	while !fill_end:
-		if fill_end:
-			return
 		if boundary.is_empty():
 			fill_end = true
 			return
 		
-		var options = []
-		options.append_array(boundary)
-		options = options.filter(func (a): return contacts_.fiefdom.has(a))
-		options.sort_custom(func(a, b): return contacts_.fiefdom[a].size() < contacts_.fiefdom[b].size())
-		var k = contacts_.fiefdom[options.front()].size()
-		options = options.filter(func (a): return contacts_.fiefdom[a].size() == k)
+		var options = boundary.filter(func (a): return contacts_.fiefdom.has(a))
+		var exeptions = options.filter(func (a): return contacts_.fiefdom[a].size() < 2)
+		var weights = {}
 		
-		if !options.is_empty():
-			var fiefdom = options.pick_random()
+		if exeptions.is_empty():
+			for ring in range(contacts_.ring, 0, -1):
+				var result = []
+				
+				for option in options:
+					if map.rings[ring].has(option):
+						result.append(option)
+					
+				if !result.is_empty():
+					options = result
+					break
+			
+			for fiefdom in options:
+				var neighbors = fiefdom.neighbors.keys().filter(func (a): return fiefdoms.has(a))
+				weights[fiefdom] = neighbors.size()
+		else:
+			for exeption in exeptions:
+				weights[exeption] = 1
+		
+		if weights.is_empty():
+			fill_end = true
+			return
+		else:
+			var fiefdom = Global.get_random_key(weights)
 			add_fiefdom(fiefdom)
 			map.cross_out(contacts_, fiefdom)
 			
-			fill_end = boundary.is_empty()
-			#print([fiefdoms.size(), boundary.size()])
-			
 			if map.get(layer + "_vassals") == fiefdoms.size():
 				fill_end = true
-		else:
-			pass
 		
 	for fiefdom in boundary:
 		if contacts_.fiefdom.has(fiefdom):
-			contacts_.corner.append(fiefdom)
-			fiefdom.color = Color.BLACK
+			if map.rings[contacts_.ring].has(fiefdom):
+				#contacts_.corner.append(fiefdom)
+				pass
+			#fiefdom.color = Color.BLACK
+			
 		#fill_end = true
 	
 func init_frontier() -> void:
@@ -143,8 +164,9 @@ func move_frontier(neighbor_: Domain) -> void:
 				neighbor_.frontiers[self].append(neighbor_fiefdom)
 	
 func init_vassals() -> void:
-	var options = fiefdoms.filter(func(fiefdom): return !boundary.has(fiefdom))
+	#var options = fiefdoms.filter(func(fiefdom): return !boundary.has(fiefdom))
 	#print([options.size(), fiefdoms.size() - boundary.size()])
+	pass
 	
 func update_boundary(fiefdom_: Fiefdom) -> void:
 	boundary.erase(fiefdom_)
@@ -152,5 +174,57 @@ func update_boundary(fiefdom_: Fiefdom) -> void:
 	
 	for neighbor in fiefdom_.neighbors:
 		if !boundary.has(neighbor) and !fiefdoms.has(neighbor):
-			boundary.append(neighbor)
+			if neighbor.get(layer) == null:
+				boundary.append(neighbor)
 			#neighbor.color = Color.BLACK
+	
+func original_apply_flood_fill(contacts_: Dictionary) -> void:
+	while !fill_end:
+		if fill_end:
+			return
+		if boundary.is_empty():
+			fill_end = true
+			return
+		
+		var options = boundary.filter(func (a): return contacts_.fiefdom.has(a))
+		options.sort_custom(func(a, b): return contacts_.fiefdom[a].size() < contacts_.fiefdom[b].size())
+		
+		for ring in range(contacts_.ring, 0, -1):
+			var result = []
+			
+			for option in options:
+				if map.rings[ring].has(option):
+					result.append(option)
+				
+			if !result.is_empty():
+				options = result
+				break
+		
+		if options.is_empty():
+			fill_end = true
+			return
+		
+		var k = contacts_.fiefdom[options.front()].size()
+		options = options.filter(func (a): return contacts_.fiefdom[a].size() == k)
+		
+		if !options.is_empty():
+			var fiefdom = options.pick_random()
+			add_fiefdom(fiefdom)
+			map.cross_out(contacts_, fiefdom)
+			
+			fill_end = boundary.is_empty()
+			#print([fiefdoms.size(), boundary.size()])
+			
+			if map.get(layer + "_vassals") == fiefdoms.size():
+				fill_end = true
+		else:
+			pass
+		
+	for fiefdom in boundary:
+		if contacts_.fiefdom.has(fiefdom):
+			if map.rings[contacts_.ring].has(fiefdom):
+				#contacts_.corner.append(fiefdom)
+				pass
+			#fiefdom.color = Color.BLACK
+			
+		#fill_end = true

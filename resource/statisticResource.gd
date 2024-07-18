@@ -9,7 +9,7 @@ class_name StatisticResource extends Resource
 @export var critical_chance: int = 15
 @export var armor_multiplier: int = 0
 @export var armor_modifier: int = 0
-@export var health_limit: int = 100
+@export var health_limit: int = 200
 @export var stamina_limit: int = 100
 @export var strength_multiplier: int = 100
 @export var dexterity_multiplier: int = 100

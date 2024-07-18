@@ -1,7 +1,7 @@
 class_name Bagua extends PanelContainer
 
 
-@export var mage: Mage
+@export var minion: Minion
 
 
 func find_best_items() -> void:
@@ -15,7 +15,7 @@ func find_best_items() -> void:
 func find_best_item(slot_: Slot) -> Array[Item]:
 	var options: Array[Item]
 	
-	for slot in mage.inventory.occupied_slots:
+	for slot in minion.inventory.occupied_slots:
 		var flag = false
 		
 		if slot.item.resource.type == slot_.type:
@@ -36,9 +36,9 @@ func suit_up(slot_: Slot, item_: Item) -> void:
 		slot_.item.is_description_visible = false
 		
 		for resource in item_.resource.bases:
-			var resources = mage.statistic.resource.get(resource.subtype + "_" + resource.measure +  "_resources")
+			var resources = minion.statistic.resource.get(resource.subtype + "_" + resource.measure +  "_resources")
 			resources.erase(resource)
-			mage.statistic.update_doublet(resource.subtype + "_modifier")
+			minion.statistic.update_doublet(resource.subtype + "_modifier")
 	
 	slot_.item = item_
 	slot_.item.is_description_visible = true
@@ -47,23 +47,23 @@ func suit_up(slot_: Slot, item_: Item) -> void:
 	
 	for resource in item_.resource.bases:
 		var title = resource.subtype + "_" + resource.measure +  "_resources"
-		var resources = mage.statistic.resource.get(title)
+		var resources = minion.statistic.resource.get(title)
 		
 		if !resources.has(resource):
 			resources.append(resource)
-			mage.statistic.update_doublet(resource.subtype + "_modifier")
+			minion.statistic.update_doublet(resource.subtype + "_modifier")
 	
 	for resource in item_.resource.affixs:
 		var title = resource.subtype + "_" + resource.measure +  "_resources"
-		var resources = mage.statistic.resource.get(title)
+		var resources = minion.statistic.resource.get(title)
 		
 		if !resources.has(resource):
 			resources.append(resource)
-			mage.statistic.update_doublet(resource.subtype + "_" + resource.measure)
+			minion.statistic.update_doublet(resource.subtype + "_" + resource.measure)
 	
-	for slot in mage.library.occupied_slots:
+	for slot in minion.library.occupied_slots:
 		slot.item.description.calc_avg()
 	
-	for slot in mage.grimoire.ordered_scrolls:
+	for slot in minion.grimoire.ordered_scrolls:
 		slot.item.description.calc_avg()
 

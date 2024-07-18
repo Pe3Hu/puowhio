@@ -31,9 +31,9 @@ class_name Trail extends Line2D
 
 func crush() -> void:
 	for fiefdom in fiefdoms:
-		for direction in fiefdom.directions:
-			if fiefdom.directions[direction] == self:
-				fiefdom.directions.erase(direction)
+		for _direction in fiefdom.directions:
+			if fiefdom.directions[_direction] == self:
+				fiefdom.directions.erase(_direction)
 		
 		for neighbor in fiefdom.neighbors:
 			if fiefdom.neighbors[neighbor] == self:

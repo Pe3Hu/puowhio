@@ -1,7 +1,7 @@
 class_name Grimoire extends PanelContainer
 
 
-@export var mage: Mage
+@export var minion: Minion
 
 var ordered_scrolls: Array[Scroll]
 var lists: Array[ListResource]

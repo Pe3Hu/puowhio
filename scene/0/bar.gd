@@ -3,11 +3,9 @@ class_name Bar extends PanelContainer
 
 
 @export_enum("health", "stamina") var type: String = "health"
-
-@export_enum("standard", "drain") var tempo: String = "standard"
+@export_enum("standard", "instant") var tempo: String = "instant"
 
 @export var proprietor: PanelContainer
-
 @export var texture_size: Vector2 = Vector2(16, 16):
 	set(texture_size_):
 		texture_size = texture_size_
@@ -24,7 +22,6 @@ class_name Bar extends PanelContainer
 		%Fullness.tint_under = color_under
 	get:
 		return color_under
-
 @export var color_progress: Color = Color.WHITE:
 	set(color_progress_):
 		color_progress = color_progress_
@@ -33,7 +30,6 @@ class_name Bar extends PanelContainer
 		return color_progress
 
 @export var treatment_time: float = 0.5
-
 @export var limit: int = 100:
 	set(limit_):
 		limit = limit_
@@ -41,7 +37,6 @@ class_name Bar extends PanelContainer
 		%Label.text = str(round(limit))
 	get:
 		return limit
-
 @export var value: int = 0:
 	set(value_):
 		value = clamp(value_, 0, limit)
@@ -61,6 +56,7 @@ class_name Bar extends PanelContainer
 		return value
 
 @export var standard_modifier: float = 1.0
+@export var instant_modifier: float = 0.0
 
 
 func on_tween_finished() -> void:

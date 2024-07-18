@@ -2,7 +2,6 @@ class_name Description extends MenuBar
 
 
 @export var item: Item
-
 @export var cell_size: Vector2:
 	set(cell_size_):
 		cell_size = cell_size_
@@ -12,7 +11,6 @@ class_name Description extends MenuBar
 			%Damage.size = cell_size
 	get:
 		return cell_size
-
 @export var refreshed: bool = false:
 	set(refreshed_):
 		refreshed = refreshed_
@@ -79,7 +77,7 @@ func calc_avg() -> void:
 	item.resource.avg = 0
 	
 	for resource in item.resource.aspects:
-		var doublet = item.slot.proprietor.mage.statistic.get(resource.subtype + "_modifier")
+		var doublet = item.slot.proprietor.minion.statistic.get(resource.subtype + "_modifier")
 		var share = resource.value
 		item.resource.avg += doublet.resource.value * share * float(item.resource.multiplier) / 10000
 	
