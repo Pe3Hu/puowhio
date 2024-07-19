@@ -1,0 +1,48 @@
+{
+"blank":[
+ {
+  "title": "common",
+  "minimum aspect": 0,
+  "maximum aspect": 60,
+  "f evaluation": 80,
+  "e evaluation": 50,
+  "d evaluation": 20
+ },
+ {
+  "title": "uncommon",
+  "minimum aspect": 20,
+  "maximum aspect": 70,
+  "f evaluation": 20,
+  "e evaluation": 30,
+  "d evaluation": 45,
+  "c evaluation": 45,
+  "b evaluation": 15
+ },
+ {
+  "title": "rare",
+  "minimum aspect": 40,
+  "maximum aspect": 80,
+  "e evaluation": 20,
+  "d evaluation": 35,
+  "c evaluation": 50,
+  "b evaluation": 65,
+  "a evaluation": 50
+ },
+ {
+  "title": "epic",
+  "minimum aspect": 60,
+  "maximum aspect": 90,
+  "c evaluation": 10,
+  "b evaluation": 20,
+  "a evaluation": 30,
+  "s evaluation": 40
+ },
+ {
+  "title": "legendary",
+  "minimum aspect": 80,
+  "maximum aspect": 100,
+  "a evaluation": 20,
+  "s evaluation": 60
+ }
+]
+}

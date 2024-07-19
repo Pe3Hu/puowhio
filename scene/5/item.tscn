@@ -13,6 +13,7 @@ script = ExtResource("2_ugwmq")
 type = "trigram"
 rarity = "uncommon"
 level = 0
+index = 0
 bases = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
 affixs = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
 

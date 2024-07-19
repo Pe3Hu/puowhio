@@ -54,6 +54,8 @@ func init_arr() -> void:
 		"will_multiplier"
 		]
 	arr.terrain = ["swamp", "plain", "desert", "mountain", "tundra", "coast", "volcano", "jungle"]
+	arr.titulus = ["earldom", "dukedom", "kingdom", "empire"]
+	arr.resource = ["liquid", "gas", "ore"]
 	
 func init_num() -> void:
 	num.index = {}
@@ -69,7 +71,6 @@ func init_num() -> void:
 	
 func init_dict() -> void:
 	init_direction()
-	init_rarity()
 	init_class()
 	
 	init_affix()
@@ -80,6 +81,7 @@ func init_dict() -> void:
 	init_trigram()
 	init_book()
 	init_monster()
+	init_rarity()
 	
 func init_direction() -> void:
 	dict.direction = {}
@@ -134,15 +136,6 @@ func init_direction() -> void:
 		direction = dict.direction.diagonal[_i]
 		dict.direction.windrose.append(direction)
 	
-func init_rarity() -> void:
-	dict.rarity = {}
-	dict.rarity.affix = {}
-	dict.rarity.affix["common"] = 0
-	dict.rarity.affix["uncommon"] = 1
-	dict.rarity.affix["rare"] = 2
-	dict.rarity.affix["epic"] = 3
-	dict.rarity.affix["legendary"] = 4
-	
 func init_class() -> void:
 	dict.class = {}
 	dict.class.element = {}
@@ -150,6 +143,16 @@ func init_class() -> void:
 	dict.class.element["wind"] = ["shadow", "destroyer", "illusionist"]
 	dict.class.element["fire"] = ["arsonist", "berserker", "reaper"]
 	dict.class.element["earth"] = ["keeper", "fortress", "undertaker"]
+	
+	dict.senor = {}
+	dict.senor["earldom"] = "dukedom"
+	dict.senor["dukedom"] = "kingdom"
+	dict.senor["kingdom"] = "empire"
+	
+	dict.vassal = {}
+	dict.vassal["dukedom"] = "earldom"
+	dict.vassal["kingdom"] = "dukedom"
+	dict.vassal["empire"] = "kingdom"
 	
 func init_affix() -> void:
 	dict.affix = {}
@@ -249,6 +252,7 @@ func init_terrain() -> void:
 	dict.terrain = {}
 	dict.terrain.title = {}
 	dict.terrain.element = {}
+	dict.terrain.resource = {}
 	var exceptions = ["title"]
 	
 	var path = "res://asset/json/puowhio_terrain.json"
@@ -257,16 +261,24 @@ func init_terrain() -> void:
 	
 	for terrain in array:
 		var data = {}
+		data.element = {}
+		data.resource = {}
 		
 		for key in terrain:
 			if !exceptions.has(key):
-				data[key] = terrain[key]
-				
-				if terrain[key] > 0:
+				if arr.element.has(key):
 					if !dict.terrain.element.has(key):
 						dict.terrain.element[key] = {}
 					
 					dict.terrain.element[key][terrain.title] = terrain[key]
+					data.element[key] = terrain[key]
+				
+				if arr.resource.has(key):
+					if !dict.terrain.resource.has(key):
+						dict.terrain.resource[key] = {}
+					
+					dict.terrain.resource[key][terrain.title] = terrain[key]
+					data.resource[key] = terrain[key]
 			
 		dict.terrain.title[terrain.title] = data
 	
@@ -329,6 +341,8 @@ func init_book() -> void:
 	var array = dictionary["blank"]
 	
 	for book in array:
+		book.level = int(book.level)
+		book.index = int(book.index)
 		var data = {}
 		
 		for key in book:
@@ -374,6 +388,43 @@ func init_monster() -> void:
 	
 		dict.monster.terrain[monster.terrain].append(monster.title)
 		dict.monster.title[monster.title] = data
+	
+func init_rarity() -> void:
+	dict.rarity = {}
+	dict.rarity.title = {}
+	dict.rarity.evaluation = {}
+	var exceptions = ["title", "level"]
+	
+	var path = "res://asset/json/puowhio_rarity.json"
+	var dictionary = load_data(path)
+	var array = dictionary["blank"]
+	
+	for rarity in array:
+		var data = {}
+		
+		for key in rarity:
+			if !exceptions.has(key):
+				var words = key.split(" ")
+				
+				if words[1] == "evaluation":
+					if !dict.rarity.evaluation.has(words[0]):
+						dict.rarity.evaluation[words[0]] = {}
+					
+					dict.rarity.evaluation[words[0]][rarity.title] = rarity[key]
+				else:
+					if !data.has(words[1]):
+						data[words[1]] = {}
+					
+					data[words[1]][words[0]] = rarity[key]
+			
+		dict.rarity.title[rarity.title] = data
+		
+	dict.rarity.affix = {}
+	dict.rarity.affix["common"] = 0
+	dict.rarity.affix["uncommon"] = 1
+	dict.rarity.affix["rare"] = 2
+	dict.rarity.affix["epic"] = 3
+	dict.rarity.affix["legendary"] = 4
 	
 func init_flag() -> void:
 	flag.is_dragging = false

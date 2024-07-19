@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ubbg4gd6lsgl"]
+
+[ext_resource type="Script" path="res://scene/7/domain.gd" id="1_8iac2"]
+[ext_resource type="PackedScene" uid="uid://bgpnauomasnqc" path="res://scene/7/perimeter.tscn" id="2_blaw7"]
+
+[node name="Domain" type="Node2D" node_paths=PackedStringArray("perimeter")]
+script = ExtResource("1_8iac2")
+perimeter = NodePath("Perimeter")
+
+[node name="Perimeter" parent="." node_paths=PackedStringArray("domain") instance=ExtResource("2_blaw7")]
+domain = NodePath("..")

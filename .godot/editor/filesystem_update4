@@ -1,6 +1,11 @@
 res://scene/0/world.tscn
-res://scene/1/battle.gd
 res://scene/6/map.gd
-res://scene/6/domain.gd
-res://scene/6/fiefdom.gd
-res://resource/fiefdomResource.gd
+res://scene/1/battle.gd
+res://scene/7/perimeter.tscn
+res://scene/7/perimeter.gd
+res://scene/7/domain.tscn
+res://scene/7/domain.gd
+res://script/Global.gd
+res://scene/7/frontier.gd
+res://scene/7/deadend.gd
+res://scene/6/map.tscn

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpbxqa56xyi1p"]
+
+[ext_resource type="Script" path="res://scene/7/frontier.gd" id="1_4sv2u"]
+
+[node name="Frontier" type="Node2D"]
+script = ExtResource("1_4sv2u")

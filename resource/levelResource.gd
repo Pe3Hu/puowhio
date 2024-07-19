@@ -1,16 +1,19 @@
 class_name LevelResource extends Resource
 
 
-@export var value: int:
+@export var value: int = 1:
 	set(value_):
 		value = value_
-		
-		strength.update_limit()
-		dexterity.update_limit()
-		intellect.update_limit()
-		will.update_limit()
+		if value > 0:
+			limit = 0
+			
+			strength.update_limit()
+			dexterity.update_limit()
+			intellect.update_limit()
+			will.update_limit()
 	get:
 		return value
+@export var limit: int
 @export var strength: CoreResource
 @export var dexterity: CoreResource
 @export var intellect: CoreResource

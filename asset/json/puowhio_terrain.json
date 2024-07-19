@@ -3,90 +3,66 @@
  {
   "title": "swamp",
   "aqua": 30,
-  "wind": 0,
-  "fire": 0,
-  "earth": 0,
-  "ice": 0,
-  "storm": 0,
-  "lava": 0,
-  "nature": 20
+  "nature": 20,
+  "liquid": 6,
+  "gas": 4,
+  "ore": 5
  },
  {
   "title": "plain",
-  "aqua": 0,
   "wind": 30,
   "fire": 10,
-  "earth": 0,
-  "ice": 0,
   "storm": 10,
-  "lava": 0,
-  "nature": 0
+  "liquid": 3,
+  "gas": 5,
+  "ore": 7
  },
  {
   "title": "desert",
-  "aqua": 0,
-  "wind": 0,
   "fire": 20,
   "earth": 10,
-  "ice": 0,
   "storm": 20,
-  "lava": 0,
-  "nature": 0
+  "gas": 9,
+  "ore": 6
  },
  {
   "title": "mountain",
-  "aqua": 0,
-  "wind": 0,
-  "fire": 0,
   "earth": 30,
   "ice": 20,
-  "storm": 0,
-  "lava": 0,
-  "nature": 0
+  "liquid": 5,
+  "gas": 1,
+  "ore": 9
  },
  {
   "title": "tundra",
-  "aqua": 0,
   "wind": 20,
-  "fire": 0,
-  "earth": 0,
   "ice": 30,
-  "storm": 0,
-  "lava": 0,
-  "nature": 0
+  "liquid": 8,
+  "gas": 6,
+  "ore": 1
  },
  {
   "title": "coast",
   "aqua": 20,
-  "wind": 0,
-  "fire": 0,
   "earth": 10,
-  "ice": 0,
   "storm": 20,
-  "lava": 0,
-  "nature": 0
+  "liquid": 9,
+  "gas": 2,
+  "ore": 4
  },
  {
   "title": "volcano",
-  "aqua": 0,
-  "wind": 0,
   "fire": 20,
-  "earth": 0,
-  "ice": 0,
-  "storm": 0,
   "lava": 30,
-  "nature": 0
+  "gas": 7,
+  "ore": 8
  },
  {
   "title": "jungle",
-  "aqua": 0,
-  "wind": 0,
-  "fire": 0,
-  "earth": 0,
-  "ice": 0,
-  "storm": 0,
   "lava": 20,
-  "nature": 30
+  "nature": 30,
+  "liquid": 7,
+  "gas": 8
  }
 ]
 }

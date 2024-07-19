@@ -37,17 +37,15 @@ class_name Statistic extends PanelContainer
 
 @export var resource: StatisticResource
 
+
 func _ready() -> void:
 	refreshed = !refreshed
 	resource = StatisticResource.new()
+	level = LevelResource.new()
 	
 	roll_cores()
-	recalc_doublet_values()
 	
 func roll_cores() -> void:
-	level = LevelResource.new()
-	#level.value = 1
-	
 	match minion.type:
 		"mage":
 			var rolls = [3, 2, 1, 0]
@@ -61,18 +59,11 @@ func roll_cores() -> void:
 				var core = level.get(aspect)
 				core.current += roll
 				#change_core_current(aspect, roll)
+			
+			recalc_doublet_values()
 		#"monster":
+		#	minion.roll_aspects()
 		#	pass
-	
-#func change_core_current(type_: String, value_: int) -> void:
-	#var index = Global.arr.aspect.find(type_)
-	#var core = cores[index]
-	#core.current += value_
-	#
-#func get_core_current(aspect_: String) -> int:
-	#var index = Global.arr.aspect.find(aspect_)
-	#var core = cores[index]
-	#return core.current
 	
 func recalc_doublet_values() -> void:
 	for parameter in Global.arr.parameter:

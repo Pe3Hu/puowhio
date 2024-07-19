@@ -10,9 +10,12 @@ class_name Map extends Node2D
 
 @onready var fiefdom_scene = preload("res://scene/6/fiefdom.tscn")
 @onready var trail_scene = preload("res://scene/6/trail.tscn")
-@onready var domain_scene = preload("res://scene/6/domain.tscn")
+@onready var domain_scene = preload("res://scene/7/domain.tscn")
+@onready var deadend_scene = preload("res://scene/7/deadend.tscn")
+@onready var frontier_scene = preload("res://scene/7/frontier.tscn")
 @onready var fiefdoms = %Fiefdoms
 @onready var trails = %Trails
+@onready var deadends = %Deadends
 
 #const earldom_l = 40
 const earldom_size = Vector2i(40, 40)
@@ -23,6 +26,7 @@ const k = 361
 const empire_count = 3
 const kingdom_count = 12
 const dukedom_count = 60
+const earldom_count = 360
 
 const empire_vassals = 4
 const kingdom_vassals = 5
@@ -32,12 +36,18 @@ const empire_fiefdoms = 120
 const kingdom_fiefdoms = 30
 const dukedom_fiefdoms = 6
 
+var wave: Array
+var frontiers: Dictionary
+
 
 func _ready() -> void:
+	if false:
+		return
 	pass
 	init_fiefdoms()
 	init_trails()
 	
+	init_earldoms()
 	init_dukedoms()
 	#init_fiefdoms_neighbors()
 	#init_empires()
@@ -313,12 +323,36 @@ func clear_redundant_trails() -> void:
 		#if n == -1:
 			#fiefdom.color = Color.BLACK
 	
+func init_earldoms() -> void:
+	for fiefdom in fiefdoms.get_children():
+		var domain = domain_scene.instantiate()
+		domain.map = self
+		domain.layer = "earldom"
+		earldoms.append(domain)
+		domain.add_fiefdom(fiefdom)
+	
+	init_frontiers("earldom")
+	
+func init_frontiers(layer_: String) -> void:
+	frontiers[layer_] = {}
+	var domains = get(layer_ + "s")
+	
+	for domain in domains:
+		if !frontiers[layer_].has(domain):
+			frontiers[layer_][domain] = {}
+		
+		for fiefdom in domain.perimeter.proximates:
+			var neighbor_domain = fiefdom.get(layer_)
+			
+			if !frontiers[layer_][domain].has(neighbor_domain):
+				var frontier = frontier_scene.instantiate()
+				frontier.domains = [domain, neighbor_domain]
+				frontier.map = self
+	
 func init_dukedoms() -> void:
-	var contacts = {}
-	contacts.count = {}
-	contacts.fiefdom = {}
-	contacts.corner = []
-	contacts.ring = r
+	wave.clear()
+	var layer_ = "dukedom"
+	var vassal_layer = Global.dict.vassal[layer_]
 	var m = Global.num.trail.max + 2
 	var corners = [0, n - 1]
 	
@@ -326,84 +360,48 @@ func init_dukedoms() -> void:
 		for _j in corners:
 			var grid = Vector2i(_j, _i)
 			var fiefdom = grids[grid]
-			contacts.corner.append(fiefdom)
+			wave.append(fiefdom.get(vassal_layer))
 	
-	for _i in m:
-		contacts.count[_i] = []
-	
-	for fiefdom in fiefdoms.get_children():
-		if !fiefdom.resource.is_locked:
-			var s = fiefdom.neighbors.keys().size()
-			contacts.count[s].append(fiefdom)
-			contacts.fiefdom[fiefdom] = fiefdom.neighbors.keys()
-			#contacts[fiefdom].append_array(fiefdom.neighbors.keys())
-			
-			if s > Global.num.trail.max:
-				fiefdom.color = Color.BLACK
-	
-	var stopper = dukedom_count
+	var stopper = 10
 	var _i = 0
-	
-	while _i < stopper:
-		_i += 1
+	var domains = get(layer_ + "s")
 	
 	#for _i in 60:#dukedom_count
-		var domain = domain_scene.instantiate()
-		domain.map = self
-		domain.layer = "dukedom"
-		dukedoms.append(domain)
+	while _i < stopper:
+		_i += 1
 		
-		while contacts.corner.is_empty():
-			contacts.ring -= 1
-			var donors = rings[contacts.ring].filter(func (a): return contacts.fiefdom.has(a))
-			contacts.corner.append_array(donors)
-		
-		var options = []
-		options.append_array(contacts.corner)
-		options = options.filter(func (a): return contacts.fiefdom.has(a))
-		options.sort_custom(func(a, b): return contacts.fiefdom[a].size() < contacts.fiefdom[b].size())
-		var s = contacts.fiefdom[options.front()].size()
-		options = options.filter(func (a): return contacts.fiefdom[a].size() == s)
-		#options = contacts.count[min_contacts].filter(func (a): return contacts.corner.has(a))
-		var fiefdom = options.pick_random()
-		domain.add_fiefdom(fiefdom)
-		cross_out(contacts, fiefdom)
-		domain.apply_flood_fill(contacts)
-		
-		if domain.fiefdoms.size() != 6:
-			stopper = 0
+		if deadends.get_child_count() == 0:
+			if wave.is_empty():
+				stopper = 0
+			else:
+				var domain = domain_scene.instantiate()
+				domain.map = self
+				domain.layer = layer_
+				domains.append(domain)
+				var vassal = wave.pick_random()
+				domain.add_vassal(vassal)
+				wave.erase(vassal)
+				domain.apply_flood_fill()
+				
+				if domain.vassals.size() != get(layer_ + "_vassals"):
+					stopper = 0
 	
-	var a = contacts.corner
-	
-	for domain in dukedoms:
+	for domain in domains:
 		domain.recolor_fiefdoms()
 		
 		#print(domain.fiefdoms.size())
 	
-func cross_out(contacts_: Dictionary, fiefdom_: Fiefdom) -> void:
-	if !contacts_.fiefdom.has(fiefdom_):
-		pass
-	
-	var s = contacts_.fiefdom[fiefdom_].size()
-	contacts_.count[s].erase(fiefdom_)
-	contacts_.corner.erase(fiefdom_)
-	
-	for neighbor_fiefdom in contacts_.fiefdom[fiefdom_]:
-		s = contacts_.fiefdom[neighbor_fiefdom].size()
-		contacts_.count[s].erase(neighbor_fiefdom)
-		s -= 1
-		contacts_.fiefdom[neighbor_fiefdom].erase(fiefdom_)
+func find_deadends(layer_: String) -> void:
+	for domain in wave:
+		var count = 0
 		
-		if s > 0:
-			contacts_.count[s].append(neighbor_fiefdom)
-			
-			if rings[contacts_.ring].has(neighbor_fiefdom) and !contacts_.corner.has(neighbor_fiefdom):
-				contacts_.corner.append(neighbor_fiefdom)
-	
-	contacts_.fiefdom.erase(fiefdom_)
-	
-	if contacts_.corner.has(fiefdom_):
-		contacts_.corner.erase(fiefdom_)
-	
-func fix_isolated_fiefdom(fiefdom_: Fiefdom) -> void:
-	pass
+		for fiefdom in domain.perimeter.proximates:
+			if fiefdom.get(layer_) == null:
+				count += 1
+		
+		if count == 1:
+			var deadend = deadend_scene.instantiate()
+			deadend.map = self
+			deadend.layer = layer_
+			deadend.root = domain
+			deadends.add_child(deadend)

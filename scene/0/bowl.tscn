@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://b647242rr1rr3"]
+
+[ext_resource type="Script" path="res://scene/0/bowl.gd" id="1_fmmdr"]
+[ext_resource type="PackedScene" uid="uid://bkitagn5whwec" path="res://scene/0/bar.tscn" id="2_aearq"]
+[ext_resource type="Texture2D" uid="uid://bkwwddwh7da4v" path="res://asset/png/bowl/trigger.png" id="3_kspcg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhw37"]
+bg_color = Color(0.673908, 0.445357, 0.868908, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xg42f"]
+
+[node name="Bowl" type="PanelContainer"]
+offset_right = 33.0
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xhw37")
+script = ExtResource("1_fmmdr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Bar" parent="VBoxContainer" instance=ExtResource("2_aearq")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_xg42f")
+
+[node name="Trigger" type="Sprite2D" parent="VBoxContainer/PanelContainer"]
+position = Vector2(0, -1)
+scale = Vector2(0.0644531, 0.0644531)
+texture = ExtResource("3_kspcg")
+centered = false
+vframes = 4

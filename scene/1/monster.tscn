@@ -1,13 +1,51 @@
-[gd_scene load_steps=13 format=3 uid="uid://p5ey6uj7052r"]
+[gd_scene load_steps=21 format=3 uid="uid://p5ey6uj7052r"]
 
 [ext_resource type="PackedScene" uid="uid://cfbpcda5nbj1k" path="res://scene/1/minion.tscn" id="1_tfjat"]
 [ext_resource type="Script" path="res://scene/1/monster.gd" id="2_k1ag5"]
 [ext_resource type="Script" path="res://resource/statisticResource.gd" id="2_yi0xi"]
+[ext_resource type="Script" path="res://resource/bowlResource.gd" id="3_4eqwk"]
 [ext_resource type="Script" path="res://resource/coreResource.gd" id="3_ngnw3"]
+[ext_resource type="Script" path="res://resource/doublet/doubletResource.gd" id="4_6s703"]
 [ext_resource type="Script" path="res://resource/levelResource.gd" id="4_10cnl"]
+[ext_resource type="Script" path="res://resource/summaryResource.gd" id="5_nklme"]
 [ext_resource type="FontFile" uid="uid://33eqagvh85us" path="res://asset/font/digital/Inter-Black.ttf" id="6_ro10y"]
+[ext_resource type="PackedScene" uid="uid://b647242rr1rr3" path="res://scene/0/bowl.tscn" id="9_h604c"]
 
-[sub_resource type="Resource" id="Resource_v1mmq"]
+[sub_resource type="Resource" id="Resource_7t7po"]
+script = ExtResource("3_4eqwk")
+measure = ""
+side = ""
+trigger = ""
+
+[sub_resource type="Resource" id="Resource_kv32m"]
+script = ExtResource("4_6s703")
+time = "permanent"
+measure = "modifier"
+type = "parameter"
+subtype = "damage"
+value = 0
+
+[sub_resource type="Resource" id="Resource_72sll"]
+script = ExtResource("4_6s703")
+time = "permanent"
+measure = "modifier"
+type = "parameter"
+subtype = "damage"
+value = 0
+
+[sub_resource type="Resource" id="Resource_sw6ml"]
+script = ExtResource("5_nklme")
+rarity = "uncommon"
+kind = ""
+aspects = null
+status = ""
+style = ""
+parameter = ""
+bowl = SubResource("Resource_7t7po")
+primary = SubResource("Resource_kv32m")
+secondary = SubResource("Resource_72sll")
+
+[sub_resource type="Resource" id="Resource_2gf72"]
 script = ExtResource("3_ngnw3")
 aspect = "dexterity"
 level = null
@@ -15,7 +53,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_24yty"]
+[sub_resource type="Resource" id="Resource_1s7bq"]
 script = ExtResource("3_ngnw3")
 aspect = "intellect"
 level = null
@@ -23,7 +61,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_dj51i"]
+[sub_resource type="Resource" id="Resource_hacly"]
 script = ExtResource("3_ngnw3")
 aspect = "strength"
 level = null
@@ -31,7 +69,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_7mwn5"]
+[sub_resource type="Resource" id="Resource_iwx0b"]
 script = ExtResource("3_ngnw3")
 aspect = "will"
 level = null
@@ -39,15 +77,16 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_b60y3"]
+[sub_resource type="Resource" id="Resource_8u75d"]
 script = ExtResource("4_10cnl")
 value = 0
-strength = SubResource("Resource_dj51i")
-dexterity = SubResource("Resource_v1mmq")
-intellect = SubResource("Resource_24yty")
-will = SubResource("Resource_7mwn5")
+limit = null
+strength = SubResource("Resource_hacly")
+dexterity = SubResource("Resource_2gf72")
+intellect = SubResource("Resource_1s7bq")
+will = SubResource("Resource_iwx0b")
 
-[sub_resource type="Resource" id="Resource_idgyb"]
+[sub_resource type="Resource" id="Resource_xce5e"]
 script = ExtResource("2_yi0xi")
 damage_multiplier = 0
 damage_modifier = 0
@@ -67,34 +106,39 @@ strength_modifier = 0
 dexterity_modifier = 0
 intellect_modifier = 0
 will_modifier = 0
-damage_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-damage_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-evasion_chance_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-accuracy_chance_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-critical_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-critical_chance_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-armor_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-armor_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-health_limit_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-stamina_limit_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-strength_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-dexterity_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-intellect_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-will_multiplier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-strength_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-dexterity_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-intellect_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
-will_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
+damage_multiplier_resources = Array[ExtResource("4_6s703")]([])
+damage_modifier_resources = Array[ExtResource("4_6s703")]([])
+evasion_chance_resources = Array[ExtResource("4_6s703")]([])
+accuracy_chance_resources = Array[ExtResource("4_6s703")]([])
+critical_multiplier_resources = Array[ExtResource("4_6s703")]([])
+critical_chance_resources = Array[ExtResource("4_6s703")]([])
+armor_multiplier_resources = Array[ExtResource("4_6s703")]([])
+armor_modifier_resources = Array[ExtResource("4_6s703")]([])
+health_limit_resources = Array[ExtResource("4_6s703")]([])
+stamina_limit_resources = Array[ExtResource("4_6s703")]([])
+strength_multiplier_resources = Array[ExtResource("4_6s703")]([])
+dexterity_multiplier_resources = Array[ExtResource("4_6s703")]([])
+intellect_multiplier_resources = Array[ExtResource("4_6s703")]([])
+will_multiplier_resources = Array[ExtResource("4_6s703")]([])
+strength_modifier_resources = Array[ExtResource("4_6s703")]([])
+dexterity_modifier_resources = Array[ExtResource("4_6s703")]([])
+intellect_modifier_resources = Array[ExtResource("4_6s703")]([])
+will_modifier_resources = Array[ExtResource("4_6s703")]([])
 
 [node name="Monster" instance=ExtResource("1_tfjat")]
 script = ExtResource("2_k1ag5")
-summary = null
-terrain = null
+summary = SubResource("Resource_sw6ml")
+terrain = ""
 type = "monster"
 
 [node name="Statistic" parent="HBox" index="0"]
-level = SubResource("Resource_b60y3")
-resource = SubResource("Resource_idgyb")
+refreshed = true
+level = SubResource("Resource_8u75d")
+resource = SubResource("Resource_xce5e")
+
+[node name="Bowl" parent="HBox" index="1" instance=ExtResource("9_h604c")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="Kind" type="Label" parent="HBox/VBox1" index="0"]
 unique_name_in_owner = true

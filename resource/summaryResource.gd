@@ -10,22 +10,24 @@ class_name SummaryResource extends Resource
 	set(kind_):
 		kind = kind_
 		
-		var description = Global.dict.monster.title[kind]
-		status = description.status
-		style = description.style
-		parameter = description.parameter
-		
-		primary.subtype = description.primary.aspect
-		primary.value = description.primary.weight
-		secondary.subtype = description.secondary.aspect
-		secondary.value = description.secondary.weight
-		
-		bowl.measure = description.bowl.measure
-		bowl.trigger = description.bowl.trigger
-		bowl.side = description.bowl.side
-		pass
+		if Global.dict.has("monster"):
+			var description = Global.dict.monster.title[kind]
+			status = description.status
+			style = description.style
+			parameter = description.parameter
+			
+			primary.subtype = description.primary.aspect
+			primary.value = description.primary.weight
+			secondary.subtype = description.secondary.aspect
+			secondary.value = description.secondary.weight
+			
+			bowl.measure = description.bowl.measure
+			bowl.trigger = description.bowl.trigger
+			bowl.side = description.bowl.side
+			pass
 	get:
 		return kind
+@export var aspects: int
 @export var status: String
 @export var style: String
 @export var parameter: String

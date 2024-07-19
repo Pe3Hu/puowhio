@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgpnauomasnqc"]
+
+[ext_resource type="Script" path="res://scene/7/perimeter.gd" id="1_tqvwh"]
+
+[node name="Perimeter" type="Node2D"]
+script = ExtResource("1_tqvwh")

@@ -14,7 +14,6 @@ class_name CoreResource extends Resource
 		return level
 @export var current: int = 9:
 	set(current_):
-		
 		if is_barriered:
 			current = clamp(current_, 0, limit)
 			#current = current_
@@ -35,4 +34,5 @@ class_name CoreResource extends Resource
 
 
 func update_limit() -> void:
-	limit = pow(3 + level.value, 2)
+	limit = pow(level.value + 3, 2)
+	level.limit += limit - pow(level.value + 2, 2)

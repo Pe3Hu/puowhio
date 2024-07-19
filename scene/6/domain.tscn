@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ubbg4gd6lsgl"]
-
-[ext_resource type="Script" path="res://scene/6/domain.gd" id="1_xshrb"]
-
-[node name="Domain" type="Node2D"]
-script = ExtResource("1_xshrb")

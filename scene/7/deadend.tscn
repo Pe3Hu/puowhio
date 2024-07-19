@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfdsn0k71fmgp"]
+
+[ext_resource type="Script" path="res://scene/7/deadend.gd" id="1_otg3s"]
+
+[node name="Deadend" type="Node2D"]
+script = ExtResource("1_otg3s")

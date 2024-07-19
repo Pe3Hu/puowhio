@@ -33,6 +33,7 @@ func init_mages(count_: int) -> void:
 		var mage = mage_scene.instantiate()
 		mage.battle = self
 		mages.add_child(mage)
+		mage.statistic.level.value = 1
 		mage.reset()
 	
 func init_monsters(count_: int) -> void:
@@ -44,6 +45,7 @@ func init_monsters(count_: int) -> void:
 	for _i in count_:
 		var monster = monster_scene.instantiate()
 		monster.battle = self
-		monsters.add_child(monster)
 		monster.terrain = "swamp"
+		monsters.add_child(monster)
+		monster.statistic.level.value = 1
 		monster.reset()

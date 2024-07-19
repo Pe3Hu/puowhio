@@ -2,7 +2,7 @@
 class_name Bar extends PanelContainer
 
 
-@export_enum("health", "stamina") var type: String = "health"
+@export_enum("health", "stamina", "sum", "count") var type: String = "health"
 @export_enum("standard", "instant") var tempo: String = "instant"
 
 @export var proprietor: PanelContainer

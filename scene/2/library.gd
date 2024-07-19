@@ -43,8 +43,32 @@ func roll_starter_items() -> void:
 					#resource.equilibrium = EquilibriumResource.new()
 					var item = nexus.generate_item(resource)
 					add_item(item)
-		#"monster":
-			#var options = Global.dict.book.level[minion.re]
+		"monster":
+			var options = Global.dict.book.level[minion.statistic.level.value]
+			var index = options.pick_random()
+			var a = Global.dict.terrain.title
+			var prioritized_elements = Global.dict.terrain.element[minion.terrain]
+			prioritized_elements.filter(func(a): return Global.arr.primordial.has(a))
+			var masks = []
+			
+			for _i in range(Global.dict.book.index[index].size() - 1, -1, -1):
+				var _index = Global.dict.book.index[index]
+				var description = Global.dict.scroll.index[_index]
+				
+				for mask in description.input:
+					masks[mask] = null
+			if true:
+				return
+			
+			for _index in Global.dict.book.index[index]:
+				var description = Global.dict.scroll.index[_index]
+				var resource = ScrollResource.new()
+				resource.rarity = "common"
+				resource.level = description.level
+				resource.type = "scroll"
+				resource.subtype = description.type
+				var item = nexus.generate_item(resource)
+				add_item(item)
 	
 	#minion.grimoire.find_best_items()
 	
