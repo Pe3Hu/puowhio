@@ -15,7 +15,6 @@ battle = NodePath("CanvasLayer/Battle")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
-visible = false
 
 [node name="Nexus" parent="CanvasLayer" instance=ExtResource("2_8ptkv")]
 

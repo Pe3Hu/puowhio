@@ -6,8 +6,6 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf06q"]
 
 [node name="Library" type="PanelContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_cf06q")
 script = ExtResource("1_suqxb")

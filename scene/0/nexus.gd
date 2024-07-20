@@ -89,19 +89,30 @@ func roll_scroll(resource_: ItemResource) -> void:
 	roll_orbs(resource_)
 	
 func roll_aspects(resource_: ItemResource)  -> void:
-	var n = 2
 	var options = []
-	options.append_array(Global.arr.aspect)
-	options.shuffle()
+	
+	if resource_.kind != null:
+		var description = Global.dict.monster.title[resource_.kind]
+		options.append(description.primary.aspect)
+		options.append(description.secondary.aspect)
+	else:
+		options.append_array(Global.arr.aspect)
+		options.shuffle()
+	
 	var shares = []
+	var n = 2
 	var sum = 0
 	var remainder = 100.0
 	
-	for _i in n:
+	for _i in options.size():
 		var share = n - _i
 		shares.append(share)
 		sum += share
 	
+	Global.rng.randomize()
+	var gap = Global.rng.randf_range(-0.5, 0.5)
+	shares[0] += gap
+	shares[1] -= gap
 	var measure = remainder / sum
 	
 	for _i in n:
@@ -113,45 +124,57 @@ func roll_aspects(resource_: ItemResource)  -> void:
 		resource_.aspects.append(resource)
 	
 func roll_orbs(resource_: ItemResource)  -> void:
-	var n = 1
-	var options = []
-	options.append_array(resource_.prioritized_elements)
-	
-	match resource_.subtype:
-		"generator":
-			resource_.output_limit = n
-		"converter":
-			resource_.input_limit = n
-			resource_.output_limit = n
-		"absorber":
-			resource_.input_limit = n
-	
-	for _i in resource_.input_limit:
-		if options.is_empty():
-			options.append_array(Global.arr.primordial)
-			
-			for element in resource_.prioritized_elements:
-				options.erase(element)
+	if !resource_.masks.is_empty():
+		var description = Global.dict.scroll.index[resource_.index]
+		var signs = {}
+		signs["input"] = -1
+		signs["output"] = 1
 		
-		var element = options.pick_random()
+		for put in resource_.masks:
+			for mask_index in description[put]:
+				var element = resource_.masks[put][mask_index]
+				resource_.equilibrium.change(element, signs[put])
+	else:
+		var n = 1
 		
 		match resource_.subtype:
+			"generator":
+				resource_.output_limit = n
 			"converter":
-				options.erase(element)
-			"duplicator":
-				options = [element]
+				resource_.input_limit = n
+				resource_.output_limit = n
+			"absorber":
+				resource_.input_limit = n
 		
-		resource_.equilibrium.change(element, -1)
-	
-	for _i in resource_.output_limit:
-		if options.is_empty():
-			options.append_array(Global.arr.primordial)
+		var options = []
+		options.append_array(resource_.prioritized_elements)
+		
+		for _i in resource_.input_limit:
+			if options.is_empty():
+				options.append_array(Global.arr.primordial)
+				
+				for element in resource_.prioritized_elements:
+					options.erase(element)
 			
-			for element in resource_.prioritized_elements:
-				options.erase(element)
+			var element = options.pick_random()
+			
+			match resource_.subtype:
+				"converter":
+					options.erase(element)
+				"duplicator":
+					options = [element]
+			
+			resource_.equilibrium.change(element, -1)
 		
-		var element = options.pick_random()
-		resource_.equilibrium.change(element, 1)
+		for _i in resource_.output_limit:
+			if options.is_empty():
+				options.append_array(Global.arr.primordial)
+				
+				for element in resource_.prioritized_elements:
+					options.erase(element)
+			
+			var element = options.pick_random()
+			resource_.equilibrium.change(element, 1)
 	
 	#print([resource_.subtype, resource_.input_orbs, resource_.output_orbs])
 	pass

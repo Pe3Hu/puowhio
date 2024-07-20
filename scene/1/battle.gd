@@ -21,7 +21,7 @@ var aspect_datas = []
 func _ready() -> void:
 	pass
 	#init_mages(1)
-	#init_monsters(1)
+	init_monsters(1)
 	
 func init_mages(count_: int) -> void:
 	while mages.get_child_count() > 0:
@@ -48,4 +48,7 @@ func init_monsters(count_: int) -> void:
 		monster.terrain = "swamp"
 		monsters.add_child(monster)
 		monster.statistic.level.value = 1
+		monster.roll_kind()
+		monster.library.roll_starter_items()
+		monster.bowl.init_resource()
 		monster.reset()

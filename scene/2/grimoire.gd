@@ -2,6 +2,9 @@ class_name Grimoire extends PanelContainer
 
 
 @export var minion: Minion
+@export var scrolls: PanelContainer
+
+@onready var slots = %Slots
 
 var ordered_scrolls: Array[Scroll]
 var lists: Array[ListResource]
@@ -35,8 +38,8 @@ func suit_up(slot_: Slot, item_: Item) -> void:
 	ordered_scrolls.push_back(item_)
 	
 func recalc_avgs() -> void:
-	for slot in ordered_scrolls:
-		slot.item.descriptioncalc_avg()
+	for scroll in ordered_scrolls:
+		scroll.description.calc_avg()
 	
 func calc_books() -> void:
 	for resource in resources:

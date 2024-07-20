@@ -45,12 +45,18 @@ class_name Bar extends PanelContainer
 			var tween = create_tween().set_parallel()
 			var modifier = get(tempo + "_modifier")
 			var time = treatment_time * modifier
-			var points = type.capitalize()[0]+ "P "
 			
 			tween.tween_property(%Fullness, "value", value, time)
-			tween.tween_method(
-				func(value): %Label.text = points + str(round(value)), %Fullness.value, value, time
-				)
+			
+			if type == "health" or type == "stamina":
+				var points = type.capitalize()[0]+ "P "
+				tween.tween_method(
+					func(value): %Label.text = points + str(round(value)), %Fullness.value, value, time
+					)
+			else:
+				tween.tween_method(
+					func(value): %Label.text = str(round(value)), %Fullness.value, value, time
+					)
 			tween.connect("finished", on_tween_finished)
 	get:
 		return value

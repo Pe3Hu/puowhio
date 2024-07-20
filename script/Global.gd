@@ -56,6 +56,8 @@ func init_arr() -> void:
 	arr.terrain = ["swamp", "plain", "desert", "mountain", "tundra", "coast", "volcano", "jungle"]
 	arr.titulus = ["earldom", "dukedom", "kingdom", "empire"]
 	arr.resource = ["liquid", "gas", "ore"]
+	arr.put = ["input", "output"]
+	arr.trigger = ["wound", "critical", "dodge", "heal"]
 	
 func init_num() -> void:
 	num.index = {}
@@ -68,6 +70,9 @@ func init_num() -> void:
 	num.trail = {}
 	num.trail.min = 3
 	num.trail.max = 4
+	
+	num.offset = {}
+	num.grimoire = 68
 	
 func init_dict() -> void:
 	init_direction()
@@ -339,6 +344,9 @@ func init_book() -> void:
 	var path = "res://asset/json/puowhio_book.json"
 	var dictionary = load_data(path)
 	var array = dictionary["blank"]
+	var abbreviations = {}
+	abbreviations["i"] = "input"
+	abbreviations["o"] = "output"
 	
 	for book in array:
 		book.level = int(book.level)
@@ -348,9 +356,25 @@ func init_book() -> void:
 		for key in book:
 			if !exceptions.has(key):
 				var words = key.split(" ")
-				var order = int(words[1])
 				
-				data[order] = book[key]
+				if !data.has(words[0]):
+					data[words[0]] = {}
+				
+				if words[0] == "scroll":
+					data[words[0]][int(words[1])] = book[key]
+				else:
+					var order = int(book[key][0])
+					
+					if !data[words[0]].has(order):
+						data[words[0]][order] = {}
+					
+					var put = abbreviations[book[key][1]]
+					
+					if !data[words[0]][order].has(put):
+						data[words[0]][order][put] = []
+					
+					var mask = int(book[key][2])
+					data[words[0]][order][put].append(mask)
 			
 		if !dict.book.level.has(book.level):
 			dict.book.level[book.level] = []
@@ -466,26 +490,15 @@ func init_color():
 	color.element.storm = Color.from_hsv(270 / h, 0.7, 0.9)
 	color.element.lava = Color.from_hsv(315 / h, 0.7, 0.9)
 	
-func expand_file(path_: String, data_: String):
-	var file = FileAccess.open(path_, FileAccess.READ)
-	var text = file.get_as_text()
-	text.erase(1)
-	#text.erase(text.length() - 1)
-	var first = text.split(",")
-	var second = data_.split(",")
+	color.trigger = {}
+	color.trigger.wound = Color.from_hsv(0 / h, 0.6, 0.3)
+	color.trigger.critical = Color.from_hsv(270 / h, 0.6, 0.3)
+	color.trigger.dodge = Color.from_hsv(120 / h, 0.6, 0.3)
+	color.trigger.heal = Color.from_hsv(210 / h, 0.6, 0.3)
 	
-	first.append_array(second)
-	var json_string = JSON.stringify(first)
-	file = FileAccess.open(path_, FileAccess.WRITE)
-	#donor.append_array(donor)
-	file.store_string(json_string)
-	
-#func save(path_: String, vars_: Array):
-	#var path = path_ + ".json"
-	#var file = FileAccess.open(path, FileAccess.WRITE)
-	#
-	#for var_ in vars_:
-		#file.store_var(var_)
+	color.side = {}
+	color.side.done = Color.from_hsv(0 / h, 0.0, 0.2)
+	color.side.taken = Color.from_hsv(0 / h, 0.0, 0.8)
 	
 func load_data(path_: String):
 	var file = FileAccess.open(path_, FileAccess.READ)

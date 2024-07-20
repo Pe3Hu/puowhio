@@ -2,6 +2,9 @@ class_name Library extends PanelContainer
 
 
 @export var minion: Minion
+@export var scrolls: PanelContainer
+
+@onready var slots = %Slots
 
 var free_slots: Array[Slot]
 var occupied_slots: Array[Slot]
@@ -12,10 +15,7 @@ func _ready() -> void:
 		free_slots.push_front(slot)
 		slot.refresh_background()
 	
-	roll_starter_items()
-	
-	await get_tree().process_frame
-	resort_items()
+	#roll_starter_items()
 	
 func roll_starter_items() -> void:
 	if false:
@@ -45,32 +45,60 @@ func roll_starter_items() -> void:
 					add_item(item)
 		"monster":
 			var options = Global.dict.book.level[minion.statistic.level.value]
-			var index = options.pick_random()
-			var a = Global.dict.terrain.title
-			var prioritized_elements = Global.dict.terrain.element[minion.terrain]
-			prioritized_elements.filter(func(a): return Global.arr.primordial.has(a))
-			var masks = []
+			var index = 1#options.pick_random()
+			var prioritizeds = Global.dict.terrain.title[minion.terrain].element
+			var masks = {}
+			var book_description = Global.dict.book.index[index]
 			
-			for _i in range(Global.dict.book.index[index].size() - 1, -1, -1):
-				var _index = Global.dict.book.index[index]
-				var description = Global.dict.scroll.index[_index]
+			for _i in book_description.mask:
+				for put in book_description.mask[_i]:
+					for mask in book_description.mask[_i][put]:
+						if !masks.has(mask):
+							masks[mask] = []
+			
+			for mask in masks:
+				if mask - 1 < Global.arr.element.size() / 2:
+					masks[mask].append_array(Global.arr.primordial)
+				else:
+					masks[mask].append_array(Global.arr.lateral)
 				
-				for mask in description.input:
-					masks[mask] = null
-			if true:
-				return
+				masks[mask].sort_custom(func(a, b): return prioritizeds[a] > prioritizeds[b])
 			
-			for _index in Global.dict.book.index[index]:
-				var description = Global.dict.scroll.index[_index]
+			for _i in range(masks.keys().size() - 1, -1, -1):
+				var mask = masks.keys()[_i]
+				var element = masks[mask].pop_front()
+				
+				for _j in _i:
+					var _mask = masks.keys()[_j]
+					
+					if masks[_mask].has(element):
+						masks[_mask].erase(element)
+				
+				masks[mask] = element
+			
+			for _i in Global.dict.book.index[index].scroll:
 				var resource = ScrollResource.new()
-				resource.rarity = "common"
+				resource.index = book_description.scroll[_i]
+				var description = Global.dict.scroll.index[resource.index]
 				resource.level = description.level
-				resource.type = "scroll"
 				resource.subtype = description.type
+				resource.rarity = "common"
+				resource.type = "scroll"
+				resource.kind = minion.summary.kind
+				
+				for put in book_description.mask[_i]:
+					resource.masks[put] = {}
+					var mask_indexs = book_description.mask[_i][put]
+					
+					for mask_index in mask_indexs:
+						resource.masks[put][mask_index] = masks[mask_index]
+				
 				var item = nexus.generate_item(resource)
 				add_item(item)
 	
-	#minion.grimoire.find_best_items()
+	minion.grimoire.find_best_items()
+	await get_tree().process_frame
+	resort_items()
 	
 func add_item(item_: Item) -> void:
 	add_child(item_)

@@ -6,11 +6,9 @@ class_name Monster extends Minion
 @export var terrain: String:
 	set(terrain_):
 		terrain = terrain_
-		
-		roll_kind()
 	get:
 		return terrain
-
+@export var bowl: Bowl
 
 func _ready() -> void:
 	summary = SummaryResource.new()
@@ -25,8 +23,7 @@ func roll_kind() -> void:
 	
 func roll_aspects() -> void:
 	var extremes = Global.dict.rarity.title[summary.rarity].aspect
-	var a = statistic.level.limit
-	summary.aspects = 30 * 0.01 * statistic.level.limit#Global.get_random_segment_point(extremes)
+	summary.aspects = Global.get_random_segment_point(extremes) * 0.01 * statistic.level.limit
 	
 	var weights = {}
 	

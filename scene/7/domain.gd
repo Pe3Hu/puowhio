@@ -36,6 +36,7 @@ func add_vassal(domain_: Domain) -> void:
 	
 	vassals.append(domain_)
 	domain_.senor = self
+	map.wave.erase(domain_)
 	
 func add_fiefdom(fiefdom_: Fiefdom) -> void:
 	if !fiefdoms.has(fiefdom_):
@@ -69,14 +70,22 @@ func apply_flood_fill() -> void:
 			for vassal in options:
 				var neighbors = vassal.perimeter.proximates.filter(func (a): return perimeter.externals.has(a))
 				weights[vassal] = neighbors.size()
-			
+		
 			options = weights.keys()
 			options.sort_custom(func(a, b): return weights[a] > weights[b])
+			
+			if !map.roots.is_empty():
+				var roots = options.filter(func (a): return !map.roots.has(a))
+				
+				if !roots.is_empty():
+					options = roots
+			
 			var best_weight = weights[options[0]]
 			options = options.filter(func (a): return weights[a] == best_weight)
 			#var vassal = Global.get_random_key(weights)
 			var vassal = options.pick_random()
 			add_vassal(vassal)
+			print("V", vassal.fiefdoms[0].resource.grid)
 			
 			if map.get(layer + "_vassals") == fiefdoms.size():
 				fill_end = true
@@ -90,7 +99,12 @@ func apply_flood_fill() -> void:
 					if !map.wave.has(domain):
 						map.wave.append(domain)
 			
+			map.update_wave(layer)
 			map.find_deadends(layer)
+			
+			if map.roots.has(vassal):
+				map.roots[vassal].crush()
+			
 	
 func recolor_fiefdoms() -> void:
 	for fiefdom in fiefdoms:

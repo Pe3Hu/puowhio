@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cfbpcda5nbj1k"]
+[gd_scene load_steps=19 format=3 uid="uid://cfbpcda5nbj1k"]
 
 [ext_resource type="Script" path="res://scene/1/minion.gd" id="1_tkocj"]
 [ext_resource type="PackedScene" uid="uid://c7p4hl7huywo5" path="res://scene/2/statistic.tscn" id="2_f0fpg"]
@@ -13,7 +13,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bbq8e"]
 
-[sub_resource type="Resource" id="Resource_u5kfd"]
+[sub_resource type="Resource" id="Resource_ywy33"]
 script = ExtResource("3_fweki")
 aspect = "dexterity"
 level = null
@@ -21,7 +21,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_jsggt"]
+[sub_resource type="Resource" id="Resource_yn6mq"]
 script = ExtResource("3_fweki")
 aspect = "intellect"
 level = null
@@ -29,7 +29,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_gievl"]
+[sub_resource type="Resource" id="Resource_8hsth"]
 script = ExtResource("3_fweki")
 aspect = "strength"
 level = null
@@ -37,7 +37,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_mow5g"]
+[sub_resource type="Resource" id="Resource_qeid0"]
 script = ExtResource("3_fweki")
 aspect = "will"
 level = null
@@ -45,15 +45,16 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_swtm4"]
+[sub_resource type="Resource" id="Resource_3dvbp"]
 script = ExtResource("3_ujjln")
-value = 0
-strength = SubResource("Resource_gievl")
-dexterity = SubResource("Resource_u5kfd")
-intellect = SubResource("Resource_jsggt")
-will = SubResource("Resource_mow5g")
+value = 1
+limit = 0
+strength = SubResource("Resource_8hsth")
+dexterity = SubResource("Resource_ywy33")
+intellect = SubResource("Resource_yn6mq")
+will = SubResource("Resource_qeid0")
 
-[sub_resource type="Resource" id="Resource_gqrmo"]
+[sub_resource type="Resource" id="Resource_kd0by"]
 script = ExtResource("3_buwlm")
 damage_multiplier = 0
 damage_modifier = 0
@@ -92,6 +93,8 @@ dexterity_modifier_resources = Array[Resource("res://resource/doublet/doubletRes
 intellect_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
 will_modifier_resources = Array[Resource("res://resource/doublet/doubletResource.gd")]([])
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gylwt"]
+
 [node name="Minion" type="PanelContainer" node_paths=PackedStringArray("hsm", "statistic", "conveyor", "grimoire", "library", "health", "stamina")]
 anchors_preset = 8
 anchor_left = 0.5
@@ -110,8 +113,8 @@ script = ExtResource("1_tkocj")
 hsm = NodePath("LimboHSM")
 statistic = NodePath("HBox/Statistic")
 conveyor = NodePath("HBox/VBox1/Conveyor")
-grimoire = NodePath("HBox/VBox1/VBox/Grimoire")
-library = NodePath("HBox/VBox1/VBox/Library")
+grimoire = NodePath("HBox/VBox1/Scrolls/ScrollsVBox/Grimoire")
+library = NodePath("HBox/VBox1/Scrolls/ScrollsVBox/Library")
 health = NodePath("HBox/VBox1/Health")
 stamina = NodePath("HBox/VBox1/Stamina")
 
@@ -123,9 +126,8 @@ alignment = 1
 [node name="Statistic" parent="HBox" node_paths=PackedStringArray("minion") instance=ExtResource("2_f0fpg")]
 layout_mode = 2
 minion = NodePath("../..")
-refreshed = false
-level = SubResource("Resource_swtm4")
-resource = SubResource("Resource_gqrmo")
+level = SubResource("Resource_3dvbp")
+resource = SubResource("Resource_kd0by")
 
 [node name="VBox1" type="VBoxContainer" parent="HBox"]
 layout_mode = 2
@@ -155,18 +157,27 @@ value = 70
 layout_mode = 2
 minion = NodePath("../../..")
 
-[node name="VBox" type="VBoxContainer" parent="HBox/VBox1"]
+[node name="Scrolls" type="PanelContainer" parent="HBox/VBox1"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gylwt")
+
+[node name="ScrollsVBox" type="VBoxContainer" parent="HBox/VBox1/Scrolls"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 68
 alignment = 1
 
-[node name="Grimoire" parent="HBox/VBox1/VBox" node_paths=PackedStringArray("minion") instance=ExtResource("6_lw7sg")]
+[node name="Grimoire" parent="HBox/VBox1/Scrolls/ScrollsVBox" node_paths=PackedStringArray("minion", "scrolls") instance=ExtResource("6_lw7sg")]
 layout_mode = 2
-minion = NodePath("../../../..")
+minion = NodePath("../../../../..")
+scrolls = NodePath("../..")
 
-[node name="Library" parent="HBox/VBox1/VBox" node_paths=PackedStringArray("minion") instance=ExtResource("7_t33ck")]
+[node name="Library" parent="HBox/VBox1/Scrolls/ScrollsVBox" node_paths=PackedStringArray("minion", "scrolls") instance=ExtResource("7_t33ck")]
 layout_mode = 2
-minion = NodePath("../../../..")
+minion = NodePath("../../../../..")
+scrolls = NodePath("../..")
 
 [node name="LimboHSM" parent="." node_paths=PackedStringArray("minion") instance=ExtResource("8_6xi6c")]
 minion = NodePath("..")

@@ -48,8 +48,28 @@ class_name Minion extends PanelContainer
 	get:
 		return stamina
 @export var is_active: bool = false
+@export var is_combat: bool = false:
+	set(is_combat_):
+		is_combat = is_combat_
+		
+		if is_node_ready():
+			library.slots.visible = !is_combat
+			
+			for slot in grimoire.slots.get_children():
+				if slot.item == null:
+					slot.visible = !is_combat
+			
+			if is_combat:
+				%ScrollsVBox.set("theme_override_constants/separation", 0)
+			else:
+				%ScrollsVBox.set("theme_override_constants/separation", Global.num.grimoire)
+	get:
+		return is_combat
 
 
+func _ready() -> void:
+	pass
+	
 func reset() -> void:
 	health.limit = statistic.health.resource.value
 	health.value = health.limit
@@ -58,6 +78,7 @@ func reset() -> void:
 	stamina.limit = statistic.stamina.resource.value
 	stamina.value = stamina.limit
 	stamina.tempo = "standard"
+	is_combat = true
 	
 func call_pass() -> void:
 	if is_active:

@@ -20,3 +20,5 @@ class_name ItemResource extends Resource
 @export var index: int
 @export var bases: Array[DoubletResource]
 @export var affixs: Array[DoubletResource]
+@export var masks: Dictionary
+@export var kind: String

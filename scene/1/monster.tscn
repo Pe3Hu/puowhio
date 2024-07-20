@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://p5ey6uj7052r"]
+[gd_scene load_steps=21 format=3 uid="uid://d4k77js6vn6yv"]
 
 [ext_resource type="PackedScene" uid="uid://cfbpcda5nbj1k" path="res://scene/1/minion.tscn" id="1_tfjat"]
 [ext_resource type="Script" path="res://scene/1/monster.gd" id="2_k1ag5"]
@@ -7,17 +7,17 @@
 [ext_resource type="Script" path="res://resource/coreResource.gd" id="3_ngnw3"]
 [ext_resource type="Script" path="res://resource/doublet/doubletResource.gd" id="4_6s703"]
 [ext_resource type="Script" path="res://resource/levelResource.gd" id="4_10cnl"]
+[ext_resource type="FontFile" uid="uid://33eqagvh85us" path="res://asset/font/digital/Inter-Black.ttf" id="5_5jykb"]
 [ext_resource type="Script" path="res://resource/summaryResource.gd" id="5_nklme"]
-[ext_resource type="FontFile" uid="uid://33eqagvh85us" path="res://asset/font/digital/Inter-Black.ttf" id="6_ro10y"]
-[ext_resource type="PackedScene" uid="uid://b647242rr1rr3" path="res://scene/0/bowl.tscn" id="9_h604c"]
+[ext_resource type="PackedScene" uid="uid://b647242rr1rr3" path="res://scene/0/bowl.tscn" id="6_8do7f"]
 
-[sub_resource type="Resource" id="Resource_7t7po"]
+[sub_resource type="Resource" id="Resource_hii1r"]
 script = ExtResource("3_4eqwk")
 measure = ""
 side = ""
 trigger = ""
 
-[sub_resource type="Resource" id="Resource_kv32m"]
+[sub_resource type="Resource" id="Resource_82u5x"]
 script = ExtResource("4_6s703")
 time = "permanent"
 measure = "modifier"
@@ -25,7 +25,7 @@ type = "parameter"
 subtype = "damage"
 value = 0
 
-[sub_resource type="Resource" id="Resource_72sll"]
+[sub_resource type="Resource" id="Resource_hqu8j"]
 script = ExtResource("4_6s703")
 time = "permanent"
 measure = "modifier"
@@ -33,19 +33,19 @@ type = "parameter"
 subtype = "damage"
 value = 0
 
-[sub_resource type="Resource" id="Resource_sw6ml"]
+[sub_resource type="Resource" id="Resource_4c7ff"]
 script = ExtResource("5_nklme")
 rarity = "uncommon"
 kind = ""
-aspects = null
+aspects = 0
 status = ""
 style = ""
 parameter = ""
-bowl = SubResource("Resource_7t7po")
-primary = SubResource("Resource_kv32m")
-secondary = SubResource("Resource_72sll")
+bowl = SubResource("Resource_hii1r")
+primary = SubResource("Resource_82u5x")
+secondary = SubResource("Resource_hqu8j")
 
-[sub_resource type="Resource" id="Resource_2gf72"]
+[sub_resource type="Resource" id="Resource_7n8mf"]
 script = ExtResource("3_ngnw3")
 aspect = "dexterity"
 level = null
@@ -53,7 +53,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_1s7bq"]
+[sub_resource type="Resource" id="Resource_spw7m"]
 script = ExtResource("3_ngnw3")
 aspect = "intellect"
 level = null
@@ -61,7 +61,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_hacly"]
+[sub_resource type="Resource" id="Resource_2u7xl"]
 script = ExtResource("3_ngnw3")
 aspect = "strength"
 level = null
@@ -69,7 +69,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_iwx0b"]
+[sub_resource type="Resource" id="Resource_latxc"]
 script = ExtResource("3_ngnw3")
 aspect = "will"
 level = null
@@ -77,16 +77,16 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_8u75d"]
+[sub_resource type="Resource" id="Resource_7lrrm"]
 script = ExtResource("4_10cnl")
-value = 0
-limit = null
-strength = SubResource("Resource_hacly")
-dexterity = SubResource("Resource_2gf72")
-intellect = SubResource("Resource_1s7bq")
-will = SubResource("Resource_iwx0b")
+value = 1
+limit = 0
+strength = SubResource("Resource_2u7xl")
+dexterity = SubResource("Resource_7n8mf")
+intellect = SubResource("Resource_spw7m")
+will = SubResource("Resource_latxc")
 
-[sub_resource type="Resource" id="Resource_xce5e"]
+[sub_resource type="Resource" id="Resource_fx0je"]
 script = ExtResource("2_yi0xi")
 damage_multiplier = 0
 damage_modifier = 0
@@ -125,25 +125,26 @@ dexterity_modifier_resources = Array[ExtResource("4_6s703")]([])
 intellect_modifier_resources = Array[ExtResource("4_6s703")]([])
 will_modifier_resources = Array[ExtResource("4_6s703")]([])
 
-[node name="Monster" instance=ExtResource("1_tfjat")]
+[node name="Monster" node_paths=PackedStringArray("bowl") instance=ExtResource("1_tfjat")]
 script = ExtResource("2_k1ag5")
-summary = SubResource("Resource_sw6ml")
+summary = SubResource("Resource_4c7ff")
 terrain = ""
+bowl = NodePath("HBox/Bowl")
 type = "monster"
 
 [node name="Statistic" parent="HBox" index="0"]
-refreshed = true
-level = SubResource("Resource_8u75d")
-resource = SubResource("Resource_xce5e")
+refreshed = false
+level = SubResource("Resource_7lrrm")
+resource = SubResource("Resource_fx0je")
 
-[node name="Bowl" parent="HBox" index="1" instance=ExtResource("9_h604c")]
-unique_name_in_owner = true
+[node name="Bowl" parent="HBox" index="1" node_paths=PackedStringArray("minion") instance=ExtResource("6_8do7f")]
 layout_mode = 2
+minion = NodePath("../..")
 
 [node name="Kind" type="Label" parent="HBox/VBox1" index="0"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_ro10y")
+theme_override_fonts/font = ExtResource("5_5jykb")
 theme_override_font_sizes/font_size = 16
 text = "999"
 horizontal_alignment = 1
