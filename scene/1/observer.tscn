@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://81cpl0uf2qp"]
+
+[ext_resource type="Script" path="res://scene/1/observer.gd" id="1_k345y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_21j63"]
+
+[node name="Observer" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxEmpty_21j63")
+script = ExtResource("1_k345y")

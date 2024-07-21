@@ -64,6 +64,6 @@ func suit_up(slot_: Slot, item_: Item) -> void:
 	for slot in minion.library.occupied_slots:
 		slot.item.description.calc_avg()
 	
-	for slot in minion.grimoire.ordered_scrolls:
-		slot.item.description.calc_avg()
+	for scroll in minion.grimoire.ordered_scrolls:
+		scroll.description.calc_avg()
 

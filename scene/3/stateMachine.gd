@@ -35,7 +35,8 @@ func _ready() -> void:
 	
 func idle_enter() -> void:
 	if minion.is_active:
-		print("idle")
+		pass
+		#state#print("idle")
 	pass
 	
 func idle_exit() -> void:
@@ -43,11 +44,15 @@ func idle_exit() -> void:
 
 func searching_enter() -> void:
 	if minion.is_active:
-		print("searching")
+		#state#print("searching")
+		
+		#for scroll in minion.grimoire.ordered_scrolls:
+			#state#print(scroll.resource.equilibrium.get_dictionary())
 		
 		for scroll in minion.grimoire.ordered_scrolls:
 			if minion.conveyor.check_orbs_availability(scroll):
 				active_scroll = scroll
+				#state#print("!", scroll.resource.equilibrium.get_dictionary())
 				dispatch(&"searching_ended")
 				return
 		
@@ -59,11 +64,11 @@ func searching_exit() -> void:
 	
 func consuming_enter() -> void:
 	if minion.is_active:
-		print("consuming")
-		#var a = active_scroll.resource.output_orbs
-		for element in active_scroll.resource.demands:
-			for _i in active_scroll.resource.demands[element]:
-				var orb = minion.conveyor.presences[element].front()
+		#state#print("consuming")
+		
+		for element in active_scroll.resource.equilibrium.inputs:
+			for _i in abs(active_scroll.resource.equilibrium.get(element)):
+				var orb = minion.conveyor.elements[element].back()
 				orb.smash()
 		
 		dispatch(&"consuming_ended")
@@ -73,9 +78,9 @@ func consuming_exit() -> void:
 	
 func creating_enter() -> void:
 	if minion.is_active:
-		print("creating")
+		#state#print("creating")
 		#var a = active_scroll.resource.output_orbs
-		for element in active_scroll.resource.output_orbs:
+		for element in active_scroll.resource.equilibrium.outputs:
 			minion.conveyor.add_orb(element)
 	
 		dispatch(&"creating_ended")
@@ -85,13 +90,17 @@ func creating_exit() -> void:
 	
 func inflicting_enter() -> void:
 	if minion.is_active:
-		print("inflicting")
+		#state#print("inflicting")
+		#Global.rng.randomize()
+		#var daminion = Global.rng.randi_range(active_scroll.resource.minimum, active_scroll.resource.maximum)
+		var impulse = ImpulseResource.new()
+		impulse.base = Global.get_random_segment_point(active_scroll.resource)
+		#impulse.type = "damage"
+		minion.battle.observer.apply_impulse(impulse)
 		
-		Global.rng.randomize()
-		var daminion = Global.rng.randi_range(active_scroll.resource.minimum, active_scroll.resource.maximum)
-		minion.health.value -= daminion
 		dispatch(&"inflicting_ended")
 	
 func inflicting_exit() -> void:
 	active_scroll = null
+	minion.call_pass()
 	minion.is_active = false

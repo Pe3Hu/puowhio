@@ -8,6 +8,7 @@ class_name Library extends PanelContainer
 
 var free_slots: Array[Slot]
 var occupied_slots: Array[Slot]
+var unsloted_scrolls: Array[Scroll]
 
 
 func _ready() -> void:
@@ -101,9 +102,11 @@ func roll_starter_items() -> void:
 	resort_items()
 	
 func add_item(item_: Item) -> void:
-	add_child(item_)
+	var a = scrolls.get_children()
+	scrolls.add_child(item_)
 	var slot = free_slots.pop_back()
 	occupied_slots.append(slot)
+	unsloted_scrolls.append(item_)
 	slot.item = item_
 	item_.description.calc_avg()
 	minion.grimoire.resources[item_.resource] = item_

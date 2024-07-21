@@ -90,17 +90,20 @@ func roll_scroll(resource_: ItemResource) -> void:
 	
 func roll_aspects(resource_: ItemResource)  -> void:
 	var options = []
+	var n = 2
 	
-	if resource_.kind != null:
+	if resource_.kind != "":
 		var description = Global.dict.monster.title[resource_.kind]
 		options.append(description.primary.aspect)
 		options.append(description.secondary.aspect)
 	else:
 		options.append_array(Global.arr.aspect)
 		options.shuffle()
+		
+		while options.size() > n:
+			options.pop_back()
 	
 	var shares = []
-	var n = 2
 	var sum = 0
 	var remainder = 100.0
 	
@@ -109,10 +112,12 @@ func roll_aspects(resource_: ItemResource)  -> void:
 		shares.append(share)
 		sum += share
 	
+	#print()
+	
 	Global.rng.randomize()
 	var gap = Global.rng.randf_range(-0.5, 0.5)
-	shares[0] += gap
-	shares[1] -= gap
+	#shares[0] += gap
+	#shares[1] -= gap
 	var measure = remainder / sum
 	
 	for _i in n:

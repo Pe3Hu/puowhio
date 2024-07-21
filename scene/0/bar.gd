@@ -6,6 +6,7 @@ class_name Bar extends PanelContainer
 @export_enum("standard", "instant") var tempo: String = "instant"
 
 @export var proprietor: PanelContainer
+@export var fullness: TextureProgressBar
 @export var texture_size: Vector2 = Vector2(16, 16):
 	set(texture_size_):
 		texture_size = texture_size_
@@ -68,11 +69,9 @@ class_name Bar extends PanelContainer
 func on_tween_finished() -> void:
 	match type:
 		"health":
-			if proprietor.hsm.get_active_state().name == "inflicting":
-				if value > 0:
-					proprietor.call_pass()
-				else:
-					proprietor.concede_defeat()
+			#if proprietor.enemey.hsm.get_active_state().name == "inflicting":
+			if value <= 0:
+				proprietor.concede_defeat()
 	
 func update_cavity_value() -> void:
 	var income = 0

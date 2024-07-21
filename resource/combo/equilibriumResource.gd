@@ -114,3 +114,14 @@ func is_equal_outputs(equlibrium_: EquilibriumResource) -> bool:
 			return false
 	
 	return true
+	
+func get_dictionary() -> Dictionary:
+	var result = {}
+	
+	for input in inputs:
+		result[input] = get(input)
+	
+	for output in outputs:
+		result[output] = get(output)
+	
+	return result

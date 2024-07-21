@@ -3,7 +3,7 @@ class_name Battle extends PanelContainer
 
 
 @export var world: World
-@export var current_minion: Minion
+@export var observer: Observer
 @export var turn: int = 0
 
 @onready var minions = %Minions
@@ -16,12 +16,19 @@ var is_storing = false
 var count = 1
 var book_datas = []
 var aspect_datas = []
+var initiatives: Array[Minion]
+var winner: Minion
+var loser: Minion
 
 
 func _ready() -> void:
 	pass
-	#init_mages(1)
-	init_monsters(1)
+	#init_mages(2)
+	init_monsters(2)
+	prepare()
+	#
+	for _i in 10:
+		pass_initiative()
 	
 func init_mages(count_: int) -> void:
 	while mages.get_child_count() > 0:
@@ -33,7 +40,11 @@ func init_mages(count_: int) -> void:
 		var mage = mage_scene.instantiate()
 		mage.battle = self
 		mages.add_child(mage)
+		initiatives.append(mage)
 		mage.statistic.level.value = 1
+		mage.inventory.roll_starter_items()
+		mage.library.roll_starter_items()
+		mage.init_threats()
 		mage.reset()
 	
 func init_monsters(count_: int) -> void:
@@ -47,8 +58,36 @@ func init_monsters(count_: int) -> void:
 		monster.battle = self
 		monster.terrain = "swamp"
 		monsters.add_child(monster)
+		initiatives.append(monster)
 		monster.statistic.level.value = 1
 		monster.roll_kind()
 		monster.library.roll_starter_items()
 		monster.bowl.init_resource()
+		monster.init_threats()
 		monster.reset()
+	
+func prepare() -> void:
+	observer.reset()
+	initiatives.shuffle()
+	
+	for minion in initiatives:
+		minion.reset()
+		minion.is_combat = true
+	
+	initiatives[0].enemy = initiatives[1]
+	initiatives[1].enemy = initiatives[0]
+	observer.passive = initiatives[0]
+	observer.active = initiatives[1]
+	
+func pass_initiative() -> void:
+	if winner == null:
+		var index = (initiatives.find(observer.active) + 1) % initiatives.size()
+		observer.active = initiatives[index]
+		observer.active.start_turn()
+	
+func _input(event) -> void:
+	if event is InputEventKey:
+		match event.keycode:
+			KEY_SPACE:
+				if event.is_pressed() && !event.is_echo():
+					pass_initiative()

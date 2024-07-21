@@ -7,11 +7,12 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhw37"]
 bg_color = Color(0.673908, 0.445357, 0.868908, 1)
 
-[node name="Bar" type="PanelContainer"]
+[node name="Bar" type="PanelContainer" node_paths=PackedStringArray("fullness")]
 offset_right = 33.0
 offset_bottom = 20.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_xhw37")
 script = ExtResource("1_r4xo6")
+fullness = NodePath("Fullness")
 
 [node name="Fullness" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true

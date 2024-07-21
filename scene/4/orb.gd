@@ -44,5 +44,6 @@ func move_to_slot_position(delay_: float) -> void:
 	
 func smash() -> void:
 	slot.proprietor.orbs.remove_child(self)
-	slot.proprietor.presences[element].erase(self)
+	slot.proprietor.elements[element].erase(self)
+	slot.proprietor.equilibrium.change(element, -1)
 	queue_free()

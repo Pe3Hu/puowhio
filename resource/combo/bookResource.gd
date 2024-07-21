@@ -8,7 +8,7 @@ class_name BookResource extends Resource
 
 @export var is_cycled = false
 @export var reissues: Array[ListResource]
-@export var avg: int
+@export var cycle_avg: int
 @export var balance: int
 
 
@@ -22,7 +22,7 @@ func calc_cycle() -> void:
 	lists_cycle.clear()
 	
 	equilibrium = EquilibriumResource.new()
-	avg = 0
+	cycle_avg = 0
 	
 	while !is_cycled and counter < 100:
 		counter += 1
@@ -35,7 +35,7 @@ func calc_cycle() -> void:
 		
 		equilibriums_cycle.append(next_equilibrium)
 		lists_cycle.append(list)
-		avg += list.best_avg
+		cycle_avg += list.best_avg
 	
 		if lists.size() == 1:
 			is_cycled = true
@@ -62,7 +62,7 @@ func calc_cycle() -> void:
 	for input in equilibrium.inputs:
 		balance -= equilibrium.get(input)
 	
-	avg = round(float(avg) / lists_cycle.size())
+	cycle_avg = round(float(cycle_avg) / lists_cycle.size())
 	var orbs = []
 	
 	for list in lists_cycle:

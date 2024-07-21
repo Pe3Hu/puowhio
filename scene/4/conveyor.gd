@@ -9,6 +9,7 @@ class_name Conveyor extends PanelContainer
 
 var front_slot: Slot
 var back_slot: Slot
+var elements: Dictionary
 
 
 func _ready() -> void:
@@ -24,6 +25,11 @@ func _ready() -> void:
 func add_orb(element_: String) -> void:
 	var orb = orb_scene.instantiate()
 	%Orbs.add_child(orb)
+	
+	if !elements.has(element_):
+		elements[element_] = []
+	
+	elements[element_].append(orb)
 	#await get_tree().physics_frame
 	front_slot.orb = orb
 	orb.element = element_
@@ -44,3 +50,4 @@ func check_orbs_availability(scroll_: Scroll) -> bool:
 		return true
 	
 	return equilibrium.is_passes_requirements(scroll_.resource.equilibrium)
+	

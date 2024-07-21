@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://resource/levelResource.gd" id="4_hlkbv"]
 [ext_resource type="PackedScene" uid="uid://d56kp15aev" path="res://scene/3/inventory.tscn" id="6_488wl"]
 
-[sub_resource type="Resource" id="Resource_w7ia4"]
+[sub_resource type="Resource" id="Resource_k5wu1"]
 script = ExtResource("3_vgf7c")
 aspect = "dexterity"
 level = null
@@ -16,7 +16,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_6gd14"]
+[sub_resource type="Resource" id="Resource_mnvim"]
 script = ExtResource("3_vgf7c")
 aspect = "intellect"
 level = null
@@ -24,7 +24,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_uju4v"]
+[sub_resource type="Resource" id="Resource_yx1sj"]
 script = ExtResource("3_vgf7c")
 aspect = "strength"
 level = null
@@ -32,7 +32,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_by1rh"]
+[sub_resource type="Resource" id="Resource_ssr32"]
 script = ExtResource("3_vgf7c")
 aspect = "will"
 level = null
@@ -40,15 +40,16 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_b28f1"]
+[sub_resource type="Resource" id="Resource_exbfn"]
 script = ExtResource("4_hlkbv")
-value = 0
-strength = SubResource("Resource_uju4v")
-dexterity = SubResource("Resource_w7ia4")
-intellect = SubResource("Resource_6gd14")
-will = SubResource("Resource_by1rh")
+value = 1
+limit = 0
+strength = SubResource("Resource_yx1sj")
+dexterity = SubResource("Resource_k5wu1")
+intellect = SubResource("Resource_mnvim")
+will = SubResource("Resource_ssr32")
 
-[sub_resource type="Resource" id="Resource_23lcp"]
+[sub_resource type="Resource" id="Resource_ynwto"]
 script = ExtResource("3_ve4iq")
 damage_multiplier = 0
 damage_modifier = 0
@@ -94,8 +95,9 @@ inventory = NodePath("HBox/VBox2/Inventory")
 type = "mage"
 
 [node name="Statistic" parent="HBox" index="0"]
-level = SubResource("Resource_b28f1")
-resource = SubResource("Resource_23lcp")
+refreshed = false
+level = SubResource("Resource_exbfn")
+resource = SubResource("Resource_ynwto")
 
 [node name="VBox2" type="VBoxContainer" parent="HBox" index="2"]
 visible = false

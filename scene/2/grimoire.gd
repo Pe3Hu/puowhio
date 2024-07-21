@@ -20,12 +20,13 @@ func _ready():
 		slot.refresh_background()
 	
 func find_best_items() -> void:
+	update_scrolls()
 	calc_books()
 	place_best_book()
 	
 func update_scrolls() -> void:
-	for scroll in %Scrolls.get_children():
-		scroll.calc_avg()
+	for scroll in minion.library.scrolls.get_children():
+		scroll.description.calc_avg()
 	
 func suit_up(slot_: Slot, item_: Item) -> void:
 	if slot_.item != null:
@@ -35,7 +36,8 @@ func suit_up(slot_: Slot, item_: Item) -> void:
 	item_.move_to_initial_position(0)
 	item_.is_description_visible = true
 	item_.is_description_locked = true
-	ordered_scrolls.push_back(item_)
+	ordered_scrolls.push_front(item_)
+	minion.library.unsloted_scrolls.erase(item_)
 	
 func recalc_avgs() -> void:
 	for scroll in ordered_scrolls:
@@ -92,10 +94,10 @@ func calc_books() -> void:
 					incompletes.append(reissue)
 	
 	var bests = []
-	books.sort_custom(func(a, b): return a.avg > b.avg)
+	books.sort_custom(func(a, b): return a.cycle_avg > b.cycle_avg)
 	
 	for book in books:
-		if book.avg < books[0].avg:
+		if book.cycle_avg < books[0].cycle_avg:
 			break
 		else:
 			bests.append(book)
@@ -108,7 +110,6 @@ func calc_books() -> void:
 			
 			for list in best.lists:
 				list_equilibriums.append(list.equilibrium)
-	#print(">",best_book.avg)
 	
 func place_best_book() -> void:
 	erase_slots()
@@ -119,6 +120,8 @@ func place_best_book() -> void:
 		var slot = %Slots.get_child(index)
 		suit_up(slot, scroll)
 		index += 1
+	
+	minion.offensive.resource.value = best_book.cycle_avg
 	
 func erase_slots() -> void:
 	pass

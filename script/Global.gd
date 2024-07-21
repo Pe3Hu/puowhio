@@ -22,11 +22,11 @@ func _ready() -> void:
 	init_flag()
 	
 func init_arr() -> void:
+	arr.order = [0, 1, 2, 3, 4, 5, 6]
 	arr.element = ["fire", "earth", "nature", "wind", "ice", "aqua", "storm", "lava"]
 	arr.primordial = ["aqua", "fire", "wind", "earth"]
 	arr.lateral = ["ice", "storm", "lava", "nature"]
 	arr.aspect = ["strength", "dexterity", "intellect", "will"]
-	arr.order = [0, 1, 2, 3, 4, 5, 6]
 	arr.scroll = ["generator", "converter", "duplicator", "absorber"]
 	arr.parameter = [
 		"damage_multiplier", 
@@ -53,11 +53,21 @@ func init_arr() -> void:
 		"intellect_multiplier",
 		"will_multiplier"
 		]
+	
 	arr.terrain = ["swamp", "plain", "desert", "mountain", "tundra", "coast", "volcano", "jungle"]
 	arr.titulus = ["earldom", "dukedom", "kingdom", "empire"]
 	arr.resource = ["liquid", "gas", "ore"]
 	arr.put = ["input", "output"]
 	arr.trigger = ["wound", "critical", "dodge", "heal"]
+	
+	arr.status = ["buff", "debuff", "overtime"]
+	arr.buff = ["boost", "protection", "flexibility", "fortune"]
+	arr.debuff = ["weakness", "vulnerability", "blindness"]
+	arr.overtime = ["flame", "poison", "regeneration", "dome"]
+	
+	arr.threat = ["offensive", "defensive"]
+	arr.bowl = ["measure", "trigger", "side"]
+	
 	
 func init_num() -> void:
 	num.index = {}
@@ -531,10 +541,11 @@ func get_random_key(weights_: Dictionary):
 	print("!bug! index_r error in get_random_key func")
 	return null
 	
-func get_random_segment_point(extremes_: Dictionary):
-	if extremes_.keys().size() == 0:
-		print("!bug! empty dictionary in get_random_key func")
-		return null
+func get_random_segment_point(extremes_):
+	#if extremes_.keys().size() == 0:
+	#if !extremes_.has("minimum") or !extremes_.has("maximum"):
+		#print("!bug! empty dictionary in get_random_key func")
+		#return null
 	
 	rng.randomize()
 	var index_r = rng.randi_range(extremes_.minimum, extremes_.maximum)

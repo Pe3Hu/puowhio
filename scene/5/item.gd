@@ -3,26 +3,12 @@ class_name Item extends PanelContainer
 
 
 @export var slot: Slot
-
 @export var description: Description:
 	set(description_):
 		description = description_
 		description.item = self
 	get:
 		return description
-
-@export var is_description_visible: bool = false:
-	set(is_description_visible_):
-		if !is_description_locked:
-			is_description_visible = is_description_visible_
-			
-			if is_node_ready():
-				%Description.visible = is_description_visible
-	get:
-		return is_description_visible
-
-@export var is_description_locked: bool = false
-
 @export var resource: ItemResource:
 	set(resource_):
 		resource = resource_
@@ -43,6 +29,17 @@ class_name Item extends PanelContainer
 					%Icon.modulate = Color.from_hsv(48 / hue, 0.77, 0.68)
 	get:
 		return resource
+
+@export var is_description_visible: bool = false:
+	set(is_description_visible_):
+		if !is_description_locked:
+			is_description_visible = is_description_visible_
+			
+			if is_node_ready():
+				%Description.visible = is_description_visible
+	get:
+		return is_description_visible
+@export var is_description_locked: bool = false
 
 var draggable = false
 var is_inside_dropable = false

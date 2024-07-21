@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bseteyq6bu7a6"]
+[gd_scene load_steps=3 format=3 uid="uid://bseteyq6bu7a6"]
 
 [ext_resource type="Script" path="res://scene/1/battle.gd" id="1_imv5l"]
+[ext_resource type="PackedScene" uid="uid://81cpl0uf2qp" path="res://scene/1/observer.tscn" id="2_n6k2x"]
 
-[node name="Battle" type="PanelContainer"]
+[node name="Battle" type="PanelContainer" node_paths=PackedStringArray("observer")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -12,12 +13,17 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_imv5l")
+observer = NodePath("Minions/Observer")
 
 [node name="Minions" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
+
+[node name="Observer" parent="Minions" node_paths=PackedStringArray("battle") instance=ExtResource("2_n6k2x")]
+layout_mode = 2
+battle = NodePath("../..")
 
 [node name="Mages" type="HBoxContainer" parent="Minions"]
 unique_name_in_owner = true

@@ -10,8 +10,10 @@ class_name Monster extends Minion
 		return terrain
 @export var bowl: Bowl
 
+
 func _ready() -> void:
 	summary = SummaryResource.new()
+	bowsl.append(bowl)
 	
 func roll_kind() -> void:
 	if is_node_ready():

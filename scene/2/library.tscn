@@ -1,14 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://cicawte8jygu3"]
+[gd_scene load_steps=5 format=3 uid="uid://cicawte8jygu3"]
 
 [ext_resource type="Script" path="res://scene/2/library.gd" id="1_suqxb"]
 [ext_resource type="PackedScene" uid="uid://l2ykdsjmltph" path="res://scene/0/slot.tscn" id="2_vyswj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf06q"]
 
-[node name="Library" type="PanelContainer"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vt6yl"]
+
+[node name="Library" type="PanelContainer" node_paths=PackedStringArray("scrolls")]
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_cf06q")
 script = ExtResource("1_suqxb")
+scrolls = NodePath("Scrolls")
 
 [node name="Slots" type="GridContainer" parent="."]
 unique_name_in_owner = true
@@ -76,3 +79,7 @@ type = "scroll"
 layout_mode = 2
 proprietor = NodePath("../..")
 type = "scroll"
+
+[node name="Scrolls" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vt6yl")

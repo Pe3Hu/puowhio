@@ -1,10 +1,10 @@
+PanelContainer
+VBoxContainer
+HBoxContainer
 Node2D
 Sprite2D
 TextureRect
-PanelContainer
-VBoxContainer
 Line2D
-HBoxContainer
 Polygon2D
 Control
 GridContainer

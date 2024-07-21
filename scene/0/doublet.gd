@@ -6,11 +6,13 @@ class_name Doublet extends PanelContainer
 @export var resource: DoubletResource:
 	set(resource_):
 		resource = resource_
+		#value = resource.value
 		
 		if is_node_ready():
 			update_ui()
 	get:
 		return resource
+
 @export_range(1, 4, 1) var zoom: int = 1:
 	set(zoom_):
 		zoom = zoom_
@@ -18,6 +20,7 @@ class_name Doublet extends PanelContainer
 		cell_size = base_cell_size * (zoom)
 	get:
 		return zoom
+
 @export var cell_size: Vector2 = base_cell_size:
 	set(cell_size_):
 		cell_size = cell_size_
@@ -27,6 +30,14 @@ class_name Doublet extends PanelContainer
 			%Label.custom_minimum_size = Vector2(cell_size.x * 2, base_cell_size.y)
 	get:
 		return cell_size
+#@export var value: int: 
+	#set(value_):
+		#value = value_
+		#
+		#if is_node_ready():
+			#update_label()
+	#get:
+		#return value
 
 const base_cell_size = Vector2(21, 21)
 
