@@ -10,6 +10,7 @@ class_name Deadend extends Node2D
 @export var map: Map
 @export var root: Domain
 @export var chain: Array[Domain]
+@export var branches: Array[Domain]
 @export var is_connected: bool = false
 #@export var domains: Array[Domain]
 
@@ -18,9 +19,10 @@ class_name Deadend extends Node2D
 
 func _ready() -> void:
 	map.roots[root] = self
+	root.deadends.append(self)
 	fill_chain()
 	paint_black()
-
+	
 func fill_chain() -> void:
 	var vassal_layer = Global.dict.vassal[layer]
 	
@@ -30,21 +32,33 @@ func fill_chain() -> void:
 		
 		var domain = chain.back()
 		var neighbors = domain.perimeter.proximates.filter(func (a): return a.get(layer) == null)
+		neighbors = neighbors.filter(func (a): return a.get(vassal_layer).deadends.is_empty())
 		
 		if neighbors.size() == 1:
-			chain.append(neighbors[0].get(vassal_layer))
+			var vassal_domain = neighbors[0].get(vassal_layer)
+			chain.append(vassal_domain)
+			vassal_domain.deadends.append(self)
 		else:
+			for neighbor in neighbors:
+				branches.append(neighbor.get(vassal_layer))
+			
 			is_connected = true
 	
 func paint_black() -> void:
+	var v = float(get_index() + 1) / (map.deadends.get_child_count() + 2)
+	
 	for domain in chain:
 		for fiefdom in domain.fiefdoms:
 			fiefdom.color = Color.BLACK
+			fiefdom.color.v = v
 	
 func crush() -> void:
 	for domain in chain:
-		if map.roots.has(domain):
-			map.roots.erase(domain)
+		domain.deadends.erase(self)
+		
+		if domain.deadends.is_empty():
+			if map.roots.has(domain):
+				map.roots.erase(domain)
 	
 	map.deadends.remove_child(self)
 	queue_free()
@@ -66,3 +80,38 @@ func establish_domain() -> void:
 		print("establish_domain error")
 	
 	crush()
+	
+func pick_branch() -> void:
+	if chain.size() < map.get(layer + "_vassals"):
+		var options = branches.filter(func(a): return a.deadends.is_empty())
+		
+		if !options.is_empty():
+			var vassal_domain = options.pick_random()
+			chain.append(vassal_domain)
+			vassal_domain.deadends.appends(self)
+		else:
+			return
+	
+func merge(deadend_: Deadend) -> void:
+	var self_options = branches.filter(func(a): return a.deadends.is_empty())
+	var other_options = deadend_.branches.filter(func(a): return a.deadends.is_empty())
+	
+	if self_options.size() + other_options.size() > 0:
+		if self_options.is_empty():
+			for domain in chain:
+				domain.deadends.append(deadend_)
+			
+			var last = deadend_.chain.pop_back()
+			deadend_.chain.append_array(chain)
+			deadend_.chain.append(last)
+			crush()
+		
+		if other_options.is_empty():
+			for domain in deadend_.chain:
+				domain.deadends.append(self)
+			
+			var last = chain.pop_back()
+			chain.append_array(deadend_.chain)
+			chain.append(last)
+			deadend_.crush()
+	

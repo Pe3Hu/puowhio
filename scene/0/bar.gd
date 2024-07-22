@@ -2,7 +2,8 @@
 class_name Bar extends PanelContainer
 
 
-@export_enum("health", "stamina", "sum", "count") var type: String = "health"
+@export_enum("volume", "bowl") var type: String = "volume"
+@export_enum("health", "stamina", "sum", "count") var subtype: String = "health"
 @export_enum("standard", "instant") var tempo: String = "instant"
 
 @export var proprietor: PanelContainer
@@ -40,27 +41,31 @@ class_name Bar extends PanelContainer
 		return limit
 @export var value: int = 0:
 	set(value_):
-		value = clamp(value_, 0, limit)
+		if is_limited:
+			value = clamp(value_, 0, limit)
+		else:
+			value = value_
 		
 		if is_node_ready():
 			var tween = create_tween().set_parallel()
 			var modifier = get(tempo + "_modifier")
 			var time = treatment_time * modifier
+			var text = ""
+		
+			if subtype == "health" or subtype == "stamina":
+				text = subtype.capitalize()[0]+ "P "
 			
+			text += str(round(value))
 			tween.tween_property(%Fullness, "value", value, time)
-			
-			if type == "health" or type == "stamina":
-				var points = type.capitalize()[0]+ "P "
-				tween.tween_method(
-					func(value): %Label.text = points + str(round(value)), %Fullness.value, value, time
-					)
-			else:
-				tween.tween_method(
-					func(value): %Label.text = str(round(value)), %Fullness.value, value, time
-					)
+			tween.tween_method(func(value): %Label.text = text, %Fullness.value, value, time)
 			tween.connect("finished", on_tween_finished)
 	get:
 		return value
+@export var is_limited: bool = true:
+	set(is_limited_):
+		is_limited = is_limited_
+	get:
+		return is_limited
 
 @export var standard_modifier: float = 1.0
 @export var instant_modifier: float = 0.0
@@ -68,18 +73,11 @@ class_name Bar extends PanelContainer
 
 func on_tween_finished() -> void:
 	match type:
-		"health":
-			#if proprietor.enemey.hsm.get_active_state().name == "inflicting":
-			if value <= 0:
-				proprietor.concede_defeat()
-	
-func update_cavity_value() -> void:
-	var income = 0
-	var _limit = 0 #stomach.limit - stomach.value
-	
-	match type:
-		"health":
-			if value > 0:
-				var _income = min(min(value, income), limit)
-				value -= _income
-				#stomach.value += _income
+		"volume":
+			match subtype:
+				"health":
+					if value <= 0:
+						proprietor.concede_defeat()
+		"bowl":
+			if value >= limit:
+				proprietor.emit_signal("bar_is_crowded")

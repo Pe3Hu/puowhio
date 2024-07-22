@@ -45,7 +45,7 @@ func roll_starter_items() -> void:
 					var item = nexus.generate_item(resource)
 					add_item(item)
 		"monster":
-			var options = Global.dict.book.level[minion.statistic.level.value]
+			var options = Global.dict.book.level[minion.statistic.level.experience.current]
 			var index = 1#options.pick_random()
 			var prioritizeds = Global.dict.terrain.title[minion.terrain].element
 			var masks = {}
@@ -102,7 +102,6 @@ func roll_starter_items() -> void:
 	resort_items()
 	
 func add_item(item_: Item) -> void:
-	var a = scrolls.get_children()
 	scrolls.add_child(item_)
 	var slot = free_slots.pop_back()
 	occupied_slots.append(slot)

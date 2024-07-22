@@ -24,10 +24,12 @@ var loser: Minion
 func _ready() -> void:
 	pass
 	#init_mages(2)
-	init_monsters(2)
-	prepare()
-	#
-	for _i in 10:
+	#init_monsters(2)
+	#prepare()
+	
+	await get_tree().process_frame
+	await get_tree().process_frame
+	for _i in 0:
 		pass_initiative()
 	
 func init_mages(count_: int) -> void:
@@ -41,7 +43,6 @@ func init_mages(count_: int) -> void:
 		mage.battle = self
 		mages.add_child(mage)
 		initiatives.append(mage)
-		mage.statistic.level.value = 1
 		mage.inventory.roll_starter_items()
 		mage.library.roll_starter_items()
 		mage.init_threats()
@@ -59,7 +60,6 @@ func init_monsters(count_: int) -> void:
 		monster.terrain = "swamp"
 		monsters.add_child(monster)
 		initiatives.append(monster)
-		monster.statistic.level.value = 1
 		monster.roll_kind()
 		monster.library.roll_starter_items()
 		monster.bowl.init_resource()
@@ -82,6 +82,7 @@ func prepare() -> void:
 func pass_initiative() -> void:
 	if winner == null:
 		var index = (initiatives.find(observer.active) + 1) % initiatives.size()
+		observer.passive = observer.active
 		observer.active = initiatives[index]
 		observer.active.start_turn()
 	

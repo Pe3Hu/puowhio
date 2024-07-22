@@ -42,7 +42,7 @@ var roots = {}
 
 
 func _ready() -> void:
-	if true:
+	if false:
 		return
 	pass
 	init_fiefdoms()
@@ -334,7 +334,7 @@ func init_dukedoms() -> void:
 			var fiefdom = grids[grid]
 			wave.append(fiefdom.get(vassal_layer))
 	
-	var stopper = 3
+	var stopper = 1
 	var _i = 0
 	var domains = get(layer_ + "s")
 	
@@ -364,7 +364,6 @@ func init_dukedoms() -> void:
 			
 			print([_i, deadends.get_child_count()])
 	
-	var a = deadends.get_children()
 	for domain in domains:
 		domain.recolor_fiefdoms()
 		
@@ -399,7 +398,41 @@ func find_deadends(layer_: String) -> void:
 	
 	for _i in range(deadends.get_child_count() - 1, -1 -1):
 		var deadend = deadends.get_child(_i)
-		var a = deadend.root.get(layer_)
 		
 		if deadend.root.get(layer_) != null:
 			deadend.crush()
+	
+	merge_deadends(layer_)
+	extend_deadends(layer_)
+	
+func merge_deadends(layer_: String) -> void:
+	for _i in range(deadends.get_child_count() - 1, -1 -1):
+		var deadend = deadends.get_child(_i)
+		var options = deadend.branches.filter(func(a): return a.deadends.is_empty())
+		
+		if options.is_empty():
+			options = deadend.branches.filter(func(a): return !a.deadends.is_empty())
+			
+			if !options.is_empyt():
+				var option = options.pick_random()
+				deadend.merge(option)
+			else:
+				pass
+		else:
+			deadend.pick_branch()
+	
+func extend_deadends(layer_: String) -> void:
+	var is_connected = true
+		
+	for _i in range(deadends.get_child_count() - 1, -1 -1):
+		var deadend = deadends.get_child(_i)
+		var options = deadend.branches.filter(func(a): return a.deadends.is_empty())
+		
+		if options.size() == 1:
+			is_connected = false
+			deadend.is_connected = false
+			deadend.fill_chain()
+		
+	if !is_connected:
+		find_deadends(layer_)
+	

@@ -57,12 +57,12 @@ func roll_cores() -> void:
 				var roll = rolls.pop_back()
 				var aspect = aspects.pop_back()
 				var core = level.get(aspect)
-				core.current += roll
+				core.modifier.current += roll
 				#change_core_current(aspect, roll)
 			
 			recalc_doublet_values()
-		#"monster":
-		#	minion.roll_aspects()
+		"monster":
+			minion.roll_aspects()
 		#	pass
 	
 func recalc_doublet_values() -> void:
@@ -85,7 +85,7 @@ func update_doublet(title_: String) -> void:
 	
 	if Global.arr.avg.has(title_):
 		var words = title_.split("_")
-		doublet.resource.value += level.get(words[0]).current
+		doublet.resource.value += level.get(words[0]).modifier.current
 	
 	doublet.update_label()
 	

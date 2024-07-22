@@ -79,7 +79,7 @@ func apply_impulse(impulse_: ImpulseResource) -> void:
 				if impulse.is_crit:
 					print("crit!")
 				else:
-					print("wound")
+					print("wound ", impulse_.result)
 			
 			for resource in bowls:
 				for bowl in bowls[resource]:
@@ -98,24 +98,60 @@ func apply_impulse(impulse_: ImpulseResource) -> void:
 func roll_accuracy() -> void:
 	var roll = Global.get_random_segment_point(extremes)
 	var separator = active.statistic.accuracy_chance.resource.value
+	var type = "blindness"
+	
+	if active.aura.offensives.has(type):
+		active.aura.change_stack(type, -1)
+		var status = active.aura.types[type]
+		separator -= status.resource.power
+	
 	impulse.is_dodge = roll > separator
-	print(["accuracy", roll, separator, impulse.is_dodge])
+	#print(["accuracy", roll, separator, impulse.is_dodge])
 	
 func roll_evasion() -> void:
 	var roll = Global.get_random_segment_point(extremes)
 	var separator = passive.statistic.evasion_chance.resource.value
+	var type = "flexibility"
+	
+	if passive.aura.defensives.has(type):
+		passive.aura.change_stack(type, -1)
+		var status = active.aura.types[type]
+		separator += status.resource.power
+		
 	impulse.is_dodge = roll < separator
-	print(["evasion", roll, separator, impulse.is_dodge])
+	#print(["evasion", roll, separator, impulse.is_dodge])
 	
 func roll_critical() -> void:
 	var roll = Global.get_random_segment_point(extremes)
 	var separator = active.statistic.critical_chance.resource.value
+	var type = "fortune"
+	
+	if active.aura.offensives.has(type):
+		active.aura.change_stack(type, -1)
+		var status = active.aura.types[type]
+		separator += status.resource.power
+	
 	impulse.is_crit = roll < separator
-	print(["critical", roll, separator, impulse.is_crit])
+	#print(["critical", roll, separator, impulse.is_crit])
 	
 func apply_reduction() -> void:
+	var multiplier = 1.0
+	var types = ["protection", "vulnerability"]
+	
+	for type in types:
+		if passive.aura.defensives.has(type):
+			var status = passive.aura.types[type]
+			
+			match type:
+				"protection":
+					multiplier += float(status.resource.power) / 100.0
+				"vulnerability":
+					multiplier -= float(status.resource.power) / 100.0
+			
+			passive.aura.change_stack(type, -1)
+	
 	impulse.reduction = float(passive.statistic.armor_multiplier.resource.value) / 100
 	impulse.reduction *= impulse.result
 	impulse.reduction += passive.statistic.armor_modifier.resource.value
-	impulse.reduction = round(impulse.reduction)
+	impulse.reduction = round(impulse.reduction * multiplier)
 	impulse.result -= impulse.reduction

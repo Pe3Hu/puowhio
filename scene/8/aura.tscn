@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://bga0qrjtg0dli"]
+
+[ext_resource type="Script" path="res://scene/8/aura.gd" id="1_oo7dx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_14r7v"]
+bg_color = Color(0.363677, 0.673968, 0.531515, 1)
+
+[node name="Aura" type="PanelContainer" node_paths=PackedStringArray("statuses", "buffs", "debuffs", "overtimes")]
+custom_minimum_size = Vector2(216, 84)
+offset_right = 216.0
+offset_bottom = 84.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_14r7v")
+script = ExtResource("1_oo7dx")
+statuses = NodePath("Statuses")
+buffs = NodePath("VBox/Buffs")
+debuffs = NodePath("VBox/Debuffs")
+overtimes = NodePath("VBox/Overtimes")
+
+[node name="Statuses" type="GridContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 5
+
+[node name="VBox" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Buffs" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Debuffs" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Overtimes" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="VBox"]
+layout_mode = 2

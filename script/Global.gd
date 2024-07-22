@@ -64,6 +64,8 @@ func init_arr() -> void:
 	arr.buff = ["boost", "protection", "flexibility", "fortune"]
 	arr.debuff = ["weakness", "vulnerability", "blindness"]
 	arr.overtime = ["flame", "poison", "regeneration", "dome"]
+	arr.offensive = ["boost", "fortune", "weakness", "blindness"]
+	arr.defensive = ["protection", "flexibility", "vulnerability"]
 	
 	arr.threat = ["offensive", "defensive"]
 	arr.bowl = ["measure", "trigger", "side"]
@@ -97,6 +99,9 @@ func init_dict() -> void:
 	init_book()
 	init_monster()
 	init_rarity()
+	init_resource()
+	init_evaluation()
+	init_avocation()
 	
 func init_direction() -> void:
 	dict.direction = {}
@@ -427,6 +432,8 @@ func init_rarity() -> void:
 	dict.rarity = {}
 	dict.rarity.title = {}
 	dict.rarity.evaluation = {}
+	dict.rarity.terrain = {}
+	dict.rarity.minion = {}
 	var exceptions = ["title", "level"]
 	
 	var path = "res://asset/json/puowhio_rarity.json"
@@ -440,25 +447,99 @@ func init_rarity() -> void:
 			if !exceptions.has(key):
 				var words = key.split(" ")
 				
-				if words[1] == "evaluation":
-					if !dict.rarity.evaluation.has(words[0]):
-						dict.rarity.evaluation[words[0]] = {}
+				if words.size() > 1:
+					if words[1] == "aspect":
+						if !data.has(words[1]):
+							data[words[1]] = {}
+						
+						data[words[1]][words[0]] = rarity[key]
+					else:
+						if words[1] != "evaluation":
+							if !dict.rarity[words[1]].has(rarity.title):
+								dict.rarity[words[1]][rarity.title] = {}
+							
+							dict.rarity[words[1]][rarity.title][words[0]] = rarity[key]
+						else:
+							if !dict.rarity.has(words[1]):
+								dict.rarity[words[1]] = {}
+								
+							if !dict.rarity[words[1]].has(words[0]):
+								dict.rarity[words[1]][words[0]] = {}
+							
+							dict.rarity[words[1]][words[0]][rarity.title] = rarity[key]
 					
-					dict.rarity.evaluation[words[0]][rarity.title] = rarity[key]
-				else:
-					if !data.has(words[1]):
-						data[words[1]] = {}
-					
-					data[words[1]][words[0]] = rarity[key]
 			
 		dict.rarity.title[rarity.title] = data
+	
+func init_resource() -> void:
+	dict.resource = {}
+	dict.resource.index = {}
+	var exceptions = ["index"]
+	
+	var path = "res://asset/json/puowhio_resource.json"
+	var dictionary = load_data(path)
+	var array = dictionary["blank"]
+	
+	for resource in array:
+		var data = {}
 		
-	dict.rarity.affix = {}
-	dict.rarity.affix["common"] = 0
-	dict.rarity.affix["uncommon"] = 1
-	dict.rarity.affix["rare"] = 2
-	dict.rarity.affix["epic"] = 3
-	dict.rarity.affix["legendary"] = 4
+		for key in resource:
+			if !exceptions.has(key):
+				data[key] = resource[key]
+		
+		dict.resource.index[resource.index] = data
+	
+func init_evaluation() -> void:
+	dict.evaluation = {}
+	dict.evaluation.title = {}
+	dict.evaluation.weight = {}
+	dict.evaluation.chance = {}
+	var exceptions = ["title"]
+	
+	var path = "res://asset/json/puowhio_evaluation.json"
+	var dictionary = load_data(path)
+	var array = dictionary["blank"]
+	
+	for evaluation in array:
+		var data = {}
+		
+		for key in evaluation:
+			if !exceptions.has(key):
+				dict.evaluation[key][evaluation.title] = evaluation[key]
+		
+		dict.evaluation.title[evaluation.title] = data
+	
+func init_avocation() -> void:
+	dict.avocation = {}
+	dict.avocation.title = {}
+	dict.avocation.element = {}
+	var exceptions = ["title"]
+	
+	var path = "res://asset/json/puowhio_avocation.json"
+	var dictionary = load_data(path)
+	var array = dictionary["blank"]
+	
+	for avocation in array:
+		var data = {}
+		
+		for key in avocation:
+			if !exceptions.has(key):
+				var words = key.split(" ")
+				
+				if words.size() > 1:
+					if !data.has(words[0]):
+						data[words[0]] = {}
+					
+					data[words[0]][words[1]] = avocation[key]
+				else:
+					data[words[0]] = avocation[key]
+		
+		dict.avocation.title[avocation.title] = data
+		
+		if !dict.avocation.element.has(avocation.element):
+			dict.avocation.element[avocation.element] = []
+			
+		dict.avocation.element[avocation.element].append(avocation.title)
 	
 func init_flag() -> void:
 	flag.is_dragging = false

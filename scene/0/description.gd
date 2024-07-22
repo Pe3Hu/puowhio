@@ -84,5 +84,5 @@ func calc_avg() -> void:
 	item.resource.minimum = floor(float(100 - item.resource.dispersion) / 100 * item.resource.avg)
 	item.resource.maximum = floor(float(100 + item.resource.dispersion) / 100 * item.resource.avg)
 	
-	%Damage.text = str(item.resource.avg)
-	#%Damage.text = str(item.resource.minimum) + " - " + str(item.resource.maximum)
+	#%Damage.text = str(item.resource.avg)
+	%Damage.text = str(item.resource.minimum) + " - " + str(item.resource.maximum)

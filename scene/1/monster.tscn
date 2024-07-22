@@ -1,23 +1,16 @@
-[gd_scene load_steps=21 format=3 uid="uid://dmhs0rqhnies1"]
+[gd_scene load_steps=19 format=3 uid="uid://dmhs0rqhnies1"]
 
 [ext_resource type="PackedScene" uid="uid://cfbpcda5nbj1k" path="res://scene/1/minion.tscn" id="1_tfjat"]
 [ext_resource type="Script" path="res://scene/1/monster.gd" id="2_k1ag5"]
 [ext_resource type="Script" path="res://resource/statisticResource.gd" id="2_yi0xi"]
-[ext_resource type="Script" path="res://resource/bowlResource.gd" id="3_4eqwk"]
 [ext_resource type="Script" path="res://resource/coreResource.gd" id="3_ngnw3"]
 [ext_resource type="Script" path="res://resource/doublet/doubletResource.gd" id="4_6s703"]
 [ext_resource type="Script" path="res://resource/levelResource.gd" id="4_10cnl"]
 [ext_resource type="Script" path="res://resource/summaryResource.gd" id="5_nklme"]
 [ext_resource type="FontFile" uid="uid://33eqagvh85us" path="res://asset/font/digital/Inter-Black.ttf" id="5_onrme"]
-[ext_resource type="PackedScene" uid="uid://b647242rr1rr3" path="res://scene/0/bowl.tscn" id="6_ddwiq"]
+[ext_resource type="PackedScene" uid="uid://b647242rr1rr3" path="res://scene/8/bowl.tscn" id="9_t57iv"]
 
-[sub_resource type="Resource" id="Resource_ecrsn"]
-script = ExtResource("3_4eqwk")
-measure = ""
-side = ""
-trigger = ""
-
-[sub_resource type="Resource" id="Resource_e02ap"]
+[sub_resource type="Resource" id="Resource_mcmox"]
 script = ExtResource("4_6s703")
 time = "permanent"
 measure = "modifier"
@@ -25,7 +18,7 @@ type = "parameter"
 subtype = "damage"
 value = 0
 
-[sub_resource type="Resource" id="Resource_bb5m6"]
+[sub_resource type="Resource" id="Resource_co4er"]
 script = ExtResource("4_6s703")
 time = "permanent"
 measure = "modifier"
@@ -33,19 +26,17 @@ type = "parameter"
 subtype = "damage"
 value = 0
 
-[sub_resource type="Resource" id="Resource_61en3"]
+[sub_resource type="Resource" id="Resource_is1v0"]
 script = ExtResource("5_nklme")
 rarity = "uncommon"
 kind = ""
 aspects = 0
-status = ""
 style = ""
 parameter = ""
-bowl = SubResource("Resource_ecrsn")
-primary = SubResource("Resource_e02ap")
-secondary = SubResource("Resource_bb5m6")
+primary = SubResource("Resource_mcmox")
+secondary = SubResource("Resource_co4er")
 
-[sub_resource type="Resource" id="Resource_it3u6"]
+[sub_resource type="Resource" id="Resource_4hy8f"]
 script = ExtResource("3_ngnw3")
 aspect = "dexterity"
 level = null
@@ -53,7 +44,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_j0u3w"]
+[sub_resource type="Resource" id="Resource_dje81"]
 script = ExtResource("3_ngnw3")
 aspect = "intellect"
 level = null
@@ -61,7 +52,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_smjkj"]
+[sub_resource type="Resource" id="Resource_sxq4u"]
 script = ExtResource("3_ngnw3")
 aspect = "strength"
 level = null
@@ -69,7 +60,7 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_dqnda"]
+[sub_resource type="Resource" id="Resource_qay81"]
 script = ExtResource("3_ngnw3")
 aspect = "will"
 level = null
@@ -77,16 +68,16 @@ current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_4a2pc"]
+[sub_resource type="Resource" id="Resource_l5060"]
 script = ExtResource("4_10cnl")
 value = 1
 limit = 0
-strength = SubResource("Resource_smjkj")
-dexterity = SubResource("Resource_it3u6")
-intellect = SubResource("Resource_j0u3w")
-will = SubResource("Resource_dqnda")
+strength = SubResource("Resource_sxq4u")
+dexterity = SubResource("Resource_4hy8f")
+intellect = SubResource("Resource_dje81")
+will = SubResource("Resource_qay81")
 
-[sub_resource type="Resource" id="Resource_duct5"]
+[sub_resource type="Resource" id="Resource_n3y5e"]
 script = ExtResource("2_yi0xi")
 damage_multiplier = 0
 damage_modifier = 0
@@ -127,20 +118,12 @@ will_modifier_resources = Array[ExtResource("4_6s703")]([])
 
 [node name="Monster" node_paths=PackedStringArray("bowl") instance=ExtResource("1_tfjat")]
 script = ExtResource("2_k1ag5")
-summary = SubResource("Resource_61en3")
+summary = SubResource("Resource_is1v0")
 terrain = ""
 bowl = NodePath("HBox/Bowl")
 type = "monster"
 
-[node name="Statistic" parent="HBox" index="0"]
-level = SubResource("Resource_4a2pc")
-resource = SubResource("Resource_duct5")
-
-[node name="Bowl" parent="HBox" index="1" node_paths=PackedStringArray("minion") instance=ExtResource("6_ddwiq")]
-layout_mode = 2
-minion = NodePath("../..")
-
-[node name="Kind" type="Label" parent="HBox/VBox1/HBox/Bars" index="0"]
+[node name="HBox_VBox1_HBox_Bars#Kind" type="Label" parent="." index="0"]
 unique_name_in_owner = true
 texture_filter = 2
 custom_minimum_size = Vector2(42, 21)
@@ -149,5 +132,22 @@ theme_override_colors/font_color = Color(0.17, 0.17, 0.17, 1)
 theme_override_fonts/font = ExtResource("5_onrme")
 theme_override_font_sizes/font_size = 14
 text = "999%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Statistic" parent="HBox" index="0"]
+level = SubResource("Resource_l5060")
+resource = SubResource("Resource_n3y5e")
+
+[node name="Bowl" parent="HBox" index="1" node_paths=PackedStringArray("minion") instance=ExtResource("9_t57iv")]
+layout_mode = 2
+minion = NodePath("../..")
+
+[node name="Kind" type="Label" parent="HBox/VBox1/HBox/PanelContainer/HBox/Bars" index="0"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_onrme")
+theme_override_font_sizes/font_size = 16
+text = "999"
 horizontal_alignment = 1
 vertical_alignment = 1

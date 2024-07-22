@@ -2,32 +2,39 @@
 class_name Bowl extends PanelContainer
 
 
+signal bar_is_crowded
+
 @export var minion: Minion
 @export var bar: Bar
+@export var status: Status
 @export var resource: BowlResource
 @export var trigger: Sprite2D
-@export var status: Sprite2D
-
-@onready var buff_image = preload("res://asset/png/status/buff.png")
-@onready var debuff_image = preload("res://asset/png/status/debuff.png")
-@onready var overtime_image = preload("res://asset/png/status/overtime.png")
+#@export var status: Sprite2D
 
 
 func init_resource() -> void:
 	bar.fullness.fill_mode = 3#FillMode.FILL_BOTTOM_TO_TOP
 	resource = BowlResource.new()
+	status.resource = StatusResource.new()
 	
 	match minion.type:
 		"monster":
-			var description = Global.dict.monster.title[minion.summary.kind].bowl
+			var description = Global.dict.monster.title[minion.summary.kind]
 			
-			resource.measure = description.measure
-			resource.trigger = description.trigger
-			resource.side = description.side
+			resource.measure = description.bowl.measure
+			resource.trigger = description.bowl.trigger
+			resource.side = description.bowl.side
+			bar.type = "bowl"
+			bar.subtype = description.bowl.measure
+			
+			status.resource.type  = description.status.type
+			status.resource.stack_value  = description.status.value
+			status.resource.stack_step  = description.status.step
 	
 	init_hue()
 	update_trigger_sprite()
 	bar.value = 0
+	bar.tempo = "standard"
 	
 func init_hue() -> void:
 	var hues = {}
@@ -53,11 +60,10 @@ func update_trigger_sprite() -> void:
 	var description = Global.dict.monster.title[minion.summary.kind]
 	trigger.frame = Global.arr.trigger.find(description.bowl.trigger)
 	trigger.modulate = Global.color.side[description.bowl.side]
-	bar.type = description.bowl.measure
+	#bar.subtype = description.bowl.measure
 	
-	for _status in Global.arr.status:
-		if Global.arr[_status].has(description.status):
-			status.texture = get(_status + "_image")
-			status.vframes = Global.arr[_status].size()
-			status.frame = Global.arr[_status].find(description.status)
-			pass
+	status.update_spite()
+	
+func _on_bar_is_crowded():
+	bar.value -= bar.limit
+	minion.aura.add_status(self)

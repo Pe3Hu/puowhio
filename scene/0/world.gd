@@ -17,4 +17,7 @@ func _ready() -> void:
 	#012 description
 	#Global.rng.randomize()
 	#var random = Global.rng.randi_range(0, 1)
+	#await get_tree().physics_frame
 	pass
+
+	

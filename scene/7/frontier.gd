@@ -38,8 +38,7 @@ func init_references() -> void:
 	b.perimeter.frontiers[self] = a
 	a.perimeter.neighbors[b] = self
 	b.perimeter.neighbors[a] = self
-
-
+	
 func init_trails() -> void:
 	trails.clear()
 	var a = domains[0]

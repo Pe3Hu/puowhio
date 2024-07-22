@@ -1,0 +1,69 @@
+{
+"blank":[
+ {
+  "index": 0,
+  "subtype": "trigram",
+  "type": "fragment"
+ },
+ {
+  "index": 1,
+  "subtype": "nucleus",
+  "type": "fragment"
+ },
+ {
+  "index": 2,
+  "subtype": "scroll",
+  "type": "fragment"
+ },
+ {
+  "index": 3,
+  "subtype": "trigram",
+  "type": "recipe"
+ },
+ {
+  "index": 4,
+  "subtype": "nucleus",
+  "type": "recipe"
+ },
+ {
+  "index": 5,
+  "subtype": "scroll",
+  "type": "recipe"
+ },
+ {
+  "index": 6,
+  "subtype": "liquid",
+  "type": "essence"
+ },
+ {
+  "index": 7,
+  "subtype": "gas",
+  "type": "essence"
+ },
+ {
+  "index": 8,
+  "subtype": "ore",
+  "type": "essence"
+ },
+ {
+  "index": 9,
+  "subtype": "blood",
+  "type": "trophy"
+ },
+ {
+  "index": 10,
+  "subtype": "skin",
+  "type": "trophy"
+ },
+ {
+  "index": 11,
+  "subtype": "bone",
+  "type": "trophy"
+ },
+ {
+  "index": 12,
+  "subtype": "heart",
+  "type": "trophy"
+ }
+]
+}

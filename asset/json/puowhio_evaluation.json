@@ -1,0 +1,39 @@
+{
+"blank":[
+ {
+  "title": "F",
+  "weight": 10,
+  "chance": 29
+ },
+ {
+  "title": "E",
+  "weight": 25,
+  "chance": 26
+ },
+ {
+  "title": "D",
+  "weight": 40,
+  "chance": 19
+ },
+ {
+  "title": "C",
+  "weight": 55,
+  "chance": 13
+ },
+ {
+  "title": "B",
+  "weight": 70,
+  "chance": 8
+ },
+ {
+  "title": "A",
+  "weight": 85,
+  "chance": 4
+ },
+ {
+  "title": "S",
+  "weight": 100,
+  "chance": 1
+ }
+]
+}

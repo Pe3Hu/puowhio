@@ -12,13 +12,17 @@ offset_right = 33.0
 offset_bottom = 20.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_xhw37")
 script = ExtResource("1_r4xo6")
+type = "health"
+subtype = null
 fullness = NodePath("Fullness")
+is_limited = null
 
 [node name="Fullness" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 value = 100.0
 rounded = true
+allow_greater = true
 nine_patch_stretch = true
 texture_under = ExtResource("2_h511b")
 texture_progress = ExtResource("2_h511b")

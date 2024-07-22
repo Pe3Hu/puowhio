@@ -1,0 +1,146 @@
+{
+"blank":[
+ {
+  "title": "healer",
+  "element": "aqua",
+  "status type": "second breath",
+  "bowl measure": "sum",
+  "bowl trigger": "heal",
+  "bowl side": "done",
+  "bowl limit": 100,
+  "status value": 15,
+  "status step": 0
+ },
+ {
+  "title": "poisoner",
+  "element": "aqua",
+  "status type": "poison",
+  "bowl measure": "count",
+  "bowl trigger": "turn",
+  "bowl side": "start",
+  "bowl limit": 3,
+  "status value": 7,
+  "status step": 3
+ },
+ {
+  "title": "breakwater",
+  "element": "aqua",
+  "status type": "swap stance",
+  "bowl measure": "count",
+  "bowl trigger": "turn",
+  "bowl side": "end",
+  "bowl limit": 1,
+  "status value": 5,
+  "status step": 2,
+  "stance self": "critical chance",
+  "stance enemy": "critical chance"
+ },
+ {
+  "title": "shadow",
+  "element": "wind",
+  "status type": "extra move",
+  "bowl measure": "count",
+  "bowl trigger": "turn",
+  "bowl side": "start",
+  "bowl limit": 5,
+  "status value": 1,
+  "status step": 0
+ },
+ {
+  "title": "destroyer",
+  "element": "wind",
+  "status type": "fade",
+  "bowl measure": "sum",
+  "bowl trigger": "wound",
+  "bowl side": "done",
+  "bowl limit": 100,
+  "status value": 10,
+  "status step": 0
+ },
+ {
+  "title": "illusionist",
+  "element": "wind",
+  "status type": "swap stance",
+  "bowl measure": "count",
+  "bowl trigger": "turn",
+  "bowl side": "start",
+  "bowl limit": 1,
+  "status value": 3,
+  "status step": 1,
+  "stance self": "evasion chance",
+  "stance enemy": "accuracy chance"
+ },
+ {
+  "title": "arsonist",
+  "element": "fire",
+  "status type": "flame",
+  "bowl measure": "count",
+  "bowl trigger": "turn",
+  "bowl side": "start",
+  "bowl limit": 3,
+  "status value": 10,
+  "status step": 6
+ },
+ {
+  "title": "berserker",
+  "element": "fire",
+  "status type": "second breath",
+  "bowl measure": "sum",
+  "bowl trigger": "wound",
+  "bowl side": "taken",
+  "bowl limit": 100,
+  "status value": 10,
+  "status step": 0,
+  "stance self": "damage modifier"
+ },
+ {
+  "title": "reaper",
+  "element": "fire",
+  "status type": "swap stance",
+  "bowl measure": "count",
+  "bowl trigger": "turn",
+  "bowl side": "end",
+  "bowl limit": 1,
+  "status value": 10,
+  "status step": 3,
+  "stance self": "damage multiplier",
+  "stance enemy": "damage multiplier"
+ },
+ {
+  "title": "undertaker",
+  "element": "earth",
+  "status type": "swap stance",
+  "bowl measure": "count",
+  "bowl trigger": "turn",
+  "bowl side": "end",
+  "bowl limit": 1,
+  "status value": 10,
+  "status step": 3,
+  "stance self": "armor multiplier",
+  "stance enemy": "armor multiplier"
+ },
+ {
+  "title": "keeper",
+  "element": "earth",
+  "status type": "fade",
+  "bowl measure": "sum",
+  "bowl trigger": "block",
+  "bowl side": "done",
+  "bowl limit": 100,
+  "status value": 5,
+  "status step": 0
+ },
+ {
+  "title": "fortress",
+  "element": "earth",
+  "status type": "second breath",
+  "bowl measure": "sum",
+  "bowl trigger": "block",
+  "bowl side": "done",
+  "bowl limit": 100,
+  "status value": 25,
+  "status step": 0,
+  "stance self": "armor modifier"
+ }
+]
+}

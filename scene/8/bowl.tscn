@@ -1,15 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://b647242rr1rr3"]
+[gd_scene load_steps=8 format=3 uid="uid://b647242rr1rr3"]
 
-[ext_resource type="Script" path="res://scene/0/bowl.gd" id="1_fmmdr"]
-[ext_resource type="PackedScene" uid="uid://bkitagn5whwec" path="res://scene/0/bar.tscn" id="2_aearq"]
-[ext_resource type="Texture2D" uid="uid://fafh08ryo8m8" path="res://asset/png/status/buff.png" id="2_fucdi"]
-[ext_resource type="Texture2D" uid="uid://bkwwddwh7da4v" path="res://asset/png/bowl/trigger.png" id="3_kspcg"]
+[ext_resource type="Script" path="res://scene/8/bowl.gd" id="1_8kqiu"]
+[ext_resource type="PackedScene" uid="uid://cui25gll5k6xu" path="res://scene/8/status.tscn" id="2_5gtua"]
+[ext_resource type="Texture2D" uid="uid://fafh08ryo8m8" path="res://asset/png/status/buff.png" id="3_7max1"]
+[ext_resource type="PackedScene" uid="uid://bkitagn5whwec" path="res://scene/0/bar.tscn" id="4_4026v"]
+[ext_resource type="Texture2D" uid="uid://bkwwddwh7da4v" path="res://asset/png/bowl/trigger.png" id="5_eurdy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dxhxx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xg42f"]
 
-[node name="Bowl" type="PanelContainer" node_paths=PackedStringArray("bar", "trigger", "status")]
+[node name="Bowl" type="PanelContainer" node_paths=PackedStringArray("bar", "status", "trigger")]
 custom_minimum_size = Vector2(40, 240)
 anchors_preset = 8
 anchor_left = 0.5
@@ -25,17 +26,21 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_dxhxx")
-script = ExtResource("1_fmmdr")
+script = ExtResource("1_8kqiu")
 bar = NodePath("VBox/Bar")
+status = NodePath("VBox/Status")
 trigger = NodePath("VBox/PanelTrigger/Trigger")
-status = NodePath("VBox/PanelStatus/Status")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
+[node name="Status" parent="VBox" instance=ExtResource("2_5gtua")]
+layout_mode = 2
+
 [node name="PanelStatus" type="PanelContainer" parent="VBox"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_xg42f")
@@ -43,13 +48,17 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_xg42f")
 [node name="Status" type="Sprite2D" parent="VBox/PanelStatus"]
 unique_name_in_owner = true
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("2_fucdi")
+texture = ExtResource("3_7max1")
 centered = false
 vframes = 4
 
-[node name="Bar" parent="VBox" instance=ExtResource("2_aearq")]
+[node name="Bar" parent="VBox" node_paths=PackedStringArray("proprietor") instance=ExtResource("4_4026v")]
 custom_minimum_size = Vector2(40, 160)
 layout_mode = 2
+type = "bowl"
+subtype = "sum"
+proprietor = NodePath("../..")
+is_limited = false
 
 [node name="PanelTrigger" type="PanelContainer" parent="VBox"]
 custom_minimum_size = Vector2(40, 40)
@@ -59,6 +68,8 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_xg42f")
 [node name="Trigger" type="Sprite2D" parent="VBox/PanelTrigger"]
 unique_name_in_owner = true
 scale = Vector2(0.078, 0.078)
-texture = ExtResource("3_kspcg")
+texture = ExtResource("5_eurdy")
 centered = false
 vframes = 4
+
+[connection signal="bar_is_crowded" from="." to="." method="_on_bar_is_crowded"]

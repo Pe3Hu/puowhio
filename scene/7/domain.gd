@@ -26,6 +26,7 @@ class_name Domain extends Node2D
 @export var fiefdoms: Array[Fiefdom]
 @export var vassals: Array[Domain]
 @export var senor: Domain
+@export var deadends: Array[Deadend]
 
 var fill_end = false
 
@@ -104,7 +105,6 @@ func apply_flood_fill() -> void:
 			
 			if map.roots.has(vassal):
 				map.roots[vassal].crush()
-			
 	
 func recolor_fiefdoms() -> void:
 	for fiefdom in fiefdoms:
@@ -116,4 +116,3 @@ func recolor_fiefdoms() -> void:
 		
 		#if boundary.has(fiefdom):
 		#	fiefdom.color.v = 0.5
-	

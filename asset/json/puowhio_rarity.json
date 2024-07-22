@@ -2,47 +2,92 @@
 "blank":[
  {
   "title": "common",
+  "affix": 0,
   "minimum aspect": 0,
   "maximum aspect": 60,
   "f evaluation": 80,
   "e evaluation": 50,
-  "d evaluation": 20
+  "d evaluation": 20,
+  "essence minion": 0,
+  "trophy minion": 60,
+  "fragment minion": 30,
+  "recipe minion": 10,
+  "essence terrain": 50,
+  "trophy terrain": 0,
+  "fragment terrain": 30,
+  "recipe terrain": 20
  },
  {
   "title": "uncommon",
+  "affix": 1,
   "minimum aspect": 20,
   "maximum aspect": 70,
   "f evaluation": 20,
   "e evaluation": 30,
   "d evaluation": 45,
   "c evaluation": 45,
-  "b evaluation": 15
+  "b evaluation": 15,
+  "essence minion": 1,
+  "trophy minion": 55,
+  "fragment minion": 33,
+  "recipe minion": 11,
+  "essence terrain": 44,
+  "trophy terrain": 1,
+  "fragment terrain": 33,
+  "recipe terrain": 22
  },
  {
   "title": "rare",
+  "affix": 2,
   "minimum aspect": 40,
   "maximum aspect": 80,
   "e evaluation": 20,
   "d evaluation": 35,
   "c evaluation": 50,
   "b evaluation": 65,
-  "a evaluation": 50
+  "a evaluation": 50,
+  "essence minion": 0,
+  "trophy minion": 51,
+  "fragment minion": 34,
+  "recipe minion": 15,
+  "essence terrain": 35,
+  "trophy terrain": 0,
+  "fragment terrain": 39,
+  "recipe terrain": 26
  },
  {
   "title": "epic",
+  "affix": 3,
   "minimum aspect": 60,
   "maximum aspect": 90,
   "c evaluation": 10,
   "b evaluation": 20,
   "a evaluation": 30,
-  "s evaluation": 40
+  "s evaluation": 40,
+  "essence minion": 1,
+  "trophy minion": 45,
+  "fragment minion": 36,
+  "recipe minion": 18,
+  "essence terrain": 34,
+  "trophy terrain": 0,
+  "fragment terrain": 36,
+  "recipe terrain": 30
  },
  {
   "title": "legendary",
+  "affix": 4,
   "minimum aspect": 80,
   "maximum aspect": 100,
   "a evaluation": 20,
-  "s evaluation": 60
+  "s evaluation": 60,
+  "essence minion": 0,
+  "trophy minion": 40,
+  "fragment minion": 40,
+  "recipe minion": 20,
+  "essence terrain": 33,
+  "trophy terrain": 1,
+  "fragment terrain": 33,
+  "recipe terrain": 33
  }
 ]
 }

@@ -116,8 +116,8 @@ func roll_aspects(resource_: ItemResource)  -> void:
 	
 	Global.rng.randomize()
 	var gap = Global.rng.randf_range(-0.5, 0.5)
-	#shares[0] += gap
-	#shares[1] -= gap
+	shares[0] += gap
+	shares[1] -= gap
 	var measure = remainder / sum
 	
 	for _i in n:

@@ -1,19 +1,10 @@
 class_name LevelResource extends Resource
 
 
-@export var value: int = 1:
-	set(value_):
-		value = value_
-		if value > 0:
-			limit = 0
-			
-			strength.update_limit()
-			dexterity.update_limit()
-			intellect.update_limit()
-			will.update_limit()
-	get:
-		return value
-@export var limit: int
+const aspects = ["strength", "dexterity", "intellect", "will"]
+
+@export var modifier: CounterResource
+@export var experience: CounterResource
 @export var strength: CoreResource
 @export var dexterity: CoreResource
 @export var intellect: CoreResource
@@ -21,10 +12,30 @@ class_name LevelResource extends Resource
 
 
 func _init() -> void:
-	var aspects = ["strength", "dexterity", "intellect", "will"]
+	experience = CounterResource.new()
+	experience.type = "limit"
+	experience.limit = 20
+	modifier = CounterResource.new()
+	modifier.type = "modifier"
 	
 	for aspect in aspects:
 		set(aspect, CoreResource.new())
 		var core = get(aspect)
 		core.aspect = aspect
 		core.level = self
+		core.modifier = CounterResource.new()
+		core.modifier.type = "modifier"
+		core.modifier.limit = 16
+		core.modifier.current = 9
+		core.experience = CounterResource.new()
+		core.experience.type = "limit"
+		core.experience.is_barriered = false
+	
+	update_core_counters()
+	
+func update_core_counters() -> void:
+	modifier.limit = 0
+	
+	for aspect in aspects:
+		var core = get(aspect)
+		core.update_counters()

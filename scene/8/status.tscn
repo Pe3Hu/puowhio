@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cui25gll5k6xu"]
+
+[ext_resource type="Script" path="res://scene/8/status.gd" id="1_0xwlr"]
+[ext_resource type="Texture2D" uid="uid://cx567ciqgll14" path="res://asset/png/status/debuff.png" id="2_35dlr"]
+[ext_resource type="FontFile" uid="uid://33eqagvh85us" path="res://asset/font/digital/Inter-Black.ttf" id="3_nysjr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02mfd"]
+
+[node name="Status" type="PanelContainer" node_paths=PackedStringArray("sprite", "stack")]
+custom_minimum_size = Vector2(40, 40)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_02mfd")
+script = ExtResource("1_0xwlr")
+sprite = NodePath("Sprite2D")
+stack = NodePath("Stack")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(20, 20)
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("2_35dlr")
+vframes = 3
+
+[node name="Stack" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_nysjr")
+theme_override_font_sizes/font_size = 14
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1

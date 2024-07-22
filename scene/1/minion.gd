@@ -30,6 +30,12 @@ class_name Minion extends PanelContainer
 		library.minion = self
 	get:
 		return library
+@export var aura: Aura:
+	set(aura_):
+		aura = aura_
+		aura.minion = self
+	get:
+		return aura
 @export var health: Bar:
 	set(health_):
 		health = health_

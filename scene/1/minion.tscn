@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://cfbpcda5nbj1k"]
+[gd_scene load_steps=36 format=3 uid="uid://cfbpcda5nbj1k"]
 
 [ext_resource type="Script" path="res://scene/1/minion.gd" id="1_tkocj"]
 [ext_resource type="PackedScene" uid="uid://c7p4hl7huywo5" path="res://scene/2/statistic.tscn" id="2_f0fpg"]
 [ext_resource type="Script" path="res://resource/statisticResource.gd" id="3_buwlm"]
-[ext_resource type="Script" path="res://resource/coreResource.gd" id="3_fweki"]
+[ext_resource type="Script" path="res://resource/counterResource.gd" id="3_k1asy"]
 [ext_resource type="Script" path="res://resource/levelResource.gd" id="3_ujjln"]
+[ext_resource type="Script" path="res://resource/coreResource.gd" id="4_fcb6l"]
 [ext_resource type="PackedScene" uid="uid://bkitagn5whwec" path="res://scene/0/bar.tscn" id="4_yjqhk"]
 [ext_resource type="PackedScene" uid="uid://coe30eahgmn82" path="res://scene/4/conveyor.tscn" id="5_0qam4"]
 [ext_resource type="PackedScene" uid="uid://dj3oxp30ak301" path="res://scene/2/grimoire.tscn" id="6_lw7sg"]
@@ -12,51 +13,118 @@
 [ext_resource type="Script" path="res://resource/doublet/doubletResource.gd" id="7_amxjd"]
 [ext_resource type="PackedScene" uid="uid://cicawte8jygu3" path="res://scene/2/library.tscn" id="7_t33ck"]
 [ext_resource type="PackedScene" uid="uid://ha0pebaf10xy" path="res://scene/3/stateMachine.tscn" id="8_6xi6c"]
+[ext_resource type="PackedScene" uid="uid://bga0qrjtg0dli" path="res://scene/8/aura.tscn" id="9_vu8pn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bbq8e"]
 
-[sub_resource type="Resource" id="Resource_xdmqv"]
-script = ExtResource("3_fweki")
+[sub_resource type="Resource" id="Resource_y01in"]
+script = ExtResource("3_k1asy")
+type = "limit"
+current = 1
+limit = 1
+is_barriered = false
+
+[sub_resource type="Resource" id="Resource_y3yjr"]
+script = ExtResource("3_k1asy")
+type = "modifier"
+current = 9
+limit = 16
+is_barriered = true
+
+[sub_resource type="Resource" id="Resource_ndej2"]
+script = ExtResource("4_fcb6l")
 aspect = "dexterity"
 level = null
+experience = SubResource("Resource_y01in")
+modifier = SubResource("Resource_y3yjr")
+
+[sub_resource type="Resource" id="Resource_oaccb"]
+script = ExtResource("3_k1asy")
+type = "limit"
+current = 1
+limit = 20
+is_barriered = true
+
+[sub_resource type="Resource" id="Resource_k64v5"]
+script = ExtResource("3_k1asy")
+type = "limit"
+current = 1
+limit = 1
+is_barriered = false
+
+[sub_resource type="Resource" id="Resource_xj8pn"]
+script = ExtResource("3_k1asy")
+type = "modifier"
 current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_05xl1"]
-script = ExtResource("3_fweki")
+[sub_resource type="Resource" id="Resource_acpvs"]
+script = ExtResource("4_fcb6l")
 aspect = "intellect"
 level = null
+experience = SubResource("Resource_k64v5")
+modifier = SubResource("Resource_xj8pn")
+
+[sub_resource type="Resource" id="Resource_ckx2g"]
+script = ExtResource("3_k1asy")
+type = "modifier"
+current = 1
+limit = 28
+is_barriered = true
+
+[sub_resource type="Resource" id="Resource_m7grt"]
+script = ExtResource("3_k1asy")
+type = "limit"
+current = 1
+limit = 1
+is_barriered = false
+
+[sub_resource type="Resource" id="Resource_hidcl"]
+script = ExtResource("3_k1asy")
+type = "modifier"
 current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_wrhn1"]
-script = ExtResource("3_fweki")
+[sub_resource type="Resource" id="Resource_0v035"]
+script = ExtResource("4_fcb6l")
 aspect = "strength"
 level = null
+experience = SubResource("Resource_m7grt")
+modifier = SubResource("Resource_hidcl")
+
+[sub_resource type="Resource" id="Resource_c5rnv"]
+script = ExtResource("3_k1asy")
+type = "limit"
+current = 1
+limit = 1
+is_barriered = false
+
+[sub_resource type="Resource" id="Resource_w2bcl"]
+script = ExtResource("3_k1asy")
+type = "modifier"
 current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_agg6k"]
-script = ExtResource("3_fweki")
+[sub_resource type="Resource" id="Resource_ajhyh"]
+script = ExtResource("4_fcb6l")
 aspect = "will"
 level = null
-current = 9
-limit = 16
-is_barriered = true
+experience = SubResource("Resource_c5rnv")
+modifier = SubResource("Resource_w2bcl")
 
-[sub_resource type="Resource" id="Resource_rix8g"]
+[sub_resource type="Resource" id="Resource_dbwus"]
 script = ExtResource("3_ujjln")
-value = 1
-limit = 0
-strength = SubResource("Resource_wrhn1")
-dexterity = SubResource("Resource_xdmqv")
-intellect = SubResource("Resource_05xl1")
-will = SubResource("Resource_agg6k")
+modifier = SubResource("Resource_ckx2g")
+experience = SubResource("Resource_oaccb")
+strength = SubResource("Resource_0v035")
+dexterity = SubResource("Resource_ndej2")
+intellect = SubResource("Resource_acpvs")
+will = SubResource("Resource_ajhyh")
 
-[sub_resource type="Resource" id="Resource_w4ixm"]
+[sub_resource type="Resource" id="Resource_t4sen"]
 script = ExtResource("3_buwlm")
 damage_multiplier = 0
 damage_modifier = 0
@@ -115,7 +183,7 @@ value = null
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gylwt"]
 
-[node name="Minion" type="PanelContainer" node_paths=PackedStringArray("hsm", "statistic", "conveyor", "grimoire", "library", "health", "stamina", "offensive", "defensive")]
+[node name="Minion" type="PanelContainer" node_paths=PackedStringArray("hsm", "statistic", "conveyor", "grimoire", "library", "aura", "health", "stamina", "offensive", "defensive")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -135,10 +203,11 @@ statistic = NodePath("HBox/Statistic")
 conveyor = NodePath("HBox/VBox1/Conveyor")
 grimoire = NodePath("HBox/VBox1/Scrolls/ScrollsVBox/Grimoire")
 library = NodePath("HBox/VBox1/Scrolls/ScrollsVBox/Library")
-health = NodePath("HBox/VBox1/HBox/Bars/Health")
-stamina = NodePath("HBox/VBox1/HBox/Bars/Stamina")
-offensive = NodePath("HBox/VBox1/HBox/PanelContainer/Threats/Offensive")
-defensive = NodePath("HBox/VBox1/HBox/PanelContainer/Threats/Defensive")
+aura = NodePath("HBox/VBox1/HBox/Aura")
+health = NodePath("HBox/VBox1/HBox/PanelContainer/HBox/Bars/Health")
+stamina = NodePath("HBox/VBox1/HBox/PanelContainer/HBox/Bars/Stamina")
+offensive = NodePath("HBox/VBox1/HBox/PanelContainer/HBox/Threats/Offensive")
+defensive = NodePath("HBox/VBox1/HBox/PanelContainer/HBox/Threats/Defensive")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -148,9 +217,8 @@ alignment = 1
 [node name="Statistic" parent="HBox" node_paths=PackedStringArray("minion") instance=ExtResource("2_f0fpg")]
 layout_mode = 2
 minion = NodePath("../..")
-refreshed = true
-level = SubResource("Resource_rix8g")
-resource = SubResource("Resource_w4ixm")
+level = SubResource("Resource_dbwus")
+resource = SubResource("Resource_t4sen")
 
 [node name="VBox1" type="VBoxContainer" parent="HBox"]
 layout_mode = 2
@@ -164,50 +232,68 @@ alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="HBox/VBox1/HBox"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_v7lhu")
 
-[node name="Threats" type="VBoxContainer" parent="HBox/VBox1/HBox/PanelContainer"]
+[node name="HBox" type="HBoxContainer" parent="HBox/VBox1/HBox/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Offensive" parent="HBox/VBox1/HBox/PanelContainer/Threats" node_paths=PackedStringArray("panel") instance=ExtResource("6_o0nh2")]
+[node name="Threats" type="VBoxContainer" parent="HBox/VBox1/HBox/PanelContainer/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Offensive" parent="HBox/VBox1/HBox/PanelContainer/HBox/Threats" node_paths=PackedStringArray("panel") instance=ExtResource("6_o0nh2")]
 unique_name_in_owner = true
 layout_mode = 2
-panel = NodePath("../../../../../..")
+panel = NodePath("../../../../../../..")
 resource = SubResource("Resource_iky6g")
 
-[node name="Defensive" parent="HBox/VBox1/HBox/PanelContainer/Threats" node_paths=PackedStringArray("panel") instance=ExtResource("6_o0nh2")]
+[node name="Defensive" parent="HBox/VBox1/HBox/PanelContainer/HBox/Threats" node_paths=PackedStringArray("panel") instance=ExtResource("6_o0nh2")]
 unique_name_in_owner = true
 layout_mode = 2
-panel = NodePath("../../../../../..")
+panel = NodePath("../../../../../../..")
 resource = SubResource("Resource_u48pu")
 
-[node name="Bars" type="VBoxContainer" parent="HBox/VBox1/HBox"]
+[node name="Bars" type="VBoxContainer" parent="HBox/VBox1/HBox/PanelContainer/HBox"]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Health" parent="HBox/VBox1/HBox/Bars" node_paths=PackedStringArray("proprietor") instance=ExtResource("4_yjqhk")]
+[node name="Health" parent="HBox/VBox1/HBox/PanelContainer/HBox/Bars" node_paths=PackedStringArray("proprietor") instance=ExtResource("4_yjqhk")]
 custom_minimum_size = Vector2(180, 16)
 layout_mode = 2
-proprietor = NodePath("../../../../..")
+type = "volume"
+subtype = "health"
+proprietor = NodePath("../../../../../../..")
 color_under = Color(1, 0.411765, 0.411765, 1)
 color_progress = Color(0.75, 0.105, 0.105, 1)
 value = 70
+is_limited = true
 
-[node name="Stamina" parent="HBox/VBox1/HBox/Bars" node_paths=PackedStringArray("proprietor") instance=ExtResource("4_yjqhk")]
+[node name="Stamina" parent="HBox/VBox1/HBox/PanelContainer/HBox/Bars" node_paths=PackedStringArray("proprietor") instance=ExtResource("4_yjqhk")]
 custom_minimum_size = Vector2(180, 16)
 layout_mode = 2
-type = "stamina"
-proprietor = NodePath("../../../../..")
+type = "volume"
+subtype = "stamina"
+proprietor = NodePath("../../../../../../..")
 texture_size = Vector2(180, 16)
 color_under = Color(1, 1, 0.41, 1)
 color_progress = Color(0.75, 0.75, 0.105, 1)
 value = 70
+is_limited = true
+
+[node name="Aura" parent="HBox/VBox1/HBox" node_paths=PackedStringArray("minion") instance=ExtResource("9_vu8pn")]
+layout_mode = 2
+minion = NodePath("../../../..")
 
 [node name="Conveyor" parent="HBox/VBox1" node_paths=PackedStringArray("minion") instance=ExtResource("5_0qam4")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 minion = NodePath("../../..")
 
 [node name="Scrolls" type="PanelContainer" parent="HBox/VBox1"]

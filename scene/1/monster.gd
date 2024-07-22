@@ -25,7 +25,7 @@ func roll_kind() -> void:
 	
 func roll_aspects() -> void:
 	var extremes = Global.dict.rarity.title[summary.rarity].aspect
-	summary.aspects = Global.get_random_segment_point(extremes) * 0.01 * statistic.level.limit
+	summary.aspects = Global.get_random_segment_point(extremes) * 0.01 * statistic.level.modifier.limit
 	
 	var weights = {}
 	
@@ -44,11 +44,11 @@ func roll_aspects() -> void:
 		var core = Global.get_random_key(weights)
 		Global.rng.randomize()
 		var value = Global.rng.randi_range(1, max(counter / 4, 1))
-		value = min(value, core.limit - core.current)
+		value = min(value, core.modifier.limit - core.modifier.current)
 		counter -= value
-		core.current += value
+		core.modifier.current += value
 		
-		if core.current == core.limit:
+		if core.modifier.current == core.modifier.limit:
 			weights.erase(core)
 		
 	statistic.recalc_doublet_values()

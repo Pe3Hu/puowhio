@@ -35,7 +35,7 @@ func add_orb(element_: String) -> void:
 	orb.element = element_
 	orb.icon_update()
 	equilibrium.change(element_, 1)
-	move_front_slot()
+	#move_front_slot()
 	
 func move_front_slot() -> void:
 	var index = front_slot.get_index() + 1

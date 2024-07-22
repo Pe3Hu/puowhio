@@ -12,27 +12,19 @@ class_name CoreResource extends Resource
 		level = level_
 	get:
 		return level
-@export var current: int = 9:
-	set(current_):
-		if is_barriered:
-			current = clamp(current_, 0, limit)
-			#current = current_
-		else:
-			current = current_
-	get:
-		return current
-@export var limit: int = 16:
-	set(limit_):
-		limit = limit_
-	get:
-		return limit
-@export var is_barriered: bool = true:
-	set(is_barriered_):
-		is_barriered = is_barriered_
-	get:
-		return is_barriered
+@export var experience: CounterResource
+@export var modifier: CounterResource
 
 
-func update_limit() -> void:
-	limit = pow(level.value + 3, 2)
-	level.limit += limit - pow(level.value + 2, 2)
+func update_counters() -> void:
+	modifier.limit = pow(level.modifier.current + 3, 2)
+	level.modifier.limit += modifier.limit - pow(level.modifier.current + 2, 2)
+	
+	if level.modifier.current % 3 == 0:
+		experience.limit += 1
+	
+func change_experience(value_: int) -> void:
+	var integer = floor((experience.current + value_) / experience.limit)
+	var remainder = (experience.current + value_) % experience.limit
+	modifier.current += integer
+	experience.current = remainder
