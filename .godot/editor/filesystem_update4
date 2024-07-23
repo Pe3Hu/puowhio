@@ -1,9 +1,9 @@
 res://scene/0/world.tscn
-res://scene/1/minion.tscn
-res://scene/1/battle.gd
-res://scene/7/domain.gd
-res://scene/7/frontier.gd
+res://script/Global.gd
 res://scene/6/map.gd
 res://scene/7/deadend.gd
-res://script/Global.gd
+res://scene/7/domain.gd
 res://scene/0/world.gd
+res://scene/1/battle.gd
+res://scene/6/map.tscn
+res://scene/6/fiefdom.gd

@@ -2,6 +2,7 @@ class_name Map extends Node2D
 
 
 @export var earldoms: Array[Domain]
+@export var baronys: Array[Domain]
 @export var dukedoms: Array[Domain]
 @export var kingdoms: Array[Domain]
 @export var empires: Array[Domain]
@@ -27,14 +28,17 @@ const empire_count = 3
 const kingdom_count = 12
 const dukedom_count = 60
 const earldom_count = 360
+const barony_count = 120
 
 const empire_vassals = 4
 const kingdom_vassals = 5
-const dukedom_vassals = 6
+const dukedom_vassals = 2
+const barony_vassals = 3
 
 const empire_fiefdoms = 120
 const kingdom_fiefdoms = 30
 const dukedom_fiefdoms = 6
+const barony_fiefdoms = 3
 
 var wave: Array
 var frontiers: Dictionary
@@ -49,7 +53,8 @@ func _ready() -> void:
 	init_trails()
 	
 	init_earldoms()
-	init_dukedoms()
+	init_baronys()
+	#init_dukedoms()
 	#init_fiefdoms_neighbors()
 	#init_empires()
 	#init_kingdoms()
@@ -321,12 +326,13 @@ func init_frontiers(layer_: String) -> void:
 				frontier.domains = [domain, neighbor_domain]
 				frontier.map = self
 	
-func init_dukedoms() -> void:
+func init_baronys() -> void:
 	wave.clear()
-	var layer_ = "dukedom"
+	var layer_ = "barony"
+	var domains = get(layer_ + "s")
 	var vassal_layer = Global.dict.vassal[layer_]
 	var m = Global.num.trail.max + 2
-	var corners = [0, n - 1]
+	var corners = [0]#, n - 1]
 	
 	for _i in corners:
 		for _j in corners:
@@ -334,41 +340,75 @@ func init_dukedoms() -> void:
 			var fiefdom = grids[grid]
 			wave.append(fiefdom.get(vassal_layer))
 	
-	var stopper = 1
+	var stopper = 120
 	var _i = 0
-	var domains = get(layer_ + "s")
 	
 	#for _i in 60:#dukedom_count
-	while _i < stopper:
+	while _i < stopper:# and deadends.get_child_count() == 0:
 		_i += 1
 		
 		if wave.is_empty():
 			stopper = 0
 		else:
-			var domain = domain_scene.instantiate()
-			domain.map = self
-			domain.layer = layer_
-			domains.append(domain)
+			add_barony()
+			var grids = []
+			var barony = domains[domains.size()- 1]
 			
-			if deadends.get_child_count() == 0:
-				var vassal = wave.pick_random()
-				domain.add_vassal(vassal)
-				#wave.erase(vassal)
-				domain.apply_flood_fill()
-			
-				if domain.vassals.size() != get(layer_ + "_vassals"):
-					stopper = 0
-			else:
-				var deadend = deadends.get_children().pick_random()
-				deadend.establish_domain()
-			
-			print([_i, deadends.get_child_count()])
-	
-	for domain in domains:
-		domain.recolor_fiefdoms()
+			for fiefdom in barony.fiefdoms:
+				grids.append(fiefdom.resource.grid)
+			print(["GOOD", "index " + str(barony.index),  grids, barony.vassals.size(), barony.fiefdoms.size()])
 		
-	for deadends in deadends.get_children():
-		deadends.paint_black()
+		for domain in domains:
+			if domain.vassals.size() != get(layer_ + "_vassals"):
+				var grids = []
+				
+				for fiefdom in domain.fiefdoms:
+					grids.append(fiefdom.resource.grid)
+				print(["BAD", "index " + str(domain.index), grids, domain.vassals.size(), domain.fiefdoms.size()])
+				print(domains.size())
+				
+				for barony in domains:
+					var barony_grids = []
+					
+					for fiefdom in barony.fiefdoms:
+						grids.append(fiefdom.resource.grid)
+					print(["?", "index " + str(barony.index),  barony_grids, barony.vassals.size(), barony.fiefdoms.size()])
+		
+				
+		#for deadend in deadends.get_children():
+			#if deadend.chain.size() == 1:
+				stopper = 1
+				return
+			
+			#var domain = domain_scene.instantiate()
+			#domain.map = self
+			#domain.layer = layer_
+			#domains.append(domain)
+			#
+			#if deadends.get_child_count() == 0:
+				#print("Normal")
+				#var vassal = wave.pick_random()
+				#domain.add_vassal(vassal)
+				#print("I", vassal.fiefdoms[0].resource.grid)
+				##wave.erase(vassal)
+				#domain.apply_flood_fill()
+			#
+				#if domain.vassals.size() != get(layer_ + "_vassals"):
+					#stopper = 0
+			#else:
+				#print("Deadend")
+				#var deadend = deadends.get_children().pick_random()
+				#establish_domain(deadend)
+			
+			#print([_i, deadends.get_child_count()])
+	
+	#for _j in 120:
+	#	add_barony()
+	#for domain in domains:
+		#domain.recolor_fiefdoms()
+		#
+	#for deadend in deadends.get_children():
+		#deadend.paint_black()
 		
 		#print(domain.fiefdoms.size())
 	
@@ -380,7 +420,7 @@ func update_wave(layer_: String) -> void:
 			wave.erase(domain)
 	
 func find_deadends(layer_: String) -> void:
-	for domain in wave:
+	for domain in wave: 
 		var count = 0
 		
 		for fiefdom in domain.perimeter.proximates:
@@ -394,16 +434,20 @@ func find_deadends(layer_: String) -> void:
 				deadend.layer = layer_
 				deadend.root = domain
 				deadends.add_child(deadend)
-				print("D", domain.fiefdoms[0].resource.grid)
+				#print("D", domain.fiefdoms[0].resource.grid)
 	
-	for _i in range(deadends.get_child_count() - 1, -1 -1):
-		var deadend = deadends.get_child(_i)
+	#for _i in range(deadends.get_child_count() - 1, -1 -1):
+		#var deadend = deadends.get_child(_i)
+		#
+		#if deadend.root.get(layer_) != null:
+			#deadend.crush()
+	
+	#for _i in range(deadends.get_child_count() - 1, -1 -1):
+		#var deadend = deadends.get_child(_i)
 		
-		if deadend.root.get(layer_) != null:
-			deadend.crush()
-	
-	merge_deadends(layer_)
 	extend_deadends(layer_)
+	merge_deadends(layer_)
+	update_wave(layer_)
 	
 func merge_deadends(layer_: String) -> void:
 	for _i in range(deadends.get_child_count() - 1, -1 -1):
@@ -423,16 +467,81 @@ func merge_deadends(layer_: String) -> void:
 	
 func extend_deadends(layer_: String) -> void:
 	var is_connected = true
-		
-	for _i in range(deadends.get_child_count() - 1, -1 -1):
-		var deadend = deadends.get_child(_i)
+	
+	for deadend in deadends.get_children():
+		#print("@")
 		var options = deadend.branches.filter(func(a): return a.deadends.is_empty())
 		
 		if options.size() == 1:
 			is_connected = false
-			deadend.is_connected = false
+			deadend.set("is_connected", false)
 			deadend.fill_chain()
 		
 	if !is_connected:
 		find_deadends(layer_)
 	
+func establish_domain(deadend_: Deadend) -> void:
+	var domains = get(deadend_.layer + "s")
+	var domain = domain_scene.instantiate()
+	domain.map = self
+	domain.layer = deadend_.layer
+	domains.append(domain)
+	
+	domain.absorb_deadend(deadend_)
+	domain.apply_flood_fill()
+	
+func add_barony() -> void:
+	var layer_ ="barony"
+	var domains = get(layer_ + "s")
+	
+	if true:
+		var domain = domain_scene.instantiate()
+		domain.map = self
+		domain.layer = layer_
+		domains.append(domain)
+		
+		if deadends.get_child_count() == 0:
+			print("Normal")
+			#var options = wave.duplicate()
+			wave.sort_custom(func(a, b): return a.grid.length() < b.grid.length())
+			var options = wave.duplicate().filter(func(a): return wave[0].grid.length() == a.grid.length())
+			#print("RING ", wave[0].grid, wave[0].grid.length())
+			var vassal = options.pick_random()
+			domain.add_vassal(vassal)
+			print("I", vassal.fiefdoms[0].resource.grid)
+			#wave.erase(vassal)
+			domain.apply_flood_fill()
+		else:
+			print("Deadend")
+			var deadend = deadends.get_children().pick_random()
+			establish_domain(deadend)
+		
+	for domain in domains:
+		domain.recolor_fiefdoms()
+	
+	var grids_ = []
+	for deadend in deadends.get_children():
+		deadend.paint_black()
+		
+		var _grids = []
+		
+		for domain in deadend.chain:
+			for fiefdom in domain.fiefdoms:
+				_grids.append(fiefdom.resource.grid)
+		
+		grids_.append(_grids)
+	
+	for domain in wave:
+		for fiefdom in domain.fiefdoms:
+			#fiefdom.color = Color.DIM_GRAY
+			fiefdom.color.a = 0.5
+	
+	if !grids_.is_empty():
+		print(grids_)
+
+func _input(event) -> void:
+	if event is InputEventKey:
+		match event.keycode:
+			KEY_SPACE:
+				if event.is_pressed() && !event.is_echo():
+					add_barony()

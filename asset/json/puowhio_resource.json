@@ -3,67 +3,93 @@
  {
   "index": 0,
   "subtype": "trigram",
-  "type": "fragment"
+  "type": "fragment",
+  "source": "monster,mage",
+  "chance": 3
  },
  {
   "index": 1,
-  "subtype": "nucleus",
-  "type": "fragment"
+  "subtype": "totem",
+  "type": "fragment",
+  "source": "monster,mage",
+  "chance": 1
  },
  {
   "index": 2,
   "subtype": "scroll",
-  "type": "fragment"
+  "type": "fragment",
+  "source": "monster,mage",
+  "chance": 2
  },
  {
   "index": 3,
   "subtype": "trigram",
-  "type": "recipe"
+  "type": "recipe",
+  "source": "terrain,monster",
+  "chance": 3
  },
  {
   "index": 4,
-  "subtype": "nucleus",
-  "type": "recipe"
+  "subtype": "totem",
+  "type": "recipe",
+  "source": "terrain,monster",
+  "chance": 1
  },
  {
   "index": 5,
   "subtype": "scroll",
-  "type": "recipe"
+  "type": "recipe",
+  "source": "terrain,monster",
+  "chance": 2
  },
  {
   "index": 6,
   "subtype": "liquid",
-  "type": "essence"
+  "type": "essence",
+  "source": "terrain",
+  "chance": 1
  },
  {
   "index": 7,
   "subtype": "gas",
-  "type": "essence"
+  "type": "essence",
+  "source": "terrain",
+  "chance": 1
  },
  {
   "index": 8,
   "subtype": "ore",
-  "type": "essence"
+  "type": "essence",
+  "source": "terrain",
+  "chance": 1
  },
  {
   "index": 9,
   "subtype": "blood",
-  "type": "trophy"
+  "type": "trophy",
+  "source": "monster,mage",
+  "chance": 4
  },
  {
   "index": 10,
   "subtype": "skin",
-  "type": "trophy"
+  "type": "trophy",
+  "source": "monster,mage",
+  "chance": 2
  },
  {
   "index": 11,
   "subtype": "bone",
-  "type": "trophy"
+  "type": "trophy",
+  "source": "monster,mage",
+  "chance": 3
  },
  {
   "index": 12,
   "subtype": "heart",
-  "type": "trophy"
+  "type": "trophy",
+  "source": "monster,mage",
+  "chance": 1
  }
 ]
 }

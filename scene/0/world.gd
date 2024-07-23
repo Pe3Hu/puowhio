@@ -19,5 +19,4 @@ func _ready() -> void:
 	#var random = Global.rng.randi_range(0, 1)
 	#await get_tree().physics_frame
 	pass
-
-	
+	#nexus.generate_prize()

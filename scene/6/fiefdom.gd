@@ -24,6 +24,7 @@ class_name Fiefdom extends Polygon2D
 @export var domains: Array[Domain]
 
 @export var earldom: Domain
+@export var barony: Domain
 @export var dukedom: Domain
 @export var kingdom: Domain
 @export var empire: Domain

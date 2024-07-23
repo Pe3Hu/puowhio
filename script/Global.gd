@@ -69,12 +69,15 @@ func init_arr() -> void:
 	
 	arr.threat = ["offensive", "defensive"]
 	arr.bowl = ["measure", "trigger", "side"]
+	arr.evaluation = ["F", "E", "D", "C", "B", "A", "S"]
+	arr.rarity = ["common", "uncommon", "rare", "epic", "legendary"]
 	
 	
 func init_num() -> void:
 	num.index = {}
 	num.index.fiefdom = 0
 	num.index.earldom = 0
+	num.index.barony = 0
 	num.index.dukedom = 0
 	num.index.kingdom = 0
 	num.index.empire = 0
@@ -88,7 +91,8 @@ func init_num() -> void:
 	
 func init_dict() -> void:
 	init_direction()
-	init_class()
+	#init_avocation()
+	init_state()
 	
 	init_affix()
 	init_base()
@@ -156,21 +160,24 @@ func init_direction() -> void:
 		direction = dict.direction.diagonal[_i]
 		dict.direction.windrose.append(direction)
 	
-func init_class() -> void:
-	dict.class = {}
-	dict.class.element = {}
-	dict.class.element["aqua"] = ["healer", "poisoner", "breakwater"]
-	dict.class.element["wind"] = ["shadow", "destroyer", "illusionist"]
-	dict.class.element["fire"] = ["arsonist", "berserker", "reaper"]
-	dict.class.element["earth"] = ["keeper", "fortress", "undertaker"]
+#func init_avocation() -> void:
+	#dict.avocation = {}
+	#dict.avocation.element = {}
+	#dict.avocation.element["aqua"] = ["healer", "poisoner", "breakwater"]
+	#dict.avocation.element["wind"] = ["shadow", "destroyer", "illusionist"]
+	#dict.avocation.element["fire"] = ["arsonist", "berserker", "reaper"]
+	#dict.avocation.element["earth"] = ["keeper", "fortress", "undertaker"]
 	
+func init_state() -> void:
 	dict.senor = {}
-	dict.senor["earldom"] = "dukedom"
+	dict.senor["earldom"] = "barony"
+	dict.senor["barony"] = "dukedom"
 	dict.senor["dukedom"] = "kingdom"
 	dict.senor["kingdom"] = "empire"
 	
 	dict.vassal = {}
-	dict.vassal["dukedom"] = "earldom"
+	dict.vassal["barony"] = "earldom"
+	dict.vassal["dukedom"] = "barony"
 	dict.vassal["kingdom"] = "dukedom"
 	dict.vassal["empire"] = "kingdom"
 	
@@ -433,7 +440,8 @@ func init_rarity() -> void:
 	dict.rarity.title = {}
 	dict.rarity.evaluation = {}
 	dict.rarity.terrain = {}
-	dict.rarity.minion = {}
+	dict.rarity.mage = {}
+	dict.rarity.monster = {}
 	var exceptions = ["title", "level"]
 	
 	var path = "res://asset/json/puowhio_rarity.json"
@@ -467,20 +475,24 @@ func init_rarity() -> void:
 								dict.rarity[words[1]][words[0]] = {}
 							
 							dict.rarity[words[1]][words[0]][rarity.title] = rarity[key]
-					
-			
+				else:
+					data[key] = rarity[key]
+		
 		dict.rarity.title[rarity.title] = data
 	
 func init_resource() -> void:
 	dict.resource = {}
 	dict.resource.index = {}
-	var exceptions = ["index"]
+	dict.resource.source = {}
+	dict.resource.type = {}
+	var exceptions = ["index", "source"]
 	
 	var path = "res://asset/json/puowhio_resource.json"
 	var dictionary = load_data(path)
 	var array = dictionary["blank"]
 	
 	for resource in array:
+		resource.index = int(resource.index)
 		var data = {}
 		
 		for key in resource:
@@ -488,6 +500,19 @@ func init_resource() -> void:
 				data[key] = resource[key]
 		
 		dict.resource.index[resource.index] = data
+		
+		var sources = resource.source.split(",")
+		
+		for source in sources:
+			if !dict.resource.source.has(source):
+				dict.resource.source[source] = []
+			
+			dict.resource.source[source].append(resource.index)
+		
+		if !dict.resource.type.has(resource.type):
+			dict.resource.type[resource.type] = []
+		
+		dict.resource.type[resource.type].append(resource.subtype)
 	
 func init_evaluation() -> void:
 	dict.evaluation = {}

@@ -1,7 +1,7 @@
 class_name Deadend extends Node2D
 
 
-@export_enum("dukedom", "kingdom", "empire") var layer: = "dukedom":
+@export_enum("barony", "dukedom", "kingdom", "empire") var layer: = "barony":
 	set(layer_):
 		layer = layer_
 	get:
@@ -18,10 +18,14 @@ class_name Deadend extends Node2D
 
 
 func _ready() -> void:
-	map.roots[root] = self
-	root.deadends.append(self)
+	add_domain(root)
 	fill_chain()
 	paint_black()
+	
+func add_domain(domain_: Domain) -> void:
+	map.roots[domain_] = self
+	domain_.deadends.append(self)
+	chain.append(domain_)
 	
 func fill_chain() -> void:
 	var vassal_layer = Global.dict.vassal[layer]
@@ -36,13 +40,22 @@ func fill_chain() -> void:
 		
 		if neighbors.size() == 1:
 			var vassal_domain = neighbors[0].get(vassal_layer)
-			chain.append(vassal_domain)
-			vassal_domain.deadends.append(self)
+			add_domain(vassal_domain)
 		else:
 			for neighbor in neighbors:
 				branches.append(neighbor.get(vassal_layer))
 			
 			is_connected = true
+	
+	var grids = []
+	for domain in chain:
+		var grid = domain.fiefdoms[0].resource.grid
+		grids.append(grid)
+	
+	#if chain.size() == 1:
+	#	crush()
+	#else:
+	print("D", grids)
 	
 func paint_black() -> void:
 	var v = float(get_index() + 1) / (map.deadends.get_child_count() + 2)
@@ -54,32 +67,34 @@ func paint_black() -> void:
 	
 func crush() -> void:
 	for domain in chain:
-		domain.deadends.erase(self)
+		for fiefdom in domain.fiefdoms:
+			fiefdom.color = Color.WHITE
 		
-		if domain.deadends.is_empty():
-			if map.roots.has(domain):
-				map.roots.erase(domain)
+		remove_domain(domain)
 	
-	map.deadends.remove_child(self)
+	if map.deadends.get_children().has(self):
+		map.deadends.remove_child(self)
+	
 	queue_free()
 	
-func establish_domain() -> void:
-	#var senor_layer = get()
-	var domains = map.get(layer + "s")
-	var domain = domain_scene.instantiate()
-	domain.map = map
-	domain.layer = layer
-	domains.append(domain)
+func remove_domain(domain_: Domain) -> void:
+	domain_.deadends.erase(self)
+	chain.erase(domain_)
 	
-	for vassal in chain:
-		domain.add_vassal(vassal)
+	if chain.size() > 0:
+		if root == domain_:
+			root = chain.front()
+		
+		if domain_.deadends.is_empty():
+			if map.roots.has(domain_):
+				map.roots.erase(domain_)
+				
+		#if chain.size() == 1:
+		#	remove_domain(root)
 	
-	domain.apply_flood_fill()
-
-	if domain.vassals.size() != map.get(layer + "_vassals"):
-		print("establish_domain error")
-	
-	crush()
+	if chain.size() == 0:
+		map.deadends.remove_child(self)
+		queue_free()
 	
 func pick_branch() -> void:
 	if chain.size() < map.get(layer + "_vassals"):

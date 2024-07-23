@@ -5,6 +5,7 @@ class_name Nexus extends PanelContainer
 @onready var trigram_scene = preload("res://scene/5/trigram.tscn")
 @onready var nucleus_scene = preload("res://scene/5/nucleus.tscn")
 @onready var scroll_scene = preload("res://scene/5/scroll.tscn")
+@onready var prize_scene = preload("res://scene/10/prize.tscn")
 
 
 func generate_item(resource_: ItemResource) -> Item:
@@ -183,3 +184,39 @@ func roll_orbs(resource_: ItemResource)  -> void:
 	
 	#print([resource_.subtype, resource_.input_orbs, resource_.output_orbs])
 	pass
+	
+func generate_prize() -> void:
+	var description = Global.dict.evaluation
+	var fund = 110
+	var source_ = "monster"
+	var evaluations = []
+	
+	var prize = prize_scene.instantiate()
+	add_child(prize)
+	#remove_child(prize)
+	
+	while fund > 0:
+		var chances = description.chance.duplicate()
+		
+		for _evaluation in description.weight:
+			if description.weight[_evaluation] > fund or evaluations.has(_evaluation):
+				chances.erase(_evaluation)
+		
+		if !chances.is_empty():
+			var evaluation = Global.get_random_key(chances)
+			evaluations.append(evaluation)
+			fund -= description.weight[evaluation]
+		else:
+			fund = 0
+	
+	evaluations.sort_custom(func(a, b): return Global.arr.evaluation.find(a) > Global.arr.evaluation.find(b))
+	
+	for evaluation in evaluations:
+		var resource = AwardResource.new()
+		resource.source = source_
+		var chances = Global.dict.rarity.evaluation[evaluation.to_lower()]
+		resource.rarity = Global.get_random_key(chances)
+		chances = Global.dict.rarity.minion[resource.rarity]
+		resource.type = Global.get_random_key(chances)
+		print([evaluation, resource.rarity, resource.type, resource.subtype])
+		prize.add_award(resource)

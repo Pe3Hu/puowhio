@@ -89,6 +89,6 @@ func pass_initiative() -> void:
 func _input(event) -> void:
 	if event is InputEventKey:
 		match event.keycode:
-			KEY_SPACE:
+			KEY_Q:
 				if event.is_pressed() && !event.is_echo():
 					pass_initiative()
