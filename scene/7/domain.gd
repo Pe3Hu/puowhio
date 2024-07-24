@@ -34,7 +34,6 @@ var ring = float()
 
 
 func add_vassal(domain_: Domain) -> void:
-	
 	for fiefdom in domain_.fiefdoms:
 		add_fiefdom(fiefdom)
 	
@@ -45,10 +44,10 @@ func add_vassal(domain_: Domain) -> void:
 func add_fiefdom(fiefdom_: Fiefdom) -> void:
 	ring *= fiefdoms.size()
 	grid *= fiefdoms.size()
+	fiefdom_.set(layer, self)
 	
 	if !fiefdoms.has(fiefdom_):
 		fiefdoms.append(fiefdom_)
-		fiefdom_.set(layer, self)
 		ring += float(fiefdom_.resource.ring)
 		grid += Vector2(fiefdom_.resource.grid)
 	
@@ -97,13 +96,15 @@ func apply_flood_fill() -> void:
 								near_deadends.append(deadend)
 			
 			if near_deadends.is_empty():
-				var best_weight = weights[options[0]]
-				options = options.filter(func (a): return weights[a] == best_weight)
-				#var vassal = Global.get_random_key(weights)
+				var index = map.corners.find(map.corner)
+				var anchor = map.anchors[index]
+				options.sort_custom(func(a, b): return abs(a.grid.x + anchor.x) + abs(a.grid.y + anchor.y) < abs(b.grid.x + anchor.x) + abs(b.grid.y + anchor.y))
+				options = options.filter(func(a): return abs(a.grid.x + anchor.x) + abs(a.grid.y + anchor.y) == abs(options[0].grid.x + anchor.x) + abs(options[0].grid.y + anchor.y))
 				var vassal = options.pick_random()
 				add_vassal(vassal)
-				print("V", vassal.fiefdoms[0].resource.grid)
 			else:
+				near_deadends.sort_custom(func(a, b): return (a.grid.x + a.grid.y) < (b.grid.x + b.grid.y))
+				near_deadends = near_deadends.filter(func (a): return (a.grid.x + a.grid.y) == (near_deadends[0].grid.x + near_deadends[0].grid.y))
 				var deadend = near_deadends.pick_random()
 				absorb_deadend(deadend)
 			
@@ -121,16 +122,12 @@ func apply_flood_fill() -> void:
 			
 			map.update_wave(layer)
 			map.find_deadends(layer)
-			
-			#if map.roots.has(vassal):
-				#map.roots[vassal].crush()
 	
 func absorb_deadend(deadend_: Deadend) -> void:
 	while map.get(layer + "_vassals") > vassals.size() and deadend_.chain.size() > 0:
 		var vassal = deadend_.root
 		deadend_.remove_domain(vassal)
 		add_vassal(vassal)
-		print("A", vassal.fiefdoms[0].resource.grid)
 	
 	if map.get(layer + "_vassals") == vassals.size():
 		fill_end = true
@@ -138,16 +135,41 @@ func absorb_deadend(deadend_: Deadend) -> void:
 	if deadend_.chain.size() == 1:
 		deadend_.crush()
 	
+func absorb_domain(domain_: Domain) -> void:
+	for fiefdom in domain_.fiefdoms:
+		domain_.remove_fiefdom(fiefdom)
+		add_fiefdom(fiefdom)
+	
+	domain_.crush()
+	connect_all_fiefdoms()
+	#vassal and senor adds
+	
+func remove_fiefdom(fiefdom_: Fiefdom) -> void:
+	fiefdom_.set(layer, null)
+	fiefdoms.erase(fiefdom_)
+	
+func connect_all_fiefdoms() -> void:
+	for fiefdom in fiefdoms:
+		for direction in fiefdom.direction_fiefdoms:
+			if !fiefdom.direction_trails.has(direction):
+				var neighbor = fiefdom.direction_fiefdoms[direction]
+				
+				if neighbor.get(layer) == self or neighbor.get(layer) == null:
+					var parity = Global.dict.direction.windrose.find(direction) % 2
+					
+					if parity == 0:
+						map.add_trail(direction, fiefdom, neighbor)
+	
 func recolor_fiefdoms() -> void:
 	for fiefdom in fiefdoms:
 		fiefdom.color = color
-		var k = 3
-		
-		if index % k != 0:
-			fiefdom.color.h += 1.0 / k * (index % k)
-			
-			if fiefdom.color.h > 1:
-				fiefdom.color.h -= 1
+		#var k = 12
+		#
+		#if index % k != 0:
+			#fiefdom.color.h += 1.0 / k * (index % k)
+			#
+			#if fiefdom.color.h > 1:
+				#fiefdom.color.h -= 1
 		
 		#if fiefdoms.size() != 6:
 		#	fiefdom.color = Color.DIM_GRAY
@@ -155,3 +177,11 @@ func recolor_fiefdoms() -> void:
 		#if boundary.has(fiefdom):
 		#	fiefdom.color.v = 0.5
 	
+func crush() -> void:
+	Global.num.index[layer] -= 1
+	var domains = map.get(layer + "s")
+	
+	#vassal and senor removes
+	
+	domains.erase(self)
+	queue_free()

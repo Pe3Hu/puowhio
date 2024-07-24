@@ -14,13 +14,6 @@ unique_name_in_owner = true
 [node name="Fiefdoms" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Biomes" type="Node2D" parent="."]
 
-[node name="Dukedoms" type="Node2D" parent="."]
-visible = false
-
-[node name="Kingdoms" type="Node2D" parent="."]
-visible = false
-
-[node name="Empires" type="Node2D" parent="."]
-visible = false
+[node name="Sectors" type="Node2D" parent="."]

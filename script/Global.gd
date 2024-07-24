@@ -55,7 +55,6 @@ func init_arr() -> void:
 		]
 	
 	arr.terrain = ["swamp", "plain", "desert", "mountain", "tundra", "coast", "volcano", "jungle"]
-	arr.titulus = ["earldom", "dukedom", "kingdom", "empire"]
 	arr.resource = ["liquid", "gas", "ore"]
 	arr.put = ["input", "output"]
 	arr.trigger = ["wound", "critical", "dodge", "heal"]
@@ -72,19 +71,24 @@ func init_arr() -> void:
 	arr.evaluation = ["F", "E", "D", "C", "B", "A", "S"]
 	arr.rarity = ["common", "uncommon", "rare", "epic", "legendary"]
 	
+	arr.titulus = ["earldom", "dukedom", "kingdom", "empire"]
+	arr.windrose = ["N", "E", "S", "W"]
+	
 	
 func init_num() -> void:
 	num.index = {}
 	num.index.fiefdom = 0
 	num.index.earldom = 0
-	num.index.barony = 0
 	num.index.dukedom = 0
 	num.index.kingdom = 0
 	num.index.empire = 0
+	num.index.sector = 0
 	
 	num.trail = {}
-	num.trail.min = 3
-	num.trail.max = 4
+	num.trail.min = 5
+	num.trail.max = 7
+	num.trail.best = 3
+	num.trail.worst = 4
 	
 	num.offset = {}
 	num.grimoire = 68
@@ -170,14 +174,12 @@ func init_direction() -> void:
 	
 func init_state() -> void:
 	dict.senor = {}
-	dict.senor["earldom"] = "barony"
-	dict.senor["barony"] = "dukedom"
+	dict.senor["earldom"] = "dukedom"
 	dict.senor["dukedom"] = "kingdom"
 	dict.senor["kingdom"] = "empire"
 	
 	dict.vassal = {}
-	dict.vassal["barony"] = "earldom"
-	dict.vassal["dukedom"] = "barony"
+	dict.vassal["dukedom"] = "earldom"
 	dict.vassal["kingdom"] = "dukedom"
 	dict.vassal["empire"] = "kingdom"
 	
@@ -276,6 +278,8 @@ func init_scroll() -> void:
 		dict.scroll.level[scroll.level].append(scroll.index)
 	
 func init_terrain() -> void:
+	dict.sector = {}
+	dict.sector.index = {}
 	dict.terrain = {}
 	dict.terrain.title = {}
 	dict.terrain.element = {}
@@ -299,13 +303,24 @@ func init_terrain() -> void:
 					
 					dict.terrain.element[key][terrain.title] = terrain[key]
 					data.element[key] = terrain[key]
-				
-				if arr.resource.has(key):
+				elif arr.resource.has(key):
 					if !dict.terrain.resource.has(key):
 						dict.terrain.resource[key] = {}
 					
 					dict.terrain.resource[key][terrain.title] = terrain[key]
 					data.resource[key] = terrain[key]
+				else:
+					var sectors = terrain[key].split(",")
+					data[key] = []
+					
+					for sector in sectors:
+						data[key].append(int(sector))
+					
+					for sector in data[key]:
+						if !dict.sector.index.has(int(sector)):
+							dict.sector.index[int(sector)] = []
+						
+						dict.sector.index[int(sector)].append(terrain.title)
 			
 		dict.terrain.title[terrain.title] = data
 	
@@ -615,6 +630,16 @@ func init_color():
 	color.side = {}
 	color.side.done = Color.from_hsv(0 / h, 0.0, 0.2)
 	color.side.taken = Color.from_hsv(0 / h, 0.0, 0.8)
+	
+	color.terrain = {}
+	color.terrain.swamp = Color.from_hsv(65 / h, 0.6, 0.6)
+	color.terrain.plain = Color.from_hsv(80 / h, 0.85, 0.85)
+	color.terrain.desert = Color.from_hsv(45 / h, 0.85, 0.85)
+	color.terrain.mountain = Color.from_hsv(230 / h, 0.6, 0.6)
+	color.terrain.tundra = Color.from_hsv(180 / h, 0.6, 0.6)
+	color.terrain.coast = Color.from_hsv(215 / h, 0.85, 0.85)
+	color.terrain.volcano = Color.from_hsv(330 / h, 0.85, 0.85)
+	color.terrain.jungle = Color.from_hsv(120 / h, 0.85, 0.85)
 	
 func load_data(path_: String):
 	var file = FileAccess.open(path_, FileAccess.READ)

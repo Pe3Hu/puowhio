@@ -12,7 +12,8 @@
   "nature": 20,
   "liquid": 6,
   "gas": 4,
-  "ore": 5
+  "ore": 5,
+  "sector": "6,7,8,11"
  },
  {
   "title": "plain",
@@ -26,7 +27,8 @@
   "nature": 0,
   "liquid": 3,
   "gas": 5,
-  "ore": 7
+  "ore": 7,
+  "sector": "8,9,13,14,18,19"
  },
  {
   "title": "desert",
@@ -39,7 +41,8 @@
   "lava": 0,
   "nature": 0,
   "gas": 9,
-  "ore": 6
+  "ore": 6,
+  "sector": "21,22,23,24"
  },
  {
   "title": "mountain",
@@ -53,7 +56,8 @@
   "nature": 0,
   "liquid": 5,
   "gas": 1,
-  "ore": 9
+  "ore": 9,
+  "sector": "0,1,5,10"
  },
  {
   "title": "tundra",
@@ -67,7 +71,8 @@
   "nature": 0,
   "liquid": 8,
   "gas": 6,
-  "ore": 1
+  "ore": 1,
+  "sector": "1,2,3,4"
  },
  {
   "title": "coast",
@@ -81,7 +86,8 @@
   "nature": 0,
   "liquid": 9,
   "gas": 2,
-  "ore": 4
+  "ore": 4,
+  "sector": "0,1,2,3,4,5,9,10,14,15,19,20,21,22,23,24"
  },
  {
   "title": "volcano",
@@ -94,7 +100,8 @@
   "lava": 30,
   "nature": 0,
   "gas": 7,
-  "ore": 8
+  "ore": 8,
+  "sector": "10,15,20,21"
  },
  {
   "title": "jungle",
@@ -107,7 +114,8 @@
   "lava": 20,
   "nature": 30,
   "liquid": 7,
-  "gas": 8
+  "gas": 8,
+  "sector": "11,16,17,18"
  }
 ]
 }

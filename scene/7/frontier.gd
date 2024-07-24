@@ -4,7 +4,6 @@ class_name Frontier extends Node2D
 @export_enum("earldom", "dukedom", "kingdom", "empire") var layer: = "earldom":
 	set(layer_):
 		layer = layer_
-		
 	get:
 		return layer
 
@@ -14,7 +13,11 @@ class_name Frontier extends Node2D
 		
 		layer = domains.front().layer
 		init_references()
-		init_trails()
+		
+		if layer == "dukedom":
+			init_trail()
+		else:
+			select_trails()
 	get:
 		return map
 
@@ -39,15 +42,42 @@ func init_references() -> void:
 	a.perimeter.neighbors[b] = self
 	b.perimeter.neighbors[a] = self
 	
-func init_trails() -> void:
+func init_trail() -> void:
 	trails.clear()
+	
 	var a = domains[0]
 	var b = domains[1]
+	var pairs = {}
 	
-	for fiefdom in a.fiefdoms:
-		for neighbor in fiefdom.neighbors:
-			if b.fiefdoms.has(neighbor):
-				var trail = fiefdom.neighbors[neighbor]
+	for fiefdom_a in a.perimeter.externals:
+		for direction in fiefdom_a.direction_fiefdoms:
+			var fiefdom_b = fiefdom_a.direction_fiefdoms[direction]
+			var parity = Global.dict.direction.windrose.find(direction) % 2
+		
+			if b.perimeter.externals.has(fiefdom_b) and parity == 0:
+				if !pairs.has(fiefdom_a):
+					pairs[fiefdom_a] = []
 				
-				if !trails.has(trail):
-					trails.append(trail)
+				if !pairs.has(fiefdom_b):
+					pairs[fiefdom_b] = []
+				
+				pairs[fiefdom_a].append(fiefdom_b)
+				pairs[fiefdom_b].append(fiefdom_a)
+	
+	if !pairs.keys().is_empty():
+		var fiefdoms = pairs.keys()
+		fiefdoms.sort_custom(func(a, b): return pairs[a].size() < pairs[b].size())
+		fiefdoms = fiefdoms.filter(func (a): return pairs[a].size() == pairs[fiefdoms[0]].size())
+		
+		var fiefdom_a = fiefdoms.pick_random()
+		var fiefdom_b = pairs[fiefdom_a].pick_random()
+		add_trail(fiefdom_a, fiefdom_b)
+	
+func add_trail(a_: Fiefdom, b_: Fiefdom) -> void:
+	var direction = a_.resource.grid - b_.resource.grid
+	map.add_trail(direction, a_, b_)
+	var trail = a_.direction_trails[direction]
+	trails.append(trail)
+	
+func select_trails() -> void:
+	pass

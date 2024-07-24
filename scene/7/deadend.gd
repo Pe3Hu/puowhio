@@ -16,6 +16,8 @@ class_name Deadend extends Node2D
 
 @onready var domain_scene = preload("res://scene/7/domain.tscn")
 
+var grid = Vector2()
+
 
 func _ready() -> void:
 	add_domain(root)
@@ -23,14 +25,19 @@ func _ready() -> void:
 	paint_black()
 	
 func add_domain(domain_: Domain) -> void:
+	grid *= chain.size()
 	map.roots[domain_] = self
 	domain_.deadends.append(self)
 	chain.append(domain_)
+	
+	grid += Vector2(domain_.grid)
+	grid /= chain.size()
 	
 func fill_chain() -> void:
 	var vassal_layer = Global.dict.vassal[layer]
 	
 	while !is_connected:
+		#print(chain)
 		if chain.is_empty():
 			chain.append(root)
 		
@@ -51,11 +58,6 @@ func fill_chain() -> void:
 	for domain in chain:
 		var grid = domain.fiefdoms[0].resource.grid
 		grids.append(grid)
-	
-	#if chain.size() == 1:
-	#	crush()
-	#else:
-	print("D", grids)
 	
 func paint_black() -> void:
 	var v = float(get_index() + 1) / (map.deadends.get_child_count() + 2)

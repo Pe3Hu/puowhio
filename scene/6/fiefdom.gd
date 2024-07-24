@@ -18,17 +18,29 @@ class_name Fiefdom extends Polygon2D
 
 @export var neighbors: Dictionary
 @export var trails: Dictionary
-@export var directions: Dictionary
+@export var direction_trails: Dictionary
+@export var direction_fiefdoms: Dictionary
 
 @export var index_color: Color
 @export var domains: Array[Domain]
 
 @export var earldom: Domain
-@export var barony: Domain
 @export var dukedom: Domain
 @export var kingdom: Domain
 @export var empire: Domain
 
+@export var biomes: Array[Biome]
+@export var biome: Biome
+@export var sectors: Array[Sector]
+@export var region: Region
+
+
+func reset() -> void:
+	domains.clear()
+	
+	for state in Global.arr.titulus:
+		set(state, null)
+	
 func init_vertexs() -> void:
 	var vertexs = []
 	

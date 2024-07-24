@@ -18,11 +18,15 @@ class_name Trail extends Line2D
 		fiefdoms[1].neighbors[fiefdoms[0]] = self
 		fiefdoms[0].trails[self] = fiefdoms[1]
 		fiefdoms[1].trails[self] = fiefdoms[0]
-		fiefdoms[0].directions[direction] = self
-		var index = Global.dict.direction.windrose.find(direction)
-		var n = Global.dict.direction.windrose.size()
-		index = (index + n / 2) % n
-		fiefdoms[1].directions[Global.dict.direction.windrose[index]] = self
+		
+		if !fiefdoms[0].direction_trails.has(direction):
+			fiefdoms[0].direction_trails[direction] = self
+			fiefdoms[0].direction_fiefdoms[direction] = fiefdoms[1]
+			var index = Global.dict.direction.windrose.find(direction)
+			var n = Global.dict.direction.windrose.size()
+			index = (index + n / 2) % n
+			fiefdoms[1].direction_trails[Global.dict.direction.windrose[index]] = self
+			fiefdoms[1].direction_fiefdoms[Global.dict.direction.windrose[index]] = fiefdoms[0]
 	get:
 		return fiefdoms
 @export var resource: FiefdomResource = FiefdomResource.new()
@@ -31,9 +35,9 @@ class_name Trail extends Line2D
 
 func crush() -> void:
 	for fiefdom in fiefdoms:
-		for _direction in fiefdom.directions:
-			if fiefdom.directions[_direction] == self:
-				fiefdom.directions.erase(_direction)
+		for _direction in fiefdom.direction_trails:
+			if fiefdom.direction_trails[_direction] == self:
+				fiefdom.direction_trails.erase(_direction)
 		
 		for neighbor in fiefdom.neighbors:
 			if fiefdom.neighbors[neighbor] == self:
