@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0kiyfbu4mnj3"]
+
+[ext_resource type="Script" path="res://scene/11/heaven.gd" id="1_bgd1w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evasn"]
+
+[node name="Heaven" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_evasn")
+script = ExtResource("1_bgd1w")

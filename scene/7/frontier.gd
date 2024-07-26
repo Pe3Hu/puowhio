@@ -66,8 +66,8 @@ func init_trail() -> void:
 	
 	if !pairs.keys().is_empty():
 		var fiefdoms = pairs.keys()
-		fiefdoms.sort_custom(func(a, b): return pairs[a].size() < pairs[b].size())
-		fiefdoms = fiefdoms.filter(func (a): return pairs[a].size() == pairs[fiefdoms[0]].size())
+		fiefdoms.sort_custom(func(_a, _b): return pairs[_a].size() < pairs[_b].size())
+		fiefdoms = fiefdoms.filter(func (_a): return pairs[_a].size() == pairs[fiefdoms[0]].size())
 		
 		var fiefdom_a = fiefdoms.pick_random()
 		var fiefdom_b = pairs[fiefdom_a].pick_random()

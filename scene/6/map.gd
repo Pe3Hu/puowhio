@@ -1,15 +1,19 @@
 class_name Map extends Node2D
 
 
-@export var earldoms: Array[Domain]
-@export var dukedoms: Array[Domain]
-@export var kingdoms: Array[Domain]
-@export var empires: Array[Domain]
-@export var biomes: Array[Biome]
-@export var sectors: Array[Sector]
-@export var grids: Dictionary
-@export var rings: Dictionary
+@export var world: World
 
+var earldoms: Array[Domain]
+var dukedoms: Array[Domain]
+var kingdoms: Array[Domain]
+var empires: Array[Domain]
+var biomes: Array[Biome]
+var sectors: Array[Sector]
+
+var grids: Dictionary
+var rings: Dictionary
+
+#region scenes
 @onready var fiefdom_scene = preload("res://scene/6/fiefdom.tscn")
 @onready var trail_scene = preload("res://scene/6/trail.tscn")
 @onready var domain_scene = preload("res://scene/7/domain.tscn")
@@ -18,11 +22,15 @@ class_name Map extends Node2D
 @onready var sector_scene = preload("res://scene/9/sector.tscn")
 @onready var biome_scene = preload("res://scene/9/biome.tscn")
 @onready var region_scene = preload("res://scene/9/region.tscn")
+@onready var god_scene = preload("res://scene/11/god.tscn")
+#endregion
+
 @onready var fiefdoms = %Fiefdoms
 @onready var trails = %Trails
 @onready var deadends = %Deadends
 
 #const earldom_l = 40
+#region domain numbers
 const earldom_size = Vector2i(40, 40)
 const r = 9
 const n = 19
@@ -40,6 +48,7 @@ const dukedom_vassals = 6
 const empire_fiefdoms = 120
 const kingdom_fiefdoms = 30
 const dukedom_fiefdoms = 6
+#endregion
 
 var wave: Array
 var frontiers: Dictionary
@@ -58,6 +67,10 @@ var layer = null
 
 func _ready() -> void:
 	init_fiefdoms()
+	#init_trails()
+	init_sectors()
+	init_biomes()
+	
 	prepare()
 	
 func prepare() -> void:
@@ -65,17 +78,28 @@ func prepare() -> void:
 		return
 	
 	is_restart = false
-	
 	init_trails()
-	#init_earldoms()
-	#init_domains("dukedom")
-	init_sectors()
-	init_biomes()
+	clear_intersecting_trails()
+	clear_redundant_trails()
 	
-	#if !is_restart:
-		#init_domains("kingdom")
-	#if !is_restart:
-		#init_domains("empire")
+	init_earldoms()
+	init_domains("dukedom")
+	
+	if !is_restart:
+		init_domains("kingdom")
+	if !is_restart:
+		init_domains("empire")
+	
+	if !is_restart:
+		layer = "empire"
+		#shift_domain_layer(0)
+		init_gods()
+		init_thickets()
+	
+	#for fiefdom in fiefdoms.get_children():
+	#	if fiefdom.resource.is_border:
+	#		fiefdom.color = Color.BLACK
+	
 	#for layer in Global.arr.titulus:
 		#if layer != "earldom" and layer != "empire":
 			#if !is_restart:
@@ -101,8 +125,8 @@ func reset() -> void:
 		var trail = trails.get_child(0)
 		trail.crush()
 	
-	for layer in Global.arr.titulus:
-		var domains = get(layer + "s")
+	for _layer in Global.arr.titulus:
+		var domains = get(_layer + "s")
 		domains.clear()
 		#while domains.get_child_count() > 0:
 		#	var domain = domains.get_child(0)
@@ -111,6 +135,7 @@ func reset() -> void:
 	for fiefdom in fiefdoms.get_children():
 		fiefdom.reset()
 	
+#region feifdom
 func init_fiefdoms() -> void:
 	for ring in r + 1:
 		rings[ring] = []
@@ -121,6 +146,17 @@ func init_fiefdoms() -> void:
 			fiefdom.resource.grid = Vector2i(_j, _i)
 			fiefdom.map = self
 			fiefdoms.add_child(fiefdom)
+	
+	for fiefdom in fiefdoms.get_children():
+		if !fiefdom.resource.is_locked:
+			for direction in Global.dict.direction.windrose:
+				var grid = fiefdom.resource.grid + direction
+				
+				if grids.has(grid):
+					var neighbor = grids[grid]
+					
+					if !neighbor.resource.is_locked and !fiefdom.direction_fiefdoms.has(direction):
+						fiefdom.direction_fiefdoms[direction] = neighbor
 	
 func roll_layer_lazy_flood_fill(layer_: String) -> void:
 	for fiefdom in fiefdoms.get_children():
@@ -184,15 +220,13 @@ func init_trails() -> void:
 				var grid = fiefdom.resource.grid + direction
 				
 				if grids.has(grid):
-					var neighbor_fiefdom = grids[grid]
+					var neighbor = grids[grid]
 					#fiefdom[direction] = neighbor_fiefdom
 					
-					if !fiefdom.neighbors.has(neighbor_fiefdom) and !neighbor_fiefdom.resource.is_locked:
-						add_trail(direction, fiefdom, neighbor_fiefdom)
+					if !fiefdom.neighbors.has(neighbor) and !neighbor.resource.is_locked:
+						add_trail(direction, fiefdom, neighbor)
 						pass
 	
-	clear_intersecting_trails()
-	clear_redundant_trails()
 	#clear_border_trails()
 	
 func add_trail(direction_: Vector2i, a_: Fiefdom, b_: Fiefdom) -> void:
@@ -211,27 +245,27 @@ func clear_border_trails() -> void:
 	directions.append(direction)
 	direction = directions.pop_front()
 	
-	var first_fiefdom = grids[Vector2i.ZERO]
-	var second_fiefdom = null
+	var a = grids[Vector2i.ZERO]
+	var b = null
 	
-	while second_fiefdom != grids[Vector2i.ZERO]:
-		if !first_fiefdom.directions.has(direction):
+	while b != grids[Vector2i.ZERO]:
+		if !a.direction_trails.has(direction):
 			if directions.is_empty():
 				return
 			else:
 				direction = directions.pop_front()
 		
-		var trail = first_fiefdom.directions[direction]
-		second_fiefdom = first_fiefdom.trails[trail]
+		var trail = a.direction_trails[direction]
+		b = a.trails[trail]
 		
-		if first_fiefdom.trails.size() > Global.num.trail.min and second_fiefdom.trails.size() > Global.num.trail.min:
+		if a.trails.size() > Global.num.trail.min and b.trails.size() > Global.num.trail.min:
 			Global.rng.randomize()
 			var random = Global.rng.randi_range(0, 1)
 			
 			if random > 0.0:
 				trail.crush()
-			
-		first_fiefdom = second_fiefdom
+		
+		a = b
 	
 func clear_intersecting_trails() -> void:
 	var e = int(n - 2)
@@ -426,6 +460,8 @@ func init_frontiers(layer_) -> void:
 						var direction = fiefdom.resource.grid - neighbor.resource.grid
 						add_trail(direction, fiefdom, neighbor)
 	
+#endregion
+#region domain
 func init_earldoms() -> void:
 	for fiefdom in fiefdoms.get_children():
 		if !fiefdom.resource.is_locked:
@@ -526,17 +562,17 @@ func merge_deadends(layer_: String) -> void:
 			deadend.pick_branch()
 	
 func extend_deadends(layer_: String) -> void:
-	var is_connected = true
+	var _is_connected = true
 	
 	for deadend in deadends.get_children():
 		var options = deadend.branches.filter(func(a): return a.deadends.is_empty())
 		
 		if options.size() == 1:
-			is_connected = false
+			_is_connected = false
 			deadend.set("is_connected", false)
 			deadend.fill_chain()
 		
-	if !is_connected:
+	if !_is_connected:
 		find_deadends(layer_)
 	
 func establish_domain(deadend_: Deadend) -> void:
@@ -569,10 +605,8 @@ func add_domain(layer_: String) -> void:
 		else:
 			var deadend = deadends.get_children().pick_random()
 			establish_domain(deadend)
-	
-	for domain in domains:
-		domain.recolor_fiefdoms()
-	
+#endregion
+#region biome
 func init_sectors() -> void:
 	if !is_restart:
 		var _n = 5
@@ -607,16 +641,16 @@ func init_sectors() -> void:
 			var _j = (_i + shifts[0] + Global.dict.direction.linear2.size()) % Global.dict.direction.linear2.size()
 			var diagonal_direction = Global.dict.direction.diagonal[_j]
 			var directions = [linear_direction, diagonal_direction]
-			var fiefdoms = []
+			var _fiefdoms = []
 			
 			for direction in directions:
 				grid = direction + center
-				fiefdoms.append(grids[grid])
+				_fiefdoms.append(grids[grid])
 			
-			var neighbor = fiefdoms[0].direction_fiefdoms[linear_direction]
+			var neighbor = _fiefdoms[0].direction_fiefdoms[linear_direction]
 			
 			if !neighbor.sectors.is_empty():
-				for fiefdom in fiefdoms:
+				for fiefdom in _fiefdoms:
 					for sector in neighbor.sectors:
 						sector.add_fiefdom(fiefdom)
 	
@@ -627,13 +661,10 @@ func init_sectors() -> void:
 func init_biomes() -> void:
 	var terrains = {} 
 	var options = []
-	var lengths = [90]
 	
 	for terrain in Global.arr.terrain:
 		var biome = biome_scene.instantiate()
 		biome.terrain = terrain
-		biome.map = self
-		biomes.append(biome)
 		
 		if terrain != "coast":
 			terrains[terrain] = biome
@@ -646,26 +677,482 @@ func init_biomes() -> void:
 				
 				for fiefdom in sector.fiefdoms:
 					fiefdom.biomes.append(biome)
+		
+		biome.map = self
+		biomes.append(biome)
 	
-	for terrain in terrains:
-		var biome = terrains[terrain]
-		biome.init_region()
-		#var fiefdom = terrains[terrain].pick_random()
-		#terrains[terrain].erase(fiefdom)
-		#options.erase(fiefdom)
-		#biome.add_fiefdom(fiefdom)
-	
-	var length = lengths.pop_front()
-	
-	for _i in length - 1:
+	for _i in Global.num.biome.n * 2:
 		for terrain in terrains:
 			var biome = terrains[terrain]
 			biome.region_expansion()
 	
 	for biome in biomes:
+		for region in biome.regions:
+			region.update_proximates()
+	
+	biomes_penetrations()
+	exchange_between_supplier_and_consumer_biomes()
+	exchange_swamp_and_jungle_biomes()
+	exchange_coast_biomes()
+	mediator_coast_biomes()
+		
+	exchange_quadrats_biomes()
+	
+func biomes_penetrations() -> void:
+	#tundra mountain volcano desert terrains
+	var pairs = [
+		[3, 6],
+		[3, 4],
+		[6, 2]
+	]
+	
+	for pair in pairs:
+		biome_penetrations(biomes[pair[0]], biomes[pair[1]], true)
+	
+	#tundra plain terrains
+	pairs = [
+		[1, 4],
+		[1, 2]
+	]
+	
+	var datas = []
+	
+	for pair in pairs:
+		var data = {}
+		data.pair = pair
+		data.extensions = biome_penetrations(biomes[pair[0]], biomes[pair[1]], false).size()
+		datas.append(data)
+	
+	datas.sort_custom(func(a, b): return a.extensions < b.extensions)
+	var _pair = datas.front().pair
+	biome_penetrations(biomes[_pair[0]], biomes[_pair[1]], true)
+	
+	#swamp jungle terrains
+	pairs = [
+		[0, 7]
+	]
+	
+	for pair in pairs:
+		biome_penetrations(biomes[pair[0]], biomes[pair[1]], true)
+	
+func biome_penetrations(a_: Biome, b_: Biome, is_penetration_: bool) -> Array:
+	var _trails = []
+	var regions = {}
+	regions.a = a_.regions[0]
+	regions.b = b_.regions[0]
+	var _fiefdoms = {}
+	_fiefdoms[regions.a] = []
+	_fiefdoms[regions.b] = []
+	
+	for fiefdom in regions.a.proximates:
+		if regions.b.externals.has(fiefdom):
+			for direction in fiefdom.direction_fiefdoms:
+				var neighbor = fiefdom.direction_fiefdoms[direction]
+				
+				if regions.a.externals.has(neighbor):
+					var parity = Global.dict.direction.windrose.find(direction) % 2
+					
+					if parity == 0:
+						#var trail = fiefdom.direction_trails[direction]
+						#_trails.append(trail)
+						#trail.default_color = Color.BLACK
+						_trails.append(fiefdom)
+						
+						if !_fiefdoms[regions.a].has(neighbor):
+							_fiefdoms[regions.a].append(neighbor)
+						if !_fiefdoms[regions.b].has(fiefdom):
+							_fiefdoms[regions.b].append(fiefdom)
+	
+	if is_penetration_:
+		for region in _fiefdoms:
+			var neighbors = []
+			
+			for fiefdom in _fiefdoms[region]:
+				for direction in fiefdom.direction_fiefdoms:
+					var neighbor = fiefdom.direction_fiefdoms[direction]
+					
+					if region.externals.has(neighbor) and !neighbors.has(neighbor) and !_fiefdoms[region].has(neighbor):
+						neighbors.append(neighbor)
+			
+			_fiefdoms[region].append_array(neighbors)
+		
+		regions.a.separate(_fiefdoms[regions.a])
+		regions.b.separate(_fiefdoms[regions.b])
+		b_.attach_region(_fiefdoms[regions.a])
+		a_.attach_region(_fiefdoms[regions.b])
+	
+	return _trails
+	
+func exchange_between_supplier_and_consumer_biomes() -> void:
+	var suppliers = {}
+	var consumers = {}
+	
+	for biome in biomes:
 		if biome.terrain != "coast":
-			print([biome.terrain, biome.regions[0].externals.size()])
-			biome.recolor_fiefdoms()
+			biome.update_fiefdoms()
+			
+			if Global.num.biome.n > biome.fiefdoms.size():
+				consumers[biome] = Global.num.biome.n - biome.fiefdoms.size()
+			if Global.num.biome.n < biome.fiefdoms.size():
+				suppliers[biome] = biome.fiefdoms.size() - Global.num.biome.n
+	
+	while !consumers.keys().is_empty():
+		var consumer = consumers.keys().pick_random()
+		var proximates = []
+		var weights = {}
+		
+		for region in consumer.regions:
+			var _proximates = region.proximates.filter(func(a): return !proximates.has(a))
+			proximates.append_array(_proximates)
+		
+		for supplier in suppliers:
+			for region in supplier.regions:
+				for external in region.externals:
+					if proximates.has(external):
+						weights[region] = region.externals.size()
+						break
+		
+		if !weights.is_empty():
+			var _suppliers = weights.keys()
+			_suppliers.filter(func(a): return weights[a] > consumers[consumer])
+			_suppliers.sort_custom(func(a, b): return weights[a] > weights[b])
+			var supplier = _suppliers[0]
+			var count = supplier.replenish_biome(consumer, consumers[consumer])
+			suppliers[supplier.biome] -= count
+			consumers[consumer] -= count
+			
+			if consumers[consumer] == 0:
+				consumers.erase(consumer)
+
+func exchange_swamp_and_jungle_biomes() -> void:
+	var centrals = ["jungle", "swamp"]
+	
+	for biome in biomes:
+		if centrals.has(biome.terrain):
+			if Global.num.biome.n < biome.fiefdoms.size():
+				var supply = biome.fiefdoms.size() - Global.num.biome.n
+				var supplier = biome.regions[0]
+				var proximates = supplier.proximates.duplicate()
+				var weights = {}
+				
+				for consumer in biomes:
+					if !centrals.has(consumer.terrain) and consumer.terrain != "coast":
+						for region in consumer.regions:
+							for external in region.externals:
+								if proximates.has(external):
+									weights[region] = region.externals.size()
+									break
+				
+				var _consumers = weights.keys()
+				_consumers.sort_custom(func(a, b): return weights[a] < weights[b])
+				var consumer = _consumers[0]
+				supplier.replenish_biome(consumer.biome, supply)
+	
+	for biome in biomes:
+		biome.update_fiefdoms()
+		
+		for region in biome.regions:
+			region.update_proximates()
+
+	
+func exchange_coast_biomes() -> void:
+	var centrals = ["jungle", "swamp"]
+	var suppliers = {}
+	
+	for biome in biomes:
+		if biome.terrain != "coast":
+			if !centrals.has(biome.terrain):
+				if Global.num.biome.n < biome.fiefdoms.size():
+					suppliers[biome] = biome.fiefdoms.size() - Global.num.biome.n
+					#print(["supplier", biome.terrain, suppliers[biome]])
+				
+	#coast terrain
+	var _biomes = suppliers.keys()
+	_biomes.sort_custom(func(a, b): return suppliers[a] < suppliers[b])
+	
+	for biome in _biomes:
+		var _waves = biome.tide(suppliers[biome])
+		suppliers[biome] -= _waves
+		
+		if suppliers[biome] == 0:
+			suppliers.erase(biome)
+	
+	for biome in biomes:
+		biome.update_fiefdoms()
+		
+		for region in biome.regions:
+			region.update_proximates()
+	
+func mediator_coast_biomes() -> void:
+	var suppliers = {}
+	
+	for biome in biomes:
+		if biome.terrain != "coast":
+			if Global.num.biome.n < biome.fiefdoms.size():
+				suppliers[biome] = biome.fiefdoms.size() - Global.num.biome.n
+	
+	if !suppliers.is_empty():
+		for supplier in suppliers:
+			var mediators = {}
+			var proximates = []
+			
+			for region in supplier.regions:
+				var _proximates = region.proximates.filter(func(a): return !proximates.has(a) and a.biome != supplier and a.biome.terrain != "coast")
+				proximates.append_array(_proximates)
+			
+			for fiefdom in proximates:
+				if !mediators.has(fiefdom.region):
+					mediators[fiefdom.region] = fiefdom.region.externals.filter(func(a): return a.resource.is_border) 
+					
+					if mediators[fiefdom.region].is_empty():
+						mediators.erase(fiefdom.region)
+					else:
+						mediators[fiefdom.region].shuffle()
+			
+			for _i in suppliers[supplier]:
+				if !mediators.is_empty():
+					var mediator = mediators.keys().pick_random()#Global.get_random_key(mediators)
+					var fiefdom = mediators[mediator].pop_front()
+					mediator.remove_fiefdom(fiefdom)
+					biomes[5].regions[0].add_fiefdom(fiefdom)
+					mediator.update_proximates()
+					
+					var options = mediator.proximates.filter(func(a): return a.biome == supplier)
+					fiefdom = options.pick_random()
+					fiefdom.region.remove_fiefdom(fiefdom)
+					mediator.add_fiefdom(fiefdom)
+					mediator.update_proximates()
+					
+					if mediators[mediator].is_empty():
+						mediators.erase(mediator)
+				else:
+					print("not full coast")
+	
+	for biome in biomes:
+		biome.update_fiefdoms()
+		
+		for region in biome.regions:
+			region.update_proximates()
+	
+func exchange_quadrats_biomes() -> void:
+	var flag = true
+	
+	while flag:
+		var _biomes = {}
+		
+		for biome in biomes:
+			if biome.terrain != "coast":
+				for region in biome.regions:
+					var internals = region.get_internals()
+					
+					var quadrats = get_quadrats(internals)
+					
+					if !quadrats.is_empty():
+						if !_biomes.has(biome):
+							_biomes[biome] = {}
+						
+						_biomes[biome][region] = quadrats
+		
+		var options = _biomes.keys()
+		
+		if options.size() > 1:
+			options.shuffle()
+			flag = true
+			
+			var a = {}
+			var b = {}
+			a.biome = options.pop_back()
+			b.biome = options.pop_back()
+			a.region = _biomes[a.biome].keys().pick_random()
+			b.region = _biomes[b.biome].keys().pick_random()
+			a.quadrat = _biomes[a.biome][a.region].pick_random()
+			b.quadrat = _biomes[b.biome][b.region].pick_random()
+			
+			a.region.separate(a.quadrat)
+			b.region.separate(b.quadrat)
+			
+			a.biome.attach_region(b.quadrat) 
+			b.biome.attach_region(a.quadrat) 
+		else:
+			flag = false
+	
+func get_quadrats(internals_: Array) -> Array:
+	var quadrats = []
+	
+	for fiefdom in internals_:
+		var quadrat = [fiefdom]
+		
+		for direction in Global.dict.direction.zero:
+			if direction != Vector2i.ZERO:
+				if fiefdom.direction_fiefdoms.has(direction):
+					var neighbor = fiefdom.direction_fiefdoms[direction]
+					
+					if internals_.has(neighbor):
+						quadrat.append(neighbor)
+					else:
+						break
+				else:
+					break
+		
+		if quadrat.size() == 4:
+			quadrats.append(quadrat)
+	
+	return quadrats
+#endregion
+	
+func init_gods() -> void:
+	var ennobleds = get_ennobled_fiefdoms()
+	
+	for fiefdom in ennobleds:
+		var god = god_scene.instantiate()
+		world.heaven.add_god(god, fiefdom)
+	
+func get_ennobled_fiefdoms() -> Array:
+	var ennobleds = []
+	var _fiefdoms = fiefdoms.get_children().filter(func(a): return a.resource.is_border)
+	var pairs = []
+	
+	for fiefdom in _fiefdoms:
+		var flag = false
+		
+		for direction in fiefdom.direction_fiefdoms:
+			var neighbor = fiefdom.direction_fiefdoms[direction]
+			
+			if neighbor.empire != fiefdom.empire and neighbor.resource.is_border:
+				flag = true
+				var pair = [fiefdom, neighbor]
+				pair.sort_custom(func(a, b): return a.resource.index < b.resource.index)
+				
+				if !pairs.has(pair):
+					pairs.append(pair)
+				
+				break
+	
+	for pair in pairs:
+		for fiefdom in pair:
+			var a = {}
+			a.fiefdom = pair[0]
+			var b = {}
+			b.fiefdom = pair[1]
+			var axis = 0
+			
+			if a.fiefdom.resource.grid.x == b.fiefdom.resource.grid.x:
+				if a.fiefdom.resource.grid.x == 0:
+					axis = 3
+				else:
+					axis = 1
+			else:
+				if a.fiefdom.resource.grid.y == 0:
+					axis = 0
+				else:
+					axis = 2
+			
+			var s = Global.dict.direction.linear2.size()
+			var clockwises = [-1, -1, 1, 1]
+			a.clockwise = clockwises[axis]
+			var _axis = (axis + s / 2) % s
+			b.clockwise = clockwises[_axis]
+			
+			a.dukedom = a.fiefdom.dukedom
+			b.dukedom = b.fiefdom.dukedom
+			
+			var datas = [a, b]
+			
+			for data in datas:
+				var flag = false
+				var counter = 2
+				
+				while !flag or counter > 0:
+					counter -= 1
+					data.fiefdom = get_shifted_border_fiefdom_(data.fiefdom, data.clockwise)
+					
+					if counter <= 0:
+						if data.fiefdom.dukedom != data.dukedom:
+							flag = data.fiefdom.biome.terrain == "coast"
+				
+				ennobleds.append(data.fiefdom)
+	return ennobleds
+	
+func get_shifted_border_fiefdom_(fiefdom_: Fiefdom, shift_: int) -> Fiefdom:
+	if !fiefdom_.resource.is_border:
+		return fiefdom_
+	
+	var grid = fiefdom_.resource.grid
+	var corners = [0, n - 1]
+	var axis = []
+	
+	var pairs = [
+		[1, 2],
+		[1, 3],
+		[2, 3],
+		[2, 0],
+		[3, 0],
+		[3, 1],
+		[0, 1],
+		[0, 2]
+	]
+	
+	if corners.has(grid.x) and corners.has(grid.y):
+		if grid.x == 0:
+			if grid.y == 0:
+				axis = 0
+			else:
+				axis = 6
+		else:
+			if grid.y == 0:
+				axis = 2
+			else:
+				axis = 4
+	else:
+		if corners.has(grid.x):
+			if grid.x == 0:
+				axis = 7
+			else:
+				axis = 3
+		
+		if corners.has(grid.y):
+			if grid.y == 0:
+				axis = 1
+			else:
+				axis = 5
+	
+	var direction = Global.dict.direction.linear2[pairs[axis][0]]
+	
+	if shift_ == -1:
+		direction = Global.dict.direction.linear2[pairs[axis][1]]
+	
+	return fiefdom_.direction_fiefdoms[direction]
+	
+func init_thickets() -> void:
+	var thicket = 0
+	var capitals = []
+	wave.clear()
+	
+	for god in world.heaven.gods:
+		capitals.append(god.territory.capital)
+		#print(god.territory.proximates)
+		var proximates = god.territory.proximates.filter(func(a): return !wave.has(a))
+		wave.append_array(proximates)
+	
+	var unvisiteds = fiefdoms.get_children().filter(func(a): return !a.resource.is_locked and !capitals.has(a))
+	
+	while !wave.is_empty() and thicket < Global.num.thicket.limit * 2:
+		thicket += 1
+		var next_wave = []
+		
+		for fiefdom in wave:
+			unvisiteds.erase(fiefdom)
+			fiefdom.thicket = min(thicket, Global.num.thicket.limit)
+		
+		while !wave.is_empty():
+			var fiefdom = wave.pop_back()
+			
+			for neighbor in fiefdom.neighbors:
+				if unvisiteds.has(neighbor) and !next_wave.has(neighbor):##unvisiteds.has(neighbor)
+					next_wave.append(neighbor)
+		
+		wave.append_array(next_wave)
+	shift_to_thicket_layer()
 	
 func shift_domain_layer(shift_: int ) -> void:
 	var index = (Global.arr.titulus.find(layer) + shift_ + Global.arr.titulus.size()) % Global.arr.titulus.size()
@@ -675,6 +1162,21 @@ func shift_domain_layer(shift_: int ) -> void:
 	for domain in domains:
 		domain.recolor_fiefdoms()
 	
+func shift_to_terrain_layer() -> void:
+	for biome in biomes:
+		biome.recolor_fiefdoms()
+	
+func shift_to_thicket_layer() -> void:
+	for fiefdom in fiefdoms.get_children():
+		if fiefdom.thicket != -1:
+			var s = 1
+			
+			if fiefdom.thicket != 0:
+				var gap = 3
+				s -= float(fiefdom.thicket + gap) / (Global.num.thicket.limit + gap)
+			
+			fiefdom.color = Color.from_hsv(0, 0, s)
+	
 func _input(event) -> void:
 	if event is InputEventKey:
 		if event.is_pressed() && !event.is_echo():
@@ -683,4 +1185,16 @@ func _input(event) -> void:
 					shift_domain_layer(-1)
 				KEY_D:
 					shift_domain_layer(1)
+				KEY_Q:
+					shift_to_terrain_layer()
+				KEY_E:
+					shift_domain_layer(0)
+				KEY_X:
+					shift_to_thicket_layer()
+				KEY_Z:
+					pass
+				KEY_C:
+					pass
+				KEY_SPACE:
+					mediator_coast_biomes()
 	

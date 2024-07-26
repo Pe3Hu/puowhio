@@ -14,25 +14,27 @@ class_name Fiefdom extends Polygon2D
 		#map.earldoms.append(resource)
 	get:
 		return map
-@export var resource: FiefdomResource = FiefdomResource.new()
+var resource: FiefdomResource = FiefdomResource.new()
 
-@export var neighbors: Dictionary
-@export var trails: Dictionary
-@export var direction_trails: Dictionary
-@export var direction_fiefdoms: Dictionary
+var neighbors: Dictionary
+var trails: Dictionary
+var direction_trails: Dictionary
+var direction_fiefdoms: Dictionary
 
-@export var index_color: Color
-@export var domains: Array[Domain]
+var index_color: Color
+var domains: Array[Domain]
 
-@export var earldom: Domain
-@export var dukedom: Domain
-@export var kingdom: Domain
-@export var empire: Domain
+var earldom: Domain
+var dukedom: Domain
+var kingdom: Domain
+var empire: Domain
 
-@export var biomes: Array[Biome]
-@export var biome: Biome
-@export var sectors: Array[Sector]
-@export var region: Region
+var biomes: Array[Biome]
+var biome: Biome
+var sectors: Array[Sector]
+var region: Region
+var territory: Territory
+var thicket: int = -1
 
 
 func reset() -> void:
@@ -52,6 +54,10 @@ func init_vertexs() -> void:
 	index_color =  Color.from_hsv(resource.index / 360.0, 0.7, 0.9)
 	#color = index_color
 	#print(Vector2i.ONE * floor(map.n / 2), resource.grid)
+	
+	if resource.grid.x == 0 or resource.grid.x == map.n - 1 or resource.grid.y == 0 or resource.grid.y == map.n - 1:
+		resource.is_border = true
+	
 	if Vector2i.ONE * floor(map.n / 2) == resource.grid:
 		resource.is_locked = true
 		visible = false

@@ -8,11 +8,6 @@ class_name Region extends Node2D
 
 
 func add_fiefdom(fiefdom_: Fiefdom) -> void:
-	#if proximates.has(fiefdom_):
-	#	proximates.erase(fiefdom_)
-	
-	if fiefdom_.region != null:
-		pass
 	externals.append(fiefdom_)
 	fiefdom_.biome = biome
 	fiefdom_.region = self
@@ -53,3 +48,71 @@ func expansion() -> void:
 		options = options.filter(func (a): return weights[a] == weights[options[0]])
 		var fiefdom = options.pick_random()
 		add_fiefdom(fiefdom)
+	
+func separate(fiefdoms_: Array) -> void:
+	for fiefdom in fiefdoms_:
+		remove_fiefdom(fiefdom)
+	
+	update_proximates()
+	
+func remove_fiefdom(fiefdom_: Fiefdom) -> void:
+	externals.erase(fiefdom_)
+	fiefdom_.biome = null
+	fiefdom_.region = null
+	
+func update_proximates() -> void:
+	proximates.clear()
+	
+	for fiefdom in externals:
+		for direction in fiefdom.direction_fiefdoms:
+			var neighbor = fiefdom.direction_fiefdoms[direction]
+			
+			if !proximates.has(neighbor) and !externals.has(neighbor):
+				proximates.append(neighbor)
+	
+func replenish_biome(biome_: Biome, count_: int) -> int:
+	for _i in count_:
+		var weights = {}
+		
+		for proximate in proximates:
+			if proximate.biome == biome_:
+				if !weights.has(proximate.region):
+					weights[proximate.region] = proximate.region.externals.size()
+		
+		if !weights.is_empty():
+			var regions = weights.keys()
+			regions.sort_custom(func(a, b): return weights[a] < weights[b])
+			var region = regions[0]
+			var _externals = externals.filter(func(a): return region.proximates.has(a))
+			var fiefdom = _externals.pick_random()
+			remove_fiefdom(fiefdom)
+			update_proximates()
+			region.add_fiefdom(fiefdom)
+			region.update_proximates()
+		else:
+			return _i
+	
+	return count_
+	
+func get_internals() -> Array:
+	var internals = []
+	
+	for fiefdom in externals:
+		var flag = true
+		if fiefdom.biome != biome:
+			pass
+		
+		for direction in fiefdom.direction_fiefdoms:
+			var parity = Global.dict.direction.windrose.find(direction) % 2
+			
+			if parity == 0:
+				var neighbor = fiefdom.direction_fiefdoms[direction]
+				
+				if proximates.has(neighbor):
+					flag = false
+					break
+		
+		if flag:
+			internals.append(fiefdom)
+	
+	return internals

@@ -41,7 +41,8 @@ func push_proximates() -> void:
 				proximates.append(neighbor)
 	
 	for fiefdom in proximates:
-		add_fiefdom(fiefdom)
+		if !fiefdom.resource.is_locked:
+			add_fiefdom(fiefdom)
 	
 func recolor_fiefdoms() -> void:
 	for fiefdom in fiefdoms:

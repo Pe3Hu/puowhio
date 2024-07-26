@@ -21,12 +21,12 @@ class_name Trail extends Line2D
 		
 		if !fiefdoms[0].direction_trails.has(direction):
 			fiefdoms[0].direction_trails[direction] = self
-			fiefdoms[0].direction_fiefdoms[direction] = fiefdoms[1]
+			#fiefdoms[0].direction_fiefdoms[direction] = fiefdoms[1]
 			var index = Global.dict.direction.windrose.find(direction)
 			var n = Global.dict.direction.windrose.size()
 			index = (index + n / 2) % n
 			fiefdoms[1].direction_trails[Global.dict.direction.windrose[index]] = self
-			fiefdoms[1].direction_fiefdoms[Global.dict.direction.windrose[index]] = fiefdoms[0]
+			#fiefdoms[1].direction_fiefdoms[Global.dict.direction.windrose[index]] = fiefdoms[0]
 	get:
 		return fiefdoms
 @export var resource: FiefdomResource = FiefdomResource.new()

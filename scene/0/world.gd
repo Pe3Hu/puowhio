@@ -2,6 +2,7 @@
 class_name World extends Node
 
 
+@export var heaven: Heaven
 @export var nexus: Nexus
 @export var battle: Battle
 

@@ -22,7 +22,7 @@ var grid = Vector2()
 func _ready() -> void:
 	add_domain(root)
 	fill_chain()
-	paint_black()
+	#paint_black()
 	
 func add_domain(domain_: Domain) -> void:
 	grid *= chain.size()
@@ -69,8 +69,8 @@ func paint_black() -> void:
 	
 func crush() -> void:
 	for domain in chain:
-		for fiefdom in domain.fiefdoms:
-			fiefdom.color = Color.WHITE
+		#for fiefdom in domain.fiefdoms:
+			#fiefdom.color = Color.WHITE
 		
 		remove_domain(domain)
 	

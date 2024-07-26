@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpq0g6jrlkuea"]
+[gd_scene load_steps=11 format=3 uid="uid://dpq0g6jrlkuea"]
 
 [ext_resource type="Script" path="res://scene/0/world.gd" id="1_sbgiu"]
 [ext_resource type="PackedScene" uid="uid://v6po0i7b41y6" path="res://scene/0/nexus.tscn" id="2_8ptkv"]
 [ext_resource type="PackedScene" uid="uid://b4f8m3d1e1ehp" path="res://scene/6/map.tscn" id="2_him4q"]
 [ext_resource type="PackedScene" uid="uid://bseteyq6bu7a6" path="res://scene/1/battle.tscn" id="2_vbn10"]
+[ext_resource type="PackedScene" uid="uid://b0kiyfbu4mnj3" path="res://scene/11/heaven.tscn" id="3_gfff4"]
 [ext_resource type="PackedScene" uid="uid://i14mnupyvsff" path="res://scene/0/doublet.tscn" id="5_y3175"]
 [ext_resource type="Script" path="res://resource/doublet/doubletResource.gd" id="6_3bikp"]
 
@@ -25,18 +26,24 @@ type = "parameter"
 subtype = "damage"
 value = 0
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("nexus", "battle")]
+[node name="World" type="Node2D" node_paths=PackedStringArray("heaven", "nexus", "battle")]
 y_sort_enabled = true
 script = ExtResource("1_sbgiu")
+heaven = NodePath("CanvasLayer/Heaven")
 nexus = NodePath("CanvasLayer/Nexus")
 battle = NodePath("CanvasLayer/Battle")
 
-[node name="Map" parent="." instance=ExtResource("2_him4q")]
+[node name="Map" parent="." node_paths=PackedStringArray("world") instance=ExtResource("2_him4q")]
+world = NodePath("..")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 
+[node name="Heaven" parent="CanvasLayer" node_paths=PackedStringArray("world") instance=ExtResource("3_gfff4")]
+world = NodePath("../..")
+
 [node name="Nexus" parent="CanvasLayer" instance=ExtResource("2_8ptkv")]
+visible = false
 
 [node name="Battle" parent="CanvasLayer" node_paths=PackedStringArray("world") instance=ExtResource("2_vbn10")]
 world = NodePath("../..")

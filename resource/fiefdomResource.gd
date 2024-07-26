@@ -12,6 +12,7 @@ class_name FiefdomResource extends Resource
 	get:
 		return grid
 @export var is_locked: bool
+@export var is_border: bool
 @export var index: int
 @export var ring: int
 

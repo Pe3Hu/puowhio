@@ -13,8 +13,6 @@ var neighbors: Dictionary
 func set_fiefdom_as_external(fiefdom_: Fiefdom) -> void:
 	proximates.erase(fiefdom_)
 	externals.append(fiefdom_)
-	#if domain.layer != "earldom":
-	#	fiefdom_.color = Color.PURPLE
 	
 	for neighbor in fiefdom_.neighbors:
 		var neighbor_domain = neighbor.get(domain.layer)
@@ -22,9 +20,6 @@ func set_fiefdom_as_external(fiefdom_: Fiefdom) -> void:
 		if neighbor_domain != domain:
 			if !proximates.has(neighbor) and !domain.fiefdoms.has(neighbor):
 				proximates.append(neighbor)
-				#if domain.layer != "earldom":
-				#	neighbor.color = Color.GREEN
-				#neighbor.color = Color.BLACK
 		elif neighbor_domain != null:
 			set_fiefdom_as_internal(neighbor)
 	
@@ -38,5 +33,3 @@ func set_fiefdom_as_internal(fiefdom_: Fiefdom) -> void:
 	
 	externals.erase(fiefdom_)
 	internals.append(fiefdom_)
-	#if domain.layer != "earldom":
-	#	fiefdom_.color = Color.BLUE

@@ -90,6 +90,12 @@ func init_num() -> void:
 	num.trail.best = 3
 	num.trail.worst = 4
 	
+	num.biome = {}
+	num.biome.n = 360 / 8
+	
+	num.thicket = {}
+	num.thicket.limit = 10
+	
 	num.offset = {}
 	num.grimoire = 68
 	
@@ -163,14 +169,6 @@ func init_direction() -> void:
 		dict.direction.windrose.append(direction)
 		direction = dict.direction.diagonal[_i]
 		dict.direction.windrose.append(direction)
-	
-#func init_avocation() -> void:
-	#dict.avocation = {}
-	#dict.avocation.element = {}
-	#dict.avocation.element["aqua"] = ["healer", "poisoner", "breakwater"]
-	#dict.avocation.element["wind"] = ["shadow", "destroyer", "illusionist"]
-	#dict.avocation.element["fire"] = ["arsonist", "berserker", "reaper"]
-	#dict.avocation.element["earth"] = ["keeper", "fortress", "undertaker"]
 	
 func init_state() -> void:
 	dict.senor = {}
@@ -656,14 +654,26 @@ func get_random_key(weights_: Dictionary):
 	var total = 0
 	
 	for key in weights_.keys():
-		total += weights_[key]
+		if typeof(weights_[key]) == TYPE_INT:
+			total += weights_[key]
+		
+		if typeof(weights_[key]) == TYPE_ARRAY:
+			total += weights_[key].size()
 	
 	rng.randomize()
 	var index_r = rng.randf_range(0, 1)
 	var index = 0
 	
 	for key in weights_.keys():
-		var weight = float(weights_[key])
+		var weight = 0
+		
+		
+		if typeof(weights_[key]) == TYPE_INT:
+			weight = float(weights_[key])
+		
+		if typeof(weights_[key]) == TYPE_ARRAY:
+			weight = float(weights_[key].size())
+		
 		index += weight/total
 		
 		if index > index_r:

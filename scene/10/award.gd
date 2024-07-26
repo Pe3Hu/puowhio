@@ -19,5 +19,4 @@ func update_spite() -> void:
 	sprite.texture = get(resource.type + "_image")
 	sprite.vframes = Global.dict.resource.type[resource.type].size()
 	sprite.frame = Global.dict.resource.type[resource.type].find(resource.subtype)
-	var a = Global.dict.rarity.title[resource.rarity]
 	sprite.modulate = Global.dict.rarity.title[resource.rarity].color
