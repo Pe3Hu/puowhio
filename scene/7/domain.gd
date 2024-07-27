@@ -9,6 +9,8 @@ class_name Domain extends Node2D
 		Global.num.index[layer] += 1
 		var hue = index / float(map.get(layer + "_count"))
 		color = Color.from_hsv(hue, 0.7, 0.9)
+		var domains = map.get(layer + "s")
+		domains.append(self)
 	get:
 		return layer
 
@@ -185,3 +187,9 @@ func crush() -> void:
 	
 	domains.erase(self)
 	queue_free()
+	
+func init_from_indexs(indexs_: Array) -> void:
+	for index in indexs_:
+		var grid = map.get_grid_from_index(index)
+		var fiefdom = map.grids[grid]
+		add_fiefdom(fiefdom)

@@ -4,8 +4,13 @@ class_name Trail extends Line2D
 @export var map: Map:
 	set(map_):
 		map = map_
+		
+		if !map.is_seed:
+			index = int(Global.num.index.trail)
+			Global.num.index.trail += 1
 	get:
 		return map
+
 @export var fiefdoms: Array[Fiefdom]:
 	set(fiefdoms_):
 		fiefdoms = fiefdoms_
@@ -30,6 +35,8 @@ class_name Trail extends Line2D
 	get:
 		return fiefdoms
 @export var resource: FiefdomResource = FiefdomResource.new()
+
+@export var index: int
 @export var direction: Vector2i
 
 

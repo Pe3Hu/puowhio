@@ -22,6 +22,7 @@ func _ready() -> void:
 	init_flag()
 	
 func init_arr() -> void:
+	arr.seed = []
 	arr.order = [0, 1, 2, 3, 4, 5, 6]
 	arr.element = ["fire", "earth", "nature", "wind", "ice", "aqua", "storm", "lava"]
 	arr.primordial = ["aqua", "fire", "wind", "earth"]
@@ -78,11 +79,14 @@ func init_arr() -> void:
 func init_num() -> void:
 	num.index = {}
 	num.index.fiefdom = 0
+	num.index.trail = 0
 	num.index.earldom = 0
 	num.index.dukedom = 0
 	num.index.kingdom = 0
 	num.index.empire = 0
 	num.index.sector = 0
+	num.index.region = 0
+	num.index.seed = 2
 	
 	num.trail = {}
 	num.trail.min = 5
@@ -667,14 +671,16 @@ func get_random_key(weights_: Dictionary):
 	for key in weights_.keys():
 		var weight = 0
 		
-		
+		if typeof(weights_[key]) == TYPE_FLOAT:
+			weight = float(weights_[key])
+			
 		if typeof(weights_[key]) == TYPE_INT:
 			weight = float(weights_[key])
 		
 		if typeof(weights_[key]) == TYPE_ARRAY:
 			weight = float(weights_[key].size())
 		
-		index += weight/total
+		index += weight / total
 		
 		if index > index_r:
 			return key

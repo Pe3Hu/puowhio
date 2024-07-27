@@ -4,6 +4,7 @@ class_name Minion extends PanelContainer
 
 @export_enum("mage", "monster") var type: String
 @export var hsm: LimboHSM
+@export var god: God
 @export var battle: Battle
 @export var enemy: Minion
 @export var statistic: Statistic:
@@ -77,6 +78,24 @@ class_name Minion extends PanelContainer
 				%ScrollsVBox.set("theme_override_constants/separation", Global.num.grimoire)
 	get:
 		return is_combat
+@export var is_temple: bool = false:
+	set(is_temple_):
+		is_temple = is_temple_
+		
+		if is_node_ready():
+			#library.slots.visible = !is_temple
+			statistic.visible = !is_temple
+			conveyor.visible = !is_temple
+			%Scrolls.visible = !is_temple
+			#custom_minimum_size = Vector2()
+			#size = Vector2()
+			
+			if is_temple:
+				%ScrollsVBox.set("theme_override_constants/separation", 0)
+			else:
+				%ScrollsVBox.set("theme_override_constants/separation", Global.num.grimoire)
+	get:
+		return is_temple
 
 var bowsl: Array[Bowl]
 
@@ -122,6 +141,11 @@ func start_turn() -> void:
 	
 func update_threat(subtype_: String) -> void:
 	pass
+	
+func set_threat(subtype_: String, value_: int) -> void:
+	var doublet = get(subtype_)
+	doublet.resource.value = value_
+	doublet.update_label()
 	
 func declare_bowls() -> void:
 	for bowl in bowsl:

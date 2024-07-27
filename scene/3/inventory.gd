@@ -16,9 +16,9 @@ func _ready() -> void:
 func roll_starter_items() -> void:
 	if false:
 		return
-	var nexus = minion.battle.world.nexus
+	var nexus = minion.god.heaven.world.nexus
 	var resource = ItemResource.new()
-	resource.type = "nucleus"
+	resource.type = "totem"
 	resource.rarity = "uncommon"
 	resource.level = 1
 	var item = nexus.generate_item(resource)

@@ -22,7 +22,7 @@ func roll_starter_items() -> void:
 	if false:
 		return
 	
-	var nexus = minion.battle.world.nexus
+	var nexus = minion.god.heaven.world.nexus
 	
 	match minion.type:
 		"mage":

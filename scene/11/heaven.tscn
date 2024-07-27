@@ -3,9 +3,14 @@
 [ext_resource type="Script" path="res://scene/11/heaven.gd" id="1_bgd1w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evasn"]
+bg_color = Color(0.66658, 0.562878, 0.651923, 1)
 
-[node name="Heaven" type="PanelContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Heaven" type="PanelContainer" node_paths=PackedStringArray("gods")]
 theme_override_styles/panel = SubResource("StyleBoxFlat_evasn")
 script = ExtResource("1_bgd1w")
+gods = NodePath("Gods")
+
+[node name="Gods" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1

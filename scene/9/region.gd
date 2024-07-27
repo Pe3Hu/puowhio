@@ -1,7 +1,16 @@
 class_name Region extends Node2D
 
 
-@export var biome: Biome
+@export var biome: Biome:
+	set(biome_):
+		biome = biome_
+		
+		index = int(Global.num.index.region)
+		Global.num.index.region += 1
+	get:
+		return biome
+
+@export var index: int
 
 @export var proximates: Array[Fiefdom]
 @export var externals: Array[Fiefdom]

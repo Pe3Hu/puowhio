@@ -1,3 +1,5 @@
+SeedIndexsResource
+SeedResource
 Resource
 ClassResource
 TerrainResource

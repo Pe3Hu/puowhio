@@ -17,114 +17,114 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bbq8e"]
 
-[sub_resource type="Resource" id="Resource_y01in"]
+[sub_resource type="Resource" id="Resource_gc6ua"]
 script = ExtResource("3_k1asy")
 type = "limit"
 current = 1
 limit = 1
 is_barriered = false
 
-[sub_resource type="Resource" id="Resource_y3yjr"]
+[sub_resource type="Resource" id="Resource_te8y8"]
 script = ExtResource("3_k1asy")
 type = "modifier"
 current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_ndej2"]
+[sub_resource type="Resource" id="Resource_i3otx"]
 script = ExtResource("4_fcb6l")
 aspect = "dexterity"
 level = null
-experience = SubResource("Resource_y01in")
-modifier = SubResource("Resource_y3yjr")
+experience = SubResource("Resource_gc6ua")
+modifier = SubResource("Resource_te8y8")
 
-[sub_resource type="Resource" id="Resource_oaccb"]
+[sub_resource type="Resource" id="Resource_57cfl"]
 script = ExtResource("3_k1asy")
 type = "limit"
 current = 1
 limit = 20
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_k64v5"]
+[sub_resource type="Resource" id="Resource_1ol6x"]
 script = ExtResource("3_k1asy")
 type = "limit"
 current = 1
 limit = 1
 is_barriered = false
 
-[sub_resource type="Resource" id="Resource_xj8pn"]
+[sub_resource type="Resource" id="Resource_87ijj"]
 script = ExtResource("3_k1asy")
 type = "modifier"
 current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_acpvs"]
+[sub_resource type="Resource" id="Resource_b248a"]
 script = ExtResource("4_fcb6l")
 aspect = "intellect"
 level = null
-experience = SubResource("Resource_k64v5")
-modifier = SubResource("Resource_xj8pn")
+experience = SubResource("Resource_1ol6x")
+modifier = SubResource("Resource_87ijj")
 
-[sub_resource type="Resource" id="Resource_ckx2g"]
+[sub_resource type="Resource" id="Resource_7g5ta"]
 script = ExtResource("3_k1asy")
 type = "modifier"
 current = 1
 limit = 28
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_m7grt"]
+[sub_resource type="Resource" id="Resource_biw5j"]
 script = ExtResource("3_k1asy")
 type = "limit"
 current = 1
 limit = 1
 is_barriered = false
 
-[sub_resource type="Resource" id="Resource_hidcl"]
+[sub_resource type="Resource" id="Resource_hvqsj"]
 script = ExtResource("3_k1asy")
 type = "modifier"
 current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_0v035"]
+[sub_resource type="Resource" id="Resource_ieetm"]
 script = ExtResource("4_fcb6l")
 aspect = "strength"
 level = null
-experience = SubResource("Resource_m7grt")
-modifier = SubResource("Resource_hidcl")
+experience = SubResource("Resource_biw5j")
+modifier = SubResource("Resource_hvqsj")
 
-[sub_resource type="Resource" id="Resource_c5rnv"]
+[sub_resource type="Resource" id="Resource_nmaek"]
 script = ExtResource("3_k1asy")
 type = "limit"
 current = 1
 limit = 1
 is_barriered = false
 
-[sub_resource type="Resource" id="Resource_w2bcl"]
+[sub_resource type="Resource" id="Resource_yitkf"]
 script = ExtResource("3_k1asy")
 type = "modifier"
 current = 9
 limit = 16
 is_barriered = true
 
-[sub_resource type="Resource" id="Resource_ajhyh"]
+[sub_resource type="Resource" id="Resource_o6p17"]
 script = ExtResource("4_fcb6l")
 aspect = "will"
 level = null
-experience = SubResource("Resource_c5rnv")
-modifier = SubResource("Resource_w2bcl")
+experience = SubResource("Resource_nmaek")
+modifier = SubResource("Resource_yitkf")
 
-[sub_resource type="Resource" id="Resource_dbwus"]
+[sub_resource type="Resource" id="Resource_u3rl0"]
 script = ExtResource("3_ujjln")
-modifier = SubResource("Resource_ckx2g")
-experience = SubResource("Resource_oaccb")
-strength = SubResource("Resource_0v035")
-dexterity = SubResource("Resource_ndej2")
-intellect = SubResource("Resource_acpvs")
-will = SubResource("Resource_ajhyh")
+modifier = SubResource("Resource_7g5ta")
+experience = SubResource("Resource_57cfl")
+strength = SubResource("Resource_ieetm")
+dexterity = SubResource("Resource_i3otx")
+intellect = SubResource("Resource_b248a")
+will = SubResource("Resource_o6p17")
 
-[sub_resource type="Resource" id="Resource_t4sen"]
+[sub_resource type="Resource" id="Resource_u26qj"]
 script = ExtResource("3_buwlm")
 damage_multiplier = 0
 damage_modifier = 0
@@ -208,6 +208,7 @@ health = NodePath("HBox/VBox1/HBox/PanelContainer/HBox/Bars/Health")
 stamina = NodePath("HBox/VBox1/HBox/PanelContainer/HBox/Bars/Stamina")
 offensive = NodePath("HBox/VBox1/HBox/PanelContainer/HBox/Threats/Offensive")
 defensive = NodePath("HBox/VBox1/HBox/PanelContainer/HBox/Threats/Defensive")
+is_temple = null
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -217,8 +218,8 @@ alignment = 1
 [node name="Statistic" parent="HBox" node_paths=PackedStringArray("minion") instance=ExtResource("2_f0fpg")]
 layout_mode = 2
 minion = NodePath("../..")
-level = SubResource("Resource_dbwus")
-resource = SubResource("Resource_t4sen")
+level = SubResource("Resource_u3rl0")
+resource = SubResource("Resource_u26qj")
 
 [node name="VBox1" type="VBoxContainer" parent="HBox"]
 layout_mode = 2
@@ -287,6 +288,7 @@ value = 70
 is_limited = true
 
 [node name="Aura" parent="HBox/VBox1/HBox" node_paths=PackedStringArray("minion") instance=ExtResource("9_vu8pn")]
+visible = false
 layout_mode = 2
 minion = NodePath("../../../..")
 

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpo6uw0ncai78"]
+
+[ext_resource type="Script" path="res://scene/11/temple.gd" id="1_eyw7c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evasn"]
+
+[node name="Temple" type="PanelContainer" node_paths=PackedStringArray("mages")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_evasn")
+script = ExtResource("1_eyw7c")
+mages = NodePath("Mages")
+
+[node name="Mages" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1

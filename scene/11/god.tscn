@@ -1,17 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpqckq24oawst"]
+[gd_scene load_steps=5 format=3 uid="uid://cpqckq24oawst"]
 
 [ext_resource type="Script" path="res://scene/11/god.gd" id="1_uca8r"]
-[ext_resource type="PackedScene" uid="uid://dba2kidmexxtc" path="res://scene/11/territory.tscn" id="2_sqnjc"]
+[ext_resource type="PackedScene" uid="uid://dba2kidmexxtc" path="res://scene/12/territory.tscn" id="2_dc6nc"]
+[ext_resource type="PackedScene" uid="uid://bpo6uw0ncai78" path="res://scene/11/temple.tscn" id="3_iq0lg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evasn"]
 
-[node name="God" type="PanelContainer" node_paths=PackedStringArray("territory")]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="God" type="PanelContainer" node_paths=PackedStringArray("territory", "temple")]
+visible = false
 theme_override_styles/panel = SubResource("StyleBoxFlat_evasn")
 script = ExtResource("1_uca8r")
 territory = NodePath("Territory")
+temple = NodePath("Temple")
 
-[node name="Territory" parent="." node_paths=PackedStringArray("god") instance=ExtResource("2_sqnjc")]
+[node name="Territory" parent="." node_paths=PackedStringArray("god") instance=ExtResource("2_dc6nc")]
+layout_mode = 2
+god = NodePath("..")
+
+[node name="Temple" parent="." node_paths=PackedStringArray("god") instance=ExtResource("3_iq0lg")]
 layout_mode = 2
 god = NodePath("..")

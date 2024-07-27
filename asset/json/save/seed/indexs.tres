@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SeedIndexsResource" load_steps=2 format=3 uid="uid://d6nap4krlnby"]
+
+[ext_resource type="Script" path="res://resource/seed/seedIndexsResource.gd" id="1_rkr8c"]
+
+[resource]
+script = ExtResource("1_rkr8c")
+seeds = Array[int]([0, 1])

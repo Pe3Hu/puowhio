@@ -4,85 +4,85 @@
   "level": 1,
   "trigram minimum": 1,
   "trigram maximum": 4,
-  "nucleus minimum": 8,
-  "nucleus maximum": 25
+  "totem minimum": 8,
+  "totem maximum": 25
  },
  {
   "level": 2,
   "trigram minimum": 2,
   "trigram maximum": 7,
-  "nucleus minimum": 13,
-  "nucleus maximum": 40
+  "totem minimum": 13,
+  "totem maximum": 40
  },
  {
   "level": 3,
   "trigram minimum": 3,
   "trigram maximum": 10,
-  "nucleus minimum": 19,
-  "nucleus maximum": 57
+  "totem minimum": 19,
+  "totem maximum": 57
  },
  {
   "level": 4,
   "trigram minimum": 5,
   "trigram maximum": 14,
-  "nucleus minimum": 26,
-  "nucleus maximum": 78
+  "totem minimum": 26,
+  "totem maximum": 78
  },
  {
   "level": 5,
   "trigram minimum": 8,
   "trigram maximum": 19,
-  "nucleus minimum": 34,
-  "nucleus maximum": 102
+  "totem minimum": 34,
+  "totem maximum": 102
  },
  {
   "level": 6,
   "trigram minimum": 11,
   "trigram maximum": 24,
-  "nucleus minimum": 43,
-  "nucleus maximum": 129
+  "totem minimum": 43,
+  "totem maximum": 129
  },
  {
   "level": 7,
   "trigram minimum": 15,
   "trigram maximum": 30,
-  "nucleus minimum": 53,
-  "nucleus maximum": 160
+  "totem minimum": 53,
+  "totem maximum": 160
  },
  {
   "level": 8,
   "trigram minimum": 19,
   "trigram maximum": 36,
-  "nucleus minimum": 64,
-  "nucleus maximum": 193
+  "totem minimum": 64,
+  "totem maximum": 193
  },
  {
   "level": 9,
   "trigram minimum": 24,
   "trigram maximum": 43,
-  "nucleus minimum": 76,
-  "nucleus maximum": 230
+  "totem minimum": 76,
+  "totem maximum": 230
  },
  {
   "level": 10,
   "trigram minimum": 29,
   "trigram maximum": 50,
-  "nucleus minimum": 90,
-  "nucleus maximum": 270
+  "totem minimum": 90,
+  "totem maximum": 270
  },
  {
   "level": 11,
   "trigram minimum": 35,
   "trigram maximum": 58,
-  "nucleus minimum": 104,
-  "nucleus maximum": 313
+  "totem minimum": 104,
+  "totem maximum": 313
  },
  {
   "level": 12,
   "trigram minimum": 42,
   "trigram maximum": 67,
-  "nucleus minimum": 120,
-  "nucleus maximum": 360
+  "totem minimum": 120,
+  "totem maximum": 360
  }
 ]
 }

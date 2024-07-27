@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://brg8mcueupmpa"]
-
-[ext_resource type="PackedScene" uid="uid://frscwn6yf1yr" path="res://scene/5/item.tscn" id="1_4vlit"]
-[ext_resource type="Script" path="res://scene/5/nucleus.gd" id="2_hqirp"]
-
-[node name="Nucleus" instance=ExtResource("1_4vlit")]
-script = ExtResource("2_hqirp")
-resource = null

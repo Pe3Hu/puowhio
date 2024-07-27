@@ -3,7 +3,7 @@ class_name Nexus extends PanelContainer
 
 
 @onready var trigram_scene = preload("res://scene/5/trigram.tscn")
-@onready var nucleus_scene = preload("res://scene/5/nucleus.tscn")
+@onready var totem_scene = preload("res://scene/5/totem.tscn")
 @onready var scroll_scene = preload("res://scene/5/scroll.tscn")
 @onready var prize_scene = preload("res://scene/10/prize.tscn")
 
@@ -52,7 +52,7 @@ func roll_trigram(resource_: ItemResource) -> void:
 		resource_.bases.append(resource)
 	
 	if resource_.type == "trigram":
-		count = Global.dict.rarity.affix[resource_.rarity]
+		count = Global.dict.rarity.title[resource_.rarity].affix
 		
 		if count > 0:
 			weights = Global.dict.trigram.subtype[resource_.subtype]
@@ -69,7 +69,7 @@ func roll_trigram(resource_: ItemResource) -> void:
 				resource.value = Global.get_random_segment_point(extremes)
 				resource_.affixs.append(resource)
 	
-func roll_nucleus(resource_: ItemResource) -> void:
+func roll_totem(resource_: ItemResource) -> void:
 	roll_trigram(resource_)
 	
 func roll_scroll(resource_: ItemResource) -> void:

@@ -2,6 +2,7 @@
 class_name World extends Node
 
 
+@export var map: Map
 @export var heaven: Heaven
 @export var nexus: Nexus
 @export var battle: Battle
@@ -21,4 +22,5 @@ func _ready() -> void:
 	#var random = Global.rng.randi_range(0, 1)
 	#await get_tree().physics_frame
 	pass
+	#heaven.init()
 	#nexus.generate_prize()

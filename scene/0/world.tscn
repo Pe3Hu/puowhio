@@ -26,9 +26,10 @@ type = "parameter"
 subtype = "damage"
 value = 0
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("heaven", "nexus", "battle")]
+[node name="World" type="Node2D" node_paths=PackedStringArray("map", "heaven", "nexus", "battle")]
 y_sort_enabled = true
 script = ExtResource("1_sbgiu")
+map = NodePath("Map")
 heaven = NodePath("CanvasLayer/Heaven")
 nexus = NodePath("CanvasLayer/Nexus")
 battle = NodePath("CanvasLayer/Battle")
@@ -39,11 +40,11 @@ world = NodePath("..")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 
-[node name="Heaven" parent="CanvasLayer" node_paths=PackedStringArray("world") instance=ExtResource("3_gfff4")]
-world = NodePath("../..")
-
 [node name="Nexus" parent="CanvasLayer" instance=ExtResource("2_8ptkv")]
 visible = false
+
+[node name="Heaven" parent="CanvasLayer" node_paths=PackedStringArray("world") instance=ExtResource("3_gfff4")]
+world = NodePath("../..")
 
 [node name="Battle" parent="CanvasLayer" node_paths=PackedStringArray("world") instance=ExtResource("2_vbn10")]
 world = NodePath("../..")

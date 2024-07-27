@@ -1,11 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dba2kidmexxtc"]
 
-[ext_resource type="Script" path="res://scene/11/territory.gd" id="1_p1svv"]
+[ext_resource type="Script" path="res://scene/12/territory.gd" id="1_1huea"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evasn"]
 
 [node name="Territory" type="PanelContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_evasn")
-script = ExtResource("1_p1svv")
+script = ExtResource("1_1huea")

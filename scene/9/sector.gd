@@ -47,3 +47,4 @@ func push_proximates() -> void:
 func recolor_fiefdoms() -> void:
 	for fiefdom in fiefdoms:
 		fiefdom.color = color
+	

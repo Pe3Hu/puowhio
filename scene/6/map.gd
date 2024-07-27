@@ -62,10 +62,13 @@ var anchors = [
 	Vector2(0, -n-1),
 ]
 var is_restart = false
+var is_seed = true
 var layer = null
-
+var seed: SeedResource
+var trail_index = 0
 
 func _ready() -> void:
+	load_seeds()
 	init_fiefdoms()
 	#init_trails()
 	init_sectors()
@@ -74,43 +77,46 @@ func _ready() -> void:
 	prepare()
 	
 func prepare() -> void:
-	if false:
+	if is_seed:
+		load_seed(Global.arr.seed.back())
+		init_from_seed()
 		return
-	
-	is_restart = false
-	init_trails()
-	clear_intersecting_trails()
-	clear_redundant_trails()
-	
-	init_earldoms()
-	init_domains("dukedom")
-	
-	if !is_restart:
-		init_domains("kingdom")
-	if !is_restart:
-		init_domains("empire")
-	
-	if !is_restart:
-		layer = "empire"
-		#shift_domain_layer(0)
-		init_gods()
-		init_thickets()
-	
-	#for fiefdom in fiefdoms.get_children():
-	#	if fiefdom.resource.is_border:
-	#		fiefdom.color = Color.BLACK
-	
-	#for layer in Global.arr.titulus:
-		#if layer != "earldom" and layer != "empire":
-			#if !is_restart:
-				#init_domains(layer)
-	
-	if is_restart:
-		print("restarted")
-		reset()
-		prepare()
 	else:
-		pass
+		is_restart = false
+		init_trails()
+		clear_intersecting_trails()
+		clear_redundant_trails()
+		
+		init_earldoms()
+		init_domains("dukedom")
+		
+		if !is_restart:
+			init_domains("kingdom")
+		if !is_restart:
+			init_domains("empire")
+		
+		if !is_restart:
+			layer = "empire"
+			shift_domain_layer(0)
+			save_seed()
+			#init_gods()
+			#init_thickets()
+		
+		#for fiefdom in fiefdoms.get_children():
+		#	if fiefdom.resource.is_border:
+		#		fiefdom.color = Color.BLACK
+		
+		#for layer in Global.arr.titulus:
+			#if layer != "earldom" and layer != "empire":
+				#if !is_restart:
+					#init_domains(layer)
+		
+		if is_restart:
+			print("restarted")
+			reset()
+			prepare()
+		else:
+			pass
 	
 func reset() -> void:
 	frontiers = {}
@@ -125,12 +131,18 @@ func reset() -> void:
 		var trail = trails.get_child(0)
 		trail.crush()
 	
-	for _layer in Global.arr.titulus:
-		var domains = get(_layer + "s")
+	for titulus in Global.arr.titulus:
+		var domains = get(titulus + "s")
+		Global.num.index[titulus] = 0
 		domains.clear()
+		
 		#while domains.get_child_count() > 0:
 		#	var domain = domains.get_child(0)
 		#	domains.crush()
+	
+	Global.num.index.trail = 0
+	Global.num.index.sector = 0
+	Global.num.index.region = 0
 	
 	for fiefdom in fiefdoms.get_children():
 		fiefdom.reset()
@@ -214,18 +226,33 @@ func roll_layer_lazy_flood_fill(layer_: String) -> void:
 			consumers.append(consumer)
 	
 func init_trails() -> void:
-	for fiefdom in fiefdoms.get_children():
-		if !fiefdom.resource.is_locked:
-			for direction in Global.dict.direction.windrose:
-				var grid = fiefdom.resource.grid + direction
-				
-				if grids.has(grid):
-					var neighbor = grids[grid]
-					#fiefdom[direction] = neighbor_fiefdom
+	if !is_seed:
+		for fiefdom in fiefdoms.get_children():
+			if !fiefdom.resource.is_locked:
+				for direction in Global.dict.direction.windrose:
+					var grid = fiefdom.resource.grid + direction
 					
-					if !fiefdom.neighbors.has(neighbor) and !neighbor.resource.is_locked:
-						add_trail(direction, fiefdom, neighbor)
-						pass
+					if grids.has(grid):
+						var neighbor = grids[grid]
+						#fiefdom[direction] = neighbor_fiefdom
+						
+						if !fiefdom.neighbors.has(neighbor) and !neighbor.resource.is_locked:
+							add_trail(direction, fiefdom, neighbor)
+							pass
+	else:
+		var indexs = seed.trail.keys()
+		indexs.sort_custom(func(a, b): return a < b)
+		
+		for _index in indexs:
+			var fiefdoms = []
+			
+			for index in seed.trail[_index]:
+				var grid = get_grid_from_index(index)
+				var fiefdom = grids[grid]
+				fiefdoms.append(fiefdom)
+			
+			var direction = fiefdoms[0].resource.grid - fiefdoms[1].resource.grid
+			add_trail(direction, fiefdoms[0], fiefdoms[1])
 	
 	#clear_border_trails()
 	
@@ -596,7 +623,7 @@ func add_domain(layer_: String) -> void:
 			var domain = domain_scene.instantiate()
 			domain.map = self
 			domain.layer = layer_
-			domains.append(domain)
+			#domains.append(domain)
 			wave.sort_custom(func(a, b): return abs(a.grid.x + anchor.x) + abs(a.grid.y + anchor.y) < abs(b.grid.x + anchor.x) + abs(b.grid.y + anchor.y))
 			var options = wave.duplicate().filter(func(a): return abs(a.grid.x + anchor.x) + abs(a.grid.y + anchor.y) == abs(wave[0].grid.x + anchor.x) + abs(wave[0].grid.y + anchor.y))
 			var vassal = options.pick_random()
@@ -999,13 +1026,7 @@ func get_quadrats(internals_: Array) -> Array:
 	
 	return quadrats
 #endregion
-	
-func init_gods() -> void:
-	var ennobleds = get_ennobled_fiefdoms()
-	
-	for fiefdom in ennobleds:
-		var god = god_scene.instantiate()
-		world.heaven.add_god(god, fiefdom)
+#region god
 	
 func get_ennobled_fiefdoms() -> Array:
 	var ennobleds = []
@@ -1123,37 +1144,7 @@ func get_shifted_border_fiefdom_(fiefdom_: Fiefdom, shift_: int) -> Fiefdom:
 	
 	return fiefdom_.direction_fiefdoms[direction]
 	
-func init_thickets() -> void:
-	var thicket = 0
-	var capitals = []
-	wave.clear()
-	
-	for god in world.heaven.gods:
-		capitals.append(god.territory.capital)
-		#print(god.territory.proximates)
-		var proximates = god.territory.proximates.filter(func(a): return !wave.has(a))
-		wave.append_array(proximates)
-	
-	var unvisiteds = fiefdoms.get_children().filter(func(a): return !a.resource.is_locked and !capitals.has(a))
-	
-	while !wave.is_empty() and thicket < Global.num.thicket.limit * 2:
-		thicket += 1
-		var next_wave = []
-		
-		for fiefdom in wave:
-			unvisiteds.erase(fiefdom)
-			fiefdom.thicket = min(thicket, Global.num.thicket.limit)
-		
-		while !wave.is_empty():
-			var fiefdom = wave.pop_back()
-			
-			for neighbor in fiefdom.neighbors:
-				if unvisiteds.has(neighbor) and !next_wave.has(neighbor):##unvisiteds.has(neighbor)
-					next_wave.append(neighbor)
-		
-		wave.append_array(next_wave)
-	shift_to_thicket_layer()
-	
+#endregion
 func shift_domain_layer(shift_: int ) -> void:
 	var index = (Global.arr.titulus.find(layer) + shift_ + Global.arr.titulus.size()) % Global.arr.titulus.size()
 	layer = Global.arr.titulus[index]
@@ -1177,8 +1168,22 @@ func shift_to_thicket_layer() -> void:
 			
 			fiefdom.color = Color.from_hsv(0, 0, s)
 	
+func shift_trail() -> void:
+	var trail = trails.get_child(trail_index)
+	
+	trail_index = (trail_index + 1) % trails.get_child_count()
+	trail = trails.get_child(trail_index)
+	#print(trail_index)
+	if trail.default_color == Color.BLACK:
+		trail.default_color = Color.WHITE
+	trail.default_color = Color.BLACK
+	
 func _input(event) -> void:
 	if event is InputEventKey:
+		if event.is_pressed():
+			match event.keycode:
+				KEY_1:
+					shift_trail()
 		if event.is_pressed() && !event.is_echo():
 			match event.keycode:
 				KEY_A:
@@ -1198,3 +1203,81 @@ func _input(event) -> void:
 				KEY_SPACE:
 					mediator_coast_biomes()
 	
+func save_seed() -> void:
+	seed = SeedResource.new()
+	seed.index = 0
+	
+	if !Global.arr.seed.is_empty():
+		seed.index = Global.arr.seed.back() + 1
+	
+	for trail in trails.get_children():
+		seed.trail[trail.index] = get_fiefdoms_indexs(trail)
+	
+	for titulus in Global.arr.titulus:
+		seed.domain[titulus] = {}
+		var domains = get(titulus + "s")
+	
+		for domain in domains:
+			seed.domain[titulus][domain.index] = get_fiefdoms_indexs(domain)
+	
+	for sector in sectors:
+		seed.sector[sector.index] = get_fiefdoms_indexs(sector)
+	
+	for biome in biomes:
+		seed.biome[biome.terrain] = {}
+		
+		for region in biome.regions:
+			seed.biome[biome.terrain][region.index] = get_fiefdoms_indexs(region)
+	
+	var save_path = "res://asset/json/save/seed/" + str(seed.index) + ".tres"
+	ResourceSaver.save(seed, save_path)
+	save_seeds()
+	
+func load_seed(index_: int) -> void:
+	var save_path = "res://asset/json/save/seed/" + str(index_) + ".tres"
+	seed = ResourceLoader.load(save_path)
+	
+func save_seeds() -> void:
+	var save_path = "res://asset/json/save/seed/indexs.tres"
+	var res = SeedIndexsResource.new()
+	res.seeds.append_array(Global.arr.seed)
+	res.seeds.append(seed.index)
+	ResourceSaver.save(res, save_path)
+	
+func load_seeds() -> void:
+	var load_path = "res://asset/json/save/seed/indexs.tres"
+	var res = ResourceLoader.load(load_path)
+	Global.arr.seed.append_array(res.seeds)
+	
+func init_from_seed() -> void:
+	init_trails()
+	init_seed_domains()
+	pass
+	
+func init_seed_domains() -> void:
+	for titulus in Global.arr.titulus:
+		var indexs = seed.domain.get(titulus)
+		
+		for _index in indexs:
+			var _indexs = seed.domain[titulus][_index]
+			var domain = domain_scene.instantiate()
+			domain.map = self
+			domain.layer = titulus
+			domain.init_from_indexs(_indexs)
+	
+func get_fiefdoms_indexs(object_) -> Array:
+	var indexs = []
+	
+	if object_.get("fiefdoms") != null:
+		for fiefdom in object_.fiefdoms:
+			indexs.append(fiefdom.resource.index)
+	else:
+		for fiefdom in object_.externals:
+			indexs.append(fiefdom.resource.index)
+	
+	return indexs
+	
+func get_grid_from_index(index_: int) -> Vector2i:
+	var x = index_ % n
+	var y = floor(index_ / n)
+	return Vector2i(x, y)

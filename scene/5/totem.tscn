@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://brg8mcueupmpa"]
+
+[ext_resource type="PackedScene" uid="uid://frscwn6yf1yr" path="res://scene/5/item.tscn" id="1_u7jlf"]
+[ext_resource type="Script" path="res://scene/5/totem.gd" id="2_a3qy8"]
+
+[node name="Totem" instance=ExtResource("1_u7jlf")]
+script = ExtResource("2_a3qy8")
+resource = null
