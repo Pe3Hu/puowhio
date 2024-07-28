@@ -12,9 +12,14 @@ class_name Fiefdom extends Polygon2D
 		map.rings[resource.ring].append(self)
 		#color = Color.from_hsv(float(resource.ring) / map.rings, 1, 1)
 		#map.earldoms.append(resource)
+		
+		#location = map.location_scene.instantiate()
+		#location.fiefdom = self
+		#map.locations.append(location)
 	get:
 		return map
 var resource: FiefdomResource = FiefdomResource.new()
+var location: Location
 
 var neighbors: Dictionary
 var trails: Dictionary

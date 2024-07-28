@@ -13,6 +13,8 @@ var mages: Array[Mage]
 func birth():
 	visible = true
 	
+	territory.update_dangers()
+	
 	for _i in 1:
 		add_mage()
 	

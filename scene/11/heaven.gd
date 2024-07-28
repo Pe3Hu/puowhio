@@ -13,20 +13,20 @@ func _ready() -> void:
 	init_gods()
 	init_thickets()
 	
+	var _god = gods.get_child(0)
+	_god.birth()
+	
 func init_gods() -> void:
 	var ennobleds = world.map.get_ennobled_fiefdoms()
 	
 	for fiefdom in ennobleds:
 		add_god(fiefdom)
 	
-	var _god = gods.get_child(0)
-	_god.birth()
-	
 func add_god(fiefdom_: Fiefdom) -> void:
 	var god = god_scene.instantiate()
+	god.heaven = self
 	gods.add_child(god)
 	god.territory.capital = fiefdom_
-	god.heaven = self
 	#god_.territory.recolor_fiefdoms()
 	
 func init_thickets() -> void:

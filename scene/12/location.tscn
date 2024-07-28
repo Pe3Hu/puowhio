@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://suq44m1v538a"]
+
+[ext_resource type="Script" path="res://scene/12/location.gd" id="1_tksrd"]
+[ext_resource type="PackedScene" uid="uid://c46o6djovuyfx" path="res://scene/0/nested.tscn" id="2_8wiyb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evasn"]
+bg_color = Color(0.531048, 0.604616, 0.72527, 1)
+
+[node name="Location" type="PanelContainer" node_paths=PackedStringArray("index", "elements", "monsters", "troves", "dangers")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_evasn")
+script = ExtResource("1_tksrd")
+index = NodePath("HBox/Index")
+elements = NodePath("HBox/Elements")
+monsters = NodePath("HBox/Monsters")
+troves = NodePath("HBox/Troves")
+dangers = NodePath("HBox/Dangers")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Index" parent="HBox" instance=ExtResource("2_8wiyb")]
+layout_mode = 2
+
+[node name="Elements" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Monsters" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Dangers" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Troves" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1

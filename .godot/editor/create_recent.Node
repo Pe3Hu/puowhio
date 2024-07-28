@@ -1,7 +1,7 @@
 VBoxContainer
+HBoxContainer
 PanelContainer
 Node2D
-HBoxContainer
 GridContainer
 Sprite2D
 TextureRect

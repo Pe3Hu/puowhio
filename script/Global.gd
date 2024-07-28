@@ -109,7 +109,7 @@ func init_dict() -> void:
 	init_state()
 	
 	init_affix()
-	init_base()
+	init_level()
 	init_scroll()
 	init_terrain()
 	init_tier()
@@ -213,32 +213,38 @@ func init_affix() -> void:
 	
 		dict.affix.title[affix.title] = data.levels
 	
-func init_base() -> void:
-	dict.base = {}
-	dict.base.level = {}
-	var exceptions = ["level"]
+func init_level() -> void:
+	dict.level = {}
+	dict.level.index = {}
+	var exceptions = ["index"]
 	
-	var path = "res://asset/json/puowhio_base.json"
+	var path = "res://asset/json/puowhio_level.json"
 	var dictionary = load_data(path)
 	var array = dictionary["blank"]
 	
-	for base in array:
-		base.level = int(base.level)
+	for level in array:
+		level.index = int(level.index)
 		var data = {}
 		
-		for key in base:
+		for key in level:
 			if !exceptions.has(key):
 				var words = key.split(" ")
 				
-				if !data.has(words[0]):
-					data[words[0]] = {}
-				
-				data[words[0]][words[1]] = base[key]
+				if words.size() > 1:
+					if !data.has(words[0]):
+						data[words[0]] = {}
+					
+					if words[0] == "danger":
+						data[words[0]][int(words[1])] = level[key]
+					else:
+						data[words[0]][words[1]] = level[key]
+				else:
+					data[key] = level[key]
 			
-		#if !dict.base.level.has(base.level):
-			#dict.base.level[base.level] = []
+		#if !dict.level.index.has(level.index):
+			#dict.level.index[level.index] = []
 	
-		dict.base.level[base.level] = data
+		dict.level.index[level.index] = data
 	
 func init_scroll() -> void:
 	dict.scroll = {}
@@ -658,6 +664,9 @@ func get_random_key(weights_: Dictionary):
 	var total = 0
 	
 	for key in weights_.keys():
+		if typeof(weights_[key]) == TYPE_FLOAT:
+			total += weights_[key]
+			
 		if typeof(weights_[key]) == TYPE_INT:
 			total += weights_[key]
 		

@@ -24,7 +24,7 @@ func generate_item(resource_: ItemResource) -> Item:
 	return item
 	
 func roll_trigram(resource_: ItemResource) -> void:
-	var extremes = Global.dict.base.level[resource_.level][resource_.type]
+	var extremes = Global.dict.level.index[resource_.level][resource_.type]
 	var count = Global.get_random_segment_point(extremes)
 	var weights = {}
 	var bases = {}

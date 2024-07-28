@@ -1,0 +1,174 @@
+{
+"blank":[
+ {
+  "index": 1,
+  "monster": "baron",
+  "mage": "baron",
+  "danger 0": 85,
+  "danger 1": 15,
+  "danger 2": 0,
+  "danger 3": 0,
+  "danger 4": 0,
+  "danger 5": 0,
+  "trigram minimum": 1,
+  "trigram maximum": 4,
+  "totem minimum": 8,
+  "totem maximum": 25
+ },
+ {
+  "index": 2,
+  "monster": "baron",
+  "mage": "baron",
+  "danger 0": 65,
+  "danger 1": 25,
+  "danger 2": 10,
+  "danger 3": 0,
+  "danger 4": 0,
+  "danger 5": 0,
+  "trigram minimum": 2,
+  "trigram maximum": 7,
+  "totem minimum": 13,
+  "totem maximum": 40
+ },
+ {
+  "index": 3,
+  "monster": "baron",
+  "mage": "earl",
+  "danger 0": 45,
+  "danger 1": 35,
+  "danger 2": 20,
+  "danger 3": 0,
+  "danger 4": 0,
+  "danger 5": 0,
+  "trigram minimum": 3,
+  "trigram maximum": 10,
+  "totem minimum": 19,
+  "totem maximum": 57
+ },
+ {
+  "index": 4,
+  "monster": "earl",
+  "mage": "earl",
+  "danger 0": 25,
+  "danger 1": 45,
+  "danger 2": 20,
+  "danger 3": 10,
+  "danger 4": 0,
+  "danger 5": 0,
+  "trigram minimum": 5,
+  "trigram maximum": 14,
+  "totem minimum": 26,
+  "totem maximum": 78
+ },
+ {
+  "index": 5,
+  "monster": "earl",
+  "mage": "duke",
+  "danger 0": 5,
+  "danger 1": 40,
+  "danger 2": 30,
+  "danger 3": 20,
+  "danger 4": 5,
+  "danger 5": 0,
+  "trigram minimum": 8,
+  "trigram maximum": 19,
+  "totem minimum": 34,
+  "totem maximum": 102
+ },
+ {
+  "index": 6,
+  "monster": "earl",
+  "mage": "duke",
+  "danger 0": 0,
+  "danger 1": 20,
+  "danger 2": 40,
+  "danger 3": 30,
+  "danger 4": 10,
+  "danger 5": 0,
+  "trigram minimum": 11,
+  "trigram maximum": 24,
+  "totem minimum": 43,
+  "totem maximum": 129
+ },
+ {
+  "index": 7,
+  "monster": "duke",
+  "mage": "king",
+  "danger 0": 0,
+  "danger 1": 10,
+  "danger 2": 30,
+  "danger 3": 40,
+  "danger 4": 15,
+  "danger 5": 5,
+  "trigram minimum": 15,
+  "trigram maximum": 30,
+  "totem minimum": 53,
+  "totem maximum": 160
+ },
+ {
+  "index": 8,
+  "monster": "duke",
+  "mage": "king",
+  "danger 0": 0,
+  "danger 1": 0,
+  "danger 2": 20,
+  "danger 3": 40,
+  "danger 4": 20,
+  "danger 5": 20,
+  "trigram minimum": 19,
+  "trigram maximum": 36,
+  "totem minimum": 64,
+  "totem maximum": 193
+ },
+ {
+  "index": 9,
+  "monster": "duke",
+  "mage": "emperor",
+  "danger 0": 0,
+  "danger 1": 0,
+  "danger 2": 10,
+  "danger 3": 25,
+  "danger 4": 25,
+  "danger 5": 40,
+  "trigram minimum": 24,
+  "trigram maximum": 43,
+  "totem minimum": 76,
+  "totem maximum": 230
+ },
+ {
+  "index": 10,
+  "monster": "king",
+  "mage": "emperor",
+  "danger 0": 0,
+  "danger 1": 0,
+  "danger 2": 0,
+  "danger 3": 10,
+  "danger 4": 30,
+  "danger 5": 60,
+  "trigram minimum": 29,
+  "trigram maximum": 50,
+  "totem minimum": 90,
+  "totem maximum": 270
+ },
+ {
+  "index": 11,
+  "monster": "king"
+ },
+ {
+  "index": 12,
+  "monster": "king"
+ },
+ {
+  "index": 13,
+  "monster": "emperor"
+ },
+ {
+  "index": 14,
+  "monster": "emperor"
+ },
+ {
+  "index": 15,
+  "monster": "emperor"
+ }
+]
+}

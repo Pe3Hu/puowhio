@@ -9,6 +9,7 @@ var kingdoms: Array[Domain]
 var empires: Array[Domain]
 var biomes: Array[Biome]
 var sectors: Array[Sector]
+var locations: Array[Location]
 
 var grids: Dictionary
 var rings: Dictionary
@@ -23,6 +24,7 @@ var rings: Dictionary
 @onready var biome_scene = preload("res://scene/9/biome.tscn")
 @onready var region_scene = preload("res://scene/9/region.tscn")
 @onready var god_scene = preload("res://scene/11/god.tscn")
+@onready var location_scene = preload("res://scene/12/location.tscn")
 #endregion
 
 @onready var fiefdoms = %Fiefdoms
@@ -1145,63 +1147,7 @@ func get_shifted_border_fiefdom_(fiefdom_: Fiefdom, shift_: int) -> Fiefdom:
 	return fiefdom_.direction_fiefdoms[direction]
 	
 #endregion
-func shift_domain_layer(shift_: int ) -> void:
-	var index = (Global.arr.titulus.find(layer) + shift_ + Global.arr.titulus.size()) % Global.arr.titulus.size()
-	layer = Global.arr.titulus[index]
-	var domains = get(layer + "s")
-	
-	for domain in domains:
-		domain.recolor_fiefdoms()
-	
-func shift_to_terrain_layer() -> void:
-	for biome in biomes:
-		biome.recolor_fiefdoms()
-	
-func shift_to_thicket_layer() -> void:
-	for fiefdom in fiefdoms.get_children():
-		if fiefdom.thicket != -1:
-			var s = 1
-			
-			if fiefdom.thicket != 0:
-				var gap = 3
-				s -= float(fiefdom.thicket + gap) / (Global.num.thicket.limit + gap)
-			
-			fiefdom.color = Color.from_hsv(0, 0, s)
-	
-func shift_trail() -> void:
-	var trail = trails.get_child(trail_index)
-	
-	trail_index = (trail_index + 1) % trails.get_child_count()
-	trail = trails.get_child(trail_index)
-	#print(trail_index)
-	if trail.default_color == Color.BLACK:
-		trail.default_color = Color.WHITE
-	trail.default_color = Color.BLACK
-	
-func _input(event) -> void:
-	if event is InputEventKey:
-		if event.is_pressed():
-			match event.keycode:
-				KEY_1:
-					shift_trail()
-		if event.is_pressed() && !event.is_echo():
-			match event.keycode:
-				KEY_A:
-					shift_domain_layer(-1)
-				KEY_D:
-					shift_domain_layer(1)
-				KEY_Q:
-					shift_to_terrain_layer()
-				KEY_E:
-					shift_domain_layer(0)
-				KEY_X:
-					shift_to_thicket_layer()
-				KEY_Z:
-					pass
-				KEY_C:
-					pass
-				KEY_SPACE:
-					mediator_coast_biomes()
+#region seed
 	
 func save_seed() -> void:
 	seed = SeedResource.new()
@@ -1264,6 +1210,65 @@ func init_seed_domains() -> void:
 			domain.map = self
 			domain.layer = titulus
 			domain.init_from_indexs(_indexs)
+	
+#endregion
+func shift_domain_layer(shift_: int ) -> void:
+	var index = (Global.arr.titulus.find(layer) + shift_ + Global.arr.titulus.size()) % Global.arr.titulus.size()
+	layer = Global.arr.titulus[index]
+	var domains = get(layer + "s")
+	
+	for domain in domains:
+		domain.recolor_fiefdoms()
+	
+func shift_to_terrain_layer() -> void:
+	for biome in biomes:
+		biome.recolor_fiefdoms()
+	
+func shift_to_thicket_layer() -> void:
+	for fiefdom in fiefdoms.get_children():
+		if fiefdom.thicket != -1:
+			var s = 1
+			
+			if fiefdom.thicket != 0:
+				var gap = 3
+				s -= float(fiefdom.thicket + gap) / (Global.num.thicket.limit + gap)
+			
+			fiefdom.color = Color.from_hsv(0, 0, s)
+	
+func shift_trail() -> void:
+	var trail = trails.get_child(trail_index)
+	
+	trail_index = (trail_index + 1) % trails.get_child_count()
+	trail = trails.get_child(trail_index)
+	#print(trail_index)
+	if trail.default_color == Color.BLACK:
+		trail.default_color = Color.WHITE
+	trail.default_color = Color.BLACK
+	
+func _input(event) -> void:
+	if event is InputEventKey:
+		if event.is_pressed():
+			match event.keycode:
+				KEY_1:
+					shift_trail()
+		if event.is_pressed() && !event.is_echo():
+			match event.keycode:
+				KEY_A:
+					shift_domain_layer(-1)
+				KEY_D:
+					shift_domain_layer(1)
+				KEY_Q:
+					shift_to_terrain_layer()
+				KEY_E:
+					shift_domain_layer(0)
+				KEY_X:
+					shift_to_thicket_layer()
+				KEY_Z:
+					pass
+				KEY_C:
+					pass
+				KEY_SPACE:
+					mediator_coast_biomes()
 	
 func get_fiefdoms_indexs(object_) -> Array:
 	var indexs = []
